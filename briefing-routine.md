@@ -12,7 +12,7 @@ Paste the prompt below into a Claude Code session opened on this repo.
 > This is a read-only morning briefing for my DSP learning plan. Do not edit any files.
 >
 > In this repo, read:
-> - `progress.md` — parse the "Current: Week N, Day N" line and the recent ## Log entries.
+> - `LOG.md` — parse the "Current: Week N, Day N" line and the recent ## Log entries.
 > - `dsp-audio-6-month-plan-daily.md` — the plan, with day-level deliverables under each "### Week N".
 >
 > Find the deliverable for the current Week and Day (a "- **Day N:**" line, or a
@@ -33,7 +33,7 @@ Paste the prompt below into a Claude Code session opened on this repo.
 
 ## After each session
 
-Update `progress.md` yourself (this is the only write step, and you do it, not the briefing):
+Update `LOG.md` yourself (this is the only write step, and you do it, not the briefing):
 
 1. Bump the `Current: Week N, Day N` line to the next study day.
    - Days run 1–5 per week (5 study days). After Day 5, advance to the next
