@@ -20,11 +20,10 @@
 
 ### Week 1 — Sampling & signals
 *Resources:* earlevel.com (oscillators & aliasing); WAV format spec at soundfile.sapp.org.
-- **Day 1:** Write a WAV file writer in C++ (RIFF/fmt/data header + 16-bit PCM). Output 1s of silence; confirm it opens in an editor.
-- **Day 2:** Generate a 440 Hz sine, write to WAV; verify pitch and level by ear and in an editor.
-- **Day 3:** Add naive (non-bandlimited) saw and square oscillators; parameterize frequency.
-- **Day 4:** Sweep the naive saw up past a few kHz; render and *listen for aliasing*. Write down what you hear.
-- **Day 5:** Short note explaining why the aliasing happens (Nyquist / undersampling). Commit the generator.
+- **Day 1:** Write a WAV file writer in C++ (RIFF/fmt/data header + 16-bit PCM); output 1s of silence and confirm it opens in an editor. Then generate a 440 Hz sine, write to WAV, and verify pitch and level by ear and in an editor.
+- **Day 2:** Add naive (non-bandlimited) saw and square oscillators; parameterize frequency.
+- **Day 3:** Sweep the naive saw up past a few kHz; render and *listen for aliasing*. Write down what you hear.
+- **Day 4:** Short note explaining why the aliasing happens (Nyquist / undersampling). Commit the generator.
 
 ### Week 2 — The math behind filters
 *Resources:* Julius O. Smith, "Introduction to Digital Filters" (poles/zeros, transfer functions); earlevel.com one-pole posts.
