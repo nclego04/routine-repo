@@ -1,6 +1,6 @@
 # Progress
 
-Current: Week 1, Day 4
+Current: Week 2, Day 1
 
 ## Log
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
@@ -30,3 +30,8 @@ Current: Week 1, Day 4
   - **Heard:** toward the higher end of the sweep the naive waveforms turn fuzzy — extra frequencies audible that aren't part of the intended tone. This is the aliasing: harmonics above sample_rate/2 folding back into the audible band.
   - **Measured:** Audacity spectrogram of the square sweep shows the odd harmonics rising as a fan, each one reflecting off Nyquist (22.05 kHz) and sweeping back *down* — the descending arcs crisscross the rising harmonics into a lattice, which is the audible fuzz. Some aliases bounce off 0 Hz and fold up again (multiple wraps). A whole-file Frequency Analysis was a dead end first: averaging over the sweep smears everything into a filled wedge, hiding the aliases — time-frequency view (spectrogram) is the right tool for a moving signal.
   - **Next:** Day 4 — write down what the sweeps sound like (the sine should stay clean while naive saw/square grow inharmonic birdies that sweep *downward* as the pitch rises), then the short note explaining why: Nyquist / undersampling of harmonics above sample_rate/2. Commit the generator.
+- W1D4: Wrote `notes/aliasing.md` explaining the aliasing, refactored `render_file`, and committed the note + generator. **Week 1 closed.**
+  - **Written:** why naive saw/square alias — harmonics past Nyquist fold back to `f_s − f`, becoming audible when low-order/high-amplitude ones cross the limit — and why the sine doesn't (single partial, never exceeds Nyquist). Verified the explanation against the sweep spectrogram.
+  - **Refactored `render_file`:** parameterized the sweep endpoints, treated frequency as the sweep start frequency, kept the `sweep` bool so fixed-tone renders skip the per-sample `pow`, and added start/end frequency guards.
+  - **Committed:** the note and the generator.
+  - **Next:** Week 2 — the math behind filters (z-transform, transfer functions, poles/zeros; notes only for Day 1).
