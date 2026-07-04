@@ -27,4 +27,5 @@ Current: Week 1, Day 4
     - `generate_sweep(type, start_frequency, end_frequency, i, N, phase)` computes the per-sample frequency as `start · (end/start)^(i/N)` (exponential sweep, so pitch rises linearly in octaves) and feeds it to the unchanged `generate_waveform` — the sweep is just a time-varying pitch clock; the phase accumulator doesn't care.
     - Hardened the phase wrap from `phase -= 1.0` to `phase -= floor(phase)`, which recovers in one step even if phase overshoots past 2.
     - Rendered `sawtooth_sweep.wav`, `square_sweep.wav`, and `sine_sweep.wav` (5 s each, 44.1 kHz stereo).
+  - **Heard:** toward the higher end of the sweep the naive waveforms turn fuzzy — extra frequencies audible that aren't part of the intended tone. This is the aliasing: harmonics above sample_rate/2 folding back into the audible band.
   - **Next:** Day 4 — write down what the sweeps sound like (the sine should stay clean while naive saw/square grow inharmonic birdies that sweep *downward* as the pitch rises), then the short note explaining why: Nyquist / undersampling of harmonics above sample_rate/2. Commit the generator.
