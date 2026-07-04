@@ -5,3 +5,7 @@ Saw and square sweep, towards the higher end of the sweep, have distortions. The
 In the spectrograms, descending arcs can be seen crossing the rising harmonics. These are the folds reflecting back in. These arcs are descending because it is the result of the subtraction of f_s - f. As the harmonic increases, the alias decreases, hence the descending arcs. 
 
 The fix for this is either band-limiting the signal (generating the waveform without the harmonics higher than the Nyquist frequency) or oversampling (more harmonics fit without folding, the harmonics that do fold can be filtered out without affecting the reproduction of the signal).
+
+![Spectrograms of the square, sawtooth, and sine sweeps (20 Hz to 20 kHz over 5 s)](../spectrograms.png)
+
+*Spectrograms of the 20 Hz to 20 kHz sweeps. **Square** (top): odd harmonics only, spaced fan; each reflects off Nyquist and sweeps back down as descending arcs. **Sawtooth** (middle): all harmonics, so the fan is denser and the alias lattice is busier. **Sine** (bottom): a single rising curve, no harmonics, no reflections — the clean control.*
