@@ -12,16 +12,22 @@ Paste the prompt below into a Claude Code session opened on this repo.
 > This is a read-only morning briefing for my DSP learning plan. Do not edit any files.
 >
 > In this repo, read:
-> - `LOG.md` — parse the "Current: Week N, Day N" line and the recent ## Log entries.
-> - `dsp-audio-6-month-plan-daily.md` — the plan, with day-level deliverables under each "### Week N".
+> - `LOG.md` — parse the "Current: ..." line and the recent ## Log entries. The
+>   Current line is either a Phase-0 position ("Current: Phase 0, Week 0.N, Day N")
+>   or a build-week position ("Current: Week N, Day N").
+> - `dsp-audio-plan.md` — the plan. It has a "## Phase 0 — Theory Foundation"
+>   section with weeks headed "### Week 0.N", followed by build months with weeks
+>   headed "### Week N". Day-level deliverables sit under each week header.
 >
-> Find the deliverable for the current Week and Day (a "- **Day N:**" line, or a
-> "- **Days X–Y:**" range that contains Day N), plus that week's *Resources:* line.
+> Find the week header matching the Current line (e.g. "### Week 0.1" for Phase 0,
+> "### Week 3" for a build week), then the deliverable for the current Day (a
+> "- **Day N:**" line, or a "- **Days X–Y:**" range that contains Day N), plus that
+> week's *Resources:* line and any *Deliverable:* / *Done when:* text.
 > Sanity-check the Current line against the log; if the log clearly implies a
 > different day, use that and note it in one line.
 >
 > Then give me today's session:
-> - **Today (Week N, Day N):** the plan's one-line deliverable.
+> - **Today (<current position>):** the plan's one-line deliverable.
 > - **Do this:** a 3–6 step checklist to hit it in ~2 hours.
 > - **Watch out for:** the one thing most likely to trip me up.
 > - **Done when:** a concrete finish condition.
@@ -35,10 +41,16 @@ Paste the prompt below into a Claude Code session opened on this repo.
 
 Update `LOG.md` yourself (this is the only write step, and you do it, not the briefing):
 
-1. Bump the `Current: Week N, Day N` line to the next study day.
+1. Bump the `Current:` line to the next study day.
    - Days run 1–5 per week (5 study days). After Day 5, advance to the next
      week's Day 1.
-2. Add a one-line `## Log` entry: `- WNDn: <what you built, any bug + how you fixed it>`.
+   - Phase 0 runs Weeks 0.1 → 0.6. After Phase 0, Week 0.6 Day 5, advance to the
+     first build week, `Current: Week 3, Day 1` (build weeks start at Week 3;
+     old Weeks 1–2 are retired into Phase 0).
+2. Add a one-line `## Log` entry with the matching prefix:
+   - Phase 0: `- P<week>D<day>:` (P for the theory phase, e.g. `P1D1:` for Week 0.1
+     Day 1, `P6D5:` for Week 0.6 Day 5).
+   - Build weeks: `- W<week>D<day>:` (e.g. `W3D1:` for Week 3 Day 1).
    - Keep the bug stories — they're your "walk me through a hard bug" interview
      material (see the plan's weekly habits).
 
