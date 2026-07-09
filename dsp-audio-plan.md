@@ -1,8 +1,8 @@
-# DSP / Audio Software — Revised Plan (Theory-First, ~7.5–8 Months)
+# DSP / Audio Software — Revised Plan (Theory-First, ~8.5 Months)
 
 **What changed:** A 6-week **Phase 0 — Theory Foundation** is prepended, working through MIT RES.6-007 (Oppenheim's *Signals and Systems* video course) from Lecture 1, paired with light C++ so theory and code advance in tandem. Because Phase 0 does the derivations the old Month 1 was going to do (one-pole transfer function, z-transform, bilinear transform), **old Weeks 1–2 collapse into Phase 0** and Month 1 becomes a ~2-week "biquad" sprint.
 
-**What changed in this revision:** every build-month day now carries an explicit, checkable **Deliverable:** (matching Phase 0's rigor), and the old multi-day ranges ("Days 2–4") are broken into individual days. Being honest about the day count added two weeks where five clean days never fit the work: **+1 week in Month 2** (JUCE onboarding is split so week one ends at a loaded pass-through *before* any parameter) and **+1 week in Month 4** (a dedicated reverb-polish week, since reverb reliably overruns). Every build week also gained a **Done when:** finish condition. Phase 0 also gained **Week 0.7, a 1-week buffer** — the theory phase previously had no slack at all, and its two hardest weeks (0.4, 0.5) live there; the buffer is the landing zone for their overrun and a spaced second pass otherwise. Net timeline: **~7.5–8 months** instead of 6 (Phase 0 buffer is flexible and can compress if clean); build weeks run 3→26.
+**What changed in this revision:** every build-month day now carries an explicit, checkable **Deliverable:** (matching Phase 0's rigor), and the old multi-day ranges ("Days 2–4") are broken into individual days. Being honest about the day count added two weeks where five clean days never fit the work: **+1 week in Month 2** (JUCE onboarding is split so week one ends at a loaded pass-through *before* any parameter) and **+1 week in Month 4** (a dedicated reverb-polish week, since reverb reliably overruns). Every build week also gained a **Done when:** finish condition. Phase 0 also gained **Week 0.7, a 1-week buffer** — the theory phase previously had no slack at all, and its two hardest weeks (0.4, 0.5) live there; the buffer is the landing zone for their overrun and a spaced second pass otherwise. Month 6 also gained **three weeks** for what screens test but the build months never touch: Week 24 (C++ language depth, audio quantization/dither, the FFT algorithm), and two **target-conditional** weeks — Week 25 (fixed-point/Q-format + the SIMD hands-on) and Week 26 (the DSA/algorithms round). Those last two are **cuttable if you target boutique desktop-plugin shops** — fixed-point matters for embedded/DSP-firmware roles, and the DSA round for big-tech audio teams. Net timeline: **~8.5 months** instead of 6 (the Phase 0 buffer is flexible, and Weeks 25–26 are droppable by target); build weeks run 3→29.
 
 **Assumes ~10 hrs/week = 5 study days × ~2 hrs.** Same as before.
 **Starting point:** ECE degree, comfortable in C++; you've already done the WAV writer, oscillators, and aliasing note (old Week 1) — those stay done and feed Phase 0.
@@ -19,6 +19,7 @@
 - **Commit small + test as you go.** Add unit tests from the biquad onward (as before). Wire up GitHub Actions when your first unit tests land (**Week 4 Day 3**) to build + run them on every push, and extend it to plugin builds once you're in JUCE.
 - **Measure, don't just listen.** You build the impulse→FFT harness *inside* Phase 0 now (Week 0.3), grounded in the DTFT lecture. Verify every filter against its design from then on.
 - **Log planned vs actual.** Unchanged. Especially important through Phase 0 — the Fourier and Laplace/z weeks are where rust bites.
+- **(If targeting big-tech audio teams) light DSA cadence.** From Month 5 on, do 2–3 algorithm problems per week in the background. DSA rewards spacing and can't be crammed — Week 26's dedicated round is a *pattern sweep on top of* this cadence, not a substitute for it. Skip this habit entirely if you're aiming at boutique plugin shops (they use DSP take-homes instead).
 
 ---
 
@@ -191,7 +192,7 @@
 - **Day 2:** Add the gain computer (threshold / ratio); apply gain reduction. **Deliverable:** the static compression curve verified against a known input.
 - **Day 3:** Add attack/release on the gain + makeup gain. **Deliverable:** time-varying gain reduction with sensible attack/release; makeup applied.
 - **Day 4:** Add a soft knee; wrap as a plugin with params + a gain-reduction meter. **Deliverable:** a compressor plugin with a knee and a working GR meter.
-- **Day 5:** Compressor in a DAW; commit. **Deliverable:** committed compressor.
+- **Day 5:** Add oversampling around the nonlinear gain stage; compressor in a DAW; commit. **Deliverable:** committed compressor with a 2× oversampled gain path (`juce::dsp::Oversampling` is fine), plus a one-line note on *why* nonlinear/limiting stages need it — they generate harmonics above Nyquist that alias back down. This is the standard interview follow-up to "you built a compressor."
 - **Done when:** the measured input/output curve matches the set threshold/ratio/knee.
 
 ### Week 13 — 🔧 Catch-up / push toward Plugin #2
@@ -295,8 +296,8 @@
 
 ---
 
-## Month 6 — Interview prep + depth consolidation (Weeks 23–26)
-*(Structure unchanged — the theory Q&A is now much easier because Phase 0 did the heavy lifting.)*
+## Month 6 — Interview prep + depth consolidation (Weeks 23–29)
+*(The knowledge-building weeks (23–26) come before the timed drills and mocks (27–28). Weeks 25–26 are **target-conditional** — fixed-point/SIMD for embedded/DSP-firmware roles, DSA for big-tech audio teams — and can be cut for a boutique desktop-plugin path, shortening this month back toward five weeks. The DSP/real-time Q&A is easier than it looks because Phase 0 did the heavy lifting.)*
 
 ### Week 23 — Depth review (build a Q&A bank)
 *Resources:* Bencina; Timur Doumler; Renn-Giles & Rowland (lock-free); ADC talks; **your own flashcard deck** (reviewed since Phase 0 — mine it for the written Q&A here).
@@ -304,10 +305,39 @@
 - **Day 2:** Lock-free communication (atomics, FIFOs). **Deliverable:** written Q&A.
 - **Day 3:** Filters / biquads / bilinear transform. **Deliverable:** written Q&A (lean on Phase 0 — you derived all of this).
 - **Day 4:** Delay / interpolation / reverb / compressor internals. **Deliverable:** written Q&A.
-- **Day 5:** SIMD basics; assemble the full bank. **Deliverable:** a consolidated Q&A-bank document.
+- **Day 5:** Assemble the full bank. **Deliverable:** a consolidated Q&A-bank document.
 - **Done when:** every core topic has answers you can deliver cold.
 
-### Week 24 — Implement from scratch, timed
+### Week 24 — C++ & audio-fundamentals depth
+*Resources:* Timur Doumler & Fabian Renn-Giles real-time C++ talks (already on your list); cppreference for the language items; a standard reference on dither/noise-shaping; Cooley–Tukey for the FFT.
+- **Day 1:** C++ object model. **Deliverable:** written Q&A plus short "what prints / what leaks / what dangles" snippets on RAII, the rule of 0/3/5, move semantics, and unique/shared/weak pointers — each answerable cold.
+- **Day 2:** C++ traps & cost model. **Deliverable:** Q&A on common undefined behavior, const-correctness, virtual-dispatch cost (vtables), and why parts of the standard library and JUCE aren't real-time-safe (allocation, `std::stable_sort`, `AudioBuffer::setSize`) — tied back to the audio-thread rules from Week 5.
+- **Day 3:** Quantization & the "numbers" of audio. **Deliverable:** a one-page note + cards on bit depth ↔ dynamic range (~6.02·N + 1.76 dB), dBFS vs dBSPL, quantization error, dither (why, and TPDF), and noise shaping.
+- **Day 4:** The FFT algorithm. **Deliverable:** derive radix-2 Cooley–Tukey (decimation-in-time) — butterflies, bit-reversal, O(N log N) — and implement a small radix-2 FFT, verified bin-for-bin against your Week 0.2 DFT on the same input. (Optional: drop it into the measurement harness so "FFT" is finally a real FFT.)
+- **Day 5:** Fold into the bank + cards. **Deliverable:** all four topics added to the Week 23 Q&A bank, with derivation-prompt cards (rule of five, dither rationale, FFT butterfly, bit-depth↔dB); each answered cold.
+- **Done when:** you can whiteboard the rule of five, explain dither and bit-depth-to-dB, and walk the radix-2 FFT — none of them cold-start gaps.
+
+### Week 25 — Low-level & fixed-point depth  *(conditional: embedded / DSP-firmware targets)*
+*Skip this week for pure desktop-plugin roles (they're float/double). Keep it if you're aiming at embedded audio, DSP chips, or hearing-aid/firmware work — fixed-point is tested hard there. It also finally makes the SIMD hands-on real rather than read-only.*
+*Resources:* a Q-format primer (TI fixed-point docs are good); your own one-pole/biquad code; an intrinsics guide or `juce::dsp::SIMDRegister`.
+- **Day 1:** Fixed-point fundamentals. **Deliverable:** a note + cards on Q-format (e.g. Q15), converting float↔fixed (scale by 2¹⁵, round vs. truncate), and where precision is lost.
+- **Day 2:** Overflow, saturation, MAC. **Deliverable:** Q&A + a tiny code demo of wraparound vs. saturating arithmetic and multiply-accumulate; state the fixed-vs-float trade-off (range/precision/headroom, determinism, hardware cost).
+- **Day 3:** Fixed-point reimplementation. **Deliverable:** reimplement your one-pole (or biquad) in Q15 with saturation; verify its output against the float version through the harness within tolerance.
+- **Day 4:** SIMD hands-on. **Deliverable:** vectorize one hot loop (the biquad, or a gain/mix loop) with intrinsics or `juce::dsp::SIMDRegister`; **measure** the speedup vs. scalar.
+- **Day 5:** Consolidate + cards. **Deliverable:** fixed-point and SIMD folded into the Q&A bank (Q15 conversion, saturation, MAC, when SIMD helps and when it doesn't); each answered cold.
+- **Done when:** you can convert float↔Q15 and reason about overflow/saturation cold, and you have one fixed-point reimplementation plus one SIMD-vectorized loop with measured numbers.
+
+### Week 26 — DSA / algorithms round  *(conditional: big-tech audio teams)*
+*Skip for boutique plugin shops (they screen with DSP take-homes, not LeetCode). Keep it if you're targeting large audio teams (Apple, Google, etc.) that fold in a standard algorithms round. **One week is a pattern sweep, not a from-zero cure** — it assumes the light DSA cadence from the weekly habits, ideally started back in Month 5.*
+*Resources:* a pattern-based resource (NeetCode roadmap or Cracking the Coding Interview); your strongest language.
+- **Day 1:** Arrays / strings / hashing — two-pointers, sliding window. **Deliverable:** a batch of problems worked; approach + time/space complexity logged for each.
+- **Day 2:** Linked lists / stacks / queues, then trees + BFS/DFS. **Deliverable:** a batch worked; logged.
+- **Day 3:** Sorting + binary search, then heaps / intervals. **Deliverable:** a batch worked; logged.
+- **Day 4:** Recursion / backtracking + intro dynamic programming. **Deliverable:** a batch worked; logged.
+- **Day 5:** Timed mixed set under interview conditions. **Deliverable:** a timed set completed; a one-page Big-O cheat-sheet for the common structures/operations.
+- **Done when:** you recognize the common patterns on sight and state time/space complexity cold (on top of the ongoing cadence — don't expect mastery from one week alone).
+
+### Week 27 — Implement from scratch, timed
 - **Day 1:** Biquad from memory, timed. **Deliverable:** a from-scratch biquad inside your time box; time logged.
 - **Day 2:** Delay line with interpolation, timed. **Deliverable:** timed implementation; logged.
 - **Day 3:** Envelope follower, timed. **Deliverable:** timed; logged.
@@ -315,7 +345,7 @@
 - **Day 5:** Re-run your weakest two under time pressure. **Deliverable:** the two slowest redone faster; logged.
 - **Done when:** each core primitive is implementable from memory inside the time box.
 
-### Week 25 — Mock interviews + project walkthroughs
+### Week 28 — Mock interviews + project walkthroughs
 - **Day 1:** Write a 5-min demo script for Plugin #1. **Deliverable:** a written, rehearsed script.
 - **Day 2:** Same for Plugin #2. **Deliverable:** a script.
 - **Day 3:** Same for Plugin #3. **Deliverable:** a script.
@@ -323,8 +353,8 @@
 - **Day 5:** Mock behavioral + architecture walkthrough; log the gaps. **Deliverable:** a gap list.
 - **Done when:** you can demo all three plugins and survive a DSP screen.
 
-### Week 26 — 🔧 Catch-up / apply
-- **Day 1:** Fill the gaps surfaced in Week 25. **Deliverable:** the logged gaps closed.
+### Week 29 — 🔧 Catch-up / apply
+- **Day 1:** Fill the gaps surfaced in Week 28. **Deliverable:** the logged gaps closed.
 - **Day 2:** Finalize resume + portfolio links. **Deliverable:** resume and links done.
 - **Day 3:** First application batch. **Deliverable:** applications sent to your top target companies.
 - **Day 4:** Second application batch + tailored notes. **Deliverable:** the rest of the target list applied to.
@@ -343,6 +373,7 @@
 4. **Reverb (Month 4) will still fight you** — Week 16 is now an explicit polish week rather than borrowed catch-up time. Accept "decent" over "great" and move on.
 5. **"Shippable" costs 2–3× the build.** The ship days (Weeks 9, 17, 20) are the optimistic ones.
 6. **Open source can slip without hurting you.** Deprioritize Week 21 if behind — it's a credibility bonus, not a gate.
+7. **Weeks 25–26 are target-conditional, not core.** If you land on a boutique desktop-plugin target, cut the fixed-point/SIMD week (25) and the DSA round (26) outright — that pulls the plan back toward ~8 months. Only the embedded/DSP-firmware path needs fixed-point; only big-tech audio teams gate on DSA. Decide your target before Month 6 so you're not prepping for a screen you won't face.
 
 ---
 
