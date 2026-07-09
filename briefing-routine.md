@@ -44,12 +44,13 @@ Update `LOG.md` yourself (this is the only write step, and you do it, not the br
 1. Bump the `Current:` line to the next study day.
    - Days run 1–5 per week (5 study days). After Day 5, advance to the next
      week's Day 1.
-   - Phase 0 runs Weeks 0.1 → 0.6. After Phase 0, Week 0.6 Day 5, advance to the
-     first build week, `Current: Week 3, Day 1` (build weeks start at Week 3;
-     old Weeks 1–2 are retired into Phase 0).
+   - Phase 0 runs Weeks 0.1 → 0.7 (0.7 is the buffer/consolidation week). After
+     Week 0.6 Day 5, advance to `Current: Phase 0, Week 0.7, Day 1`; only after
+     Week 0.7 Day 5 advance to the first build week, `Current: Week 3, Day 1`
+     (build weeks start at Week 3; old Weeks 1–2 are retired into Phase 0).
 2. Add a one-line `## Log` entry with the matching prefix:
    - Phase 0: `- P<week>D<day>:` (P for the theory phase, e.g. `P1D1:` for Week 0.1
-     Day 1, `P6D5:` for Week 0.6 Day 5).
+     Day 1, `P6D5:` for Week 0.6 Day 5, `P7D5:` for the Week 0.7 buffer Day 5).
    - Build weeks: `- W<week>D<day>:` (e.g. `W3D1:` for Week 3 Day 1).
    - Keep the bug stories — they're your "walk me through a hard bug" interview
      material (see the plan's weekly habits).
@@ -63,7 +64,7 @@ That's it. Next morning, run the prompt again and it picks up from the new
 
 - The plan is 5 study days/week; weekends/off-days aren't tracked — just don't
   advance the `Current:` line on days you don't study.
-- Catch-up weeks (4, 8, 12, 16, 20, 24) are real buffer. If a deliverable
+- Catch-up weeks — Phase 0's Week 0.7, then build Weeks 4, 9, 13, 18, 22, 26 — are real buffer. If a deliverable
   slips, slide the rest down and lean on the catch-up week rather than marking
   days done that aren't.
 - The briefing trusts the log over the `Current:` line if they disagree, so an
