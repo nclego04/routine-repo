@@ -16,7 +16,7 @@
 
 - **Dev journal (`LOG.md`).** Unchanged. During Phase 0, log theory sessions too — suggest a `P1D1:` prefix (P for the theory phase) so they're distinct from your existing `W1D1:` entries.
 - **Spaced-repetition deck (Anki, or plaintext `cards.md`).** New, Phase-0-specific. Each concept becomes a few *atomic* cards — recall prompts (*"Why does convolution in time equal multiplication in frequency?"*) and, in your derive-first spirit, **derivation-prompt cards** (front: *"Derive H(z) from y[n] = (1−a)x[n] + a·y[n−1]"*; back: the steps). **Start every study session with a ~5-min review of due cards, then add the day's new ones.** The scheduling is the whole point: a concept from Week 0.2 is still sharp at your Month-9 interviews instead of re-crammed.
-- **Commit small + test as you go.** Add unit tests from the biquad onward (as before). Wire up GitHub Actions once you hit real plugin code.
+- **Commit small + test as you go.** Add unit tests from the biquad onward (as before). Wire up GitHub Actions when your first unit tests land (**Week 4 Day 3**) to build + run them on every push, and extend it to plugin builds once you're in JUCE.
 - **Measure, don't just listen.** You build the impulse→FFT harness *inside* Phase 0 now (Week 0.3), grounded in the DTFT lecture. Verify every filter against its design from then on.
 - **Log planned vs actual.** Unchanged. Especially important through Phase 0 — the Fourier and Laplace/z weeks are where rust bites.
 
@@ -25,7 +25,7 @@
 ## Phase 0 — Theory Foundation (≈6 weeks + a 1-week buffer)
 *Resource: MIT RES.6-007 (ocw.mit.edu). **Every lecture ships a problem set with full solutions** — those are your daily deliverables. Textbook pairing: Oppenheim & Willsky follows the course chapter-for-chapter; read the matching sections. **Rule: no day ends on "watched the video"** — each ends on a self-checked pset, a by-hand derivation, a batch of new flashcards, or committed code.*
 
-**Priority note:** the modulation lectures (Wk 0.4 D1–D2) and feedback lectures (Wk 0.6 D3) are the most skippable if tight — for those, the deliverable is a short written summary rather than a full pset. Everything else is core-path.
+**Priority note:** the modulation lectures (Wk 0.4 D1–D2) are the most skippable if tight — for those, the deliverable is a short written summary rather than a full pset. The feedback lectures (Wk 0.6 D3) can also be *skimmed* to a summary, but **don't cut the stability concept itself** — Weeks 14–15 (reverb) depend on it. Everything else is core-path.
 
 ### Week 0.1 — Signals, systems, LTI, convolution (Lec 1–6)
 - **Day 1:** Lec 1–2 (intro; signals & systems). **Deliverable:** PS1–PS2 worked and self-checked against solutions; seed the deck with your first few cards (e.g., *"What makes a system LTI, and why does that property matter?"*).
@@ -47,7 +47,7 @@
 - **Day 1:** Lec 10 (DT Fourier series). **Deliverable:** DTFS of a short periodic sequence by hand; PS10 checked.
 - **Day 2:** Lec 11 (DTFT — evaluated **on the unit circle**). **Deliverable:** derive the DTFT of a rectangular window; PS11 checked; add a card: *"How does the DTFT relate to the z-transform?"* → the unit-circle-slice answer.
 - **Day 3:** Lec 12 (filtering). **Deliverable:** sketch ideal LPF/HPF/BPF magnitude responses and state why the ideal filter is non-causal; PS12 checked.
-- **Day 4:** Code. **Deliverable:** the **measurement harness** — impulse in → FFT the impulse response → plot |H(e^jω)|; pass-through reads flat. (The rig for the rest of the plan.)
+- **Day 4:** Code. **Deliverable:** the **measurement harness** — impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat. (The rig for the rest of the plan. Where the plan says "FFT," it means the **O(N²) DFT you built in Week 0.2** — that's the transform engine; a true radix-2 FFT is never required, though you can drop one in later if large-N measurements feel slow.)
 - **Day 5:** Consolidate. **Deliverable:** any remaining PS10–12 closed; harness committed + LOG.
 - **Done when:** the harness gives a sane magnitude response and you can articulate the DTFT as the unit-circle evaluation.
 
@@ -55,7 +55,7 @@
 - **Day 1:** Lec 13–14 (CT modulation + AM demo) — *skim.* **Deliverable:** one card covering AM (carrier, sidebands, coherent detection). No full pset.
 - **Day 2:** Lec 15 (DT modulation) — *skim.* **Deliverable:** 3-line note on frequency-shifting and where it aliases.
 - **Day 3:** Lec 16 (sampling theorem, Nyquist). **Deliverable:** state and sketch-prove the sampling theorem in your own words; PS16 checked. (The theory under `aliasing.md`.)
-- **Day 4:** Lec 17–19 (interpolation; DT processing of CT; decimation/downsampling). **Deliverable:** PS17–PS19 key problems checked; write the "filter *before* you decimate, and why" note (ties to your BLEP/oversampling plan).
+- **Day 4:** Lec 17–19 (interpolation; DT processing of CT; decimation/downsampling). **Deliverable:** PS17–PS19 key problems checked; write the "filter *before* you decimate, and why" note (the anti-aliasing-before-downsampling principle). *(The older "BLEP/oversampling" pointer is optional — none of the five planned plugins are oscillator-based, so treat band-limited synthesis as out of scope unless you later add an oscillator effect.)*
 - **Day 5:** Code. **Deliverable:** aliasing fold-back confirmed numerically (tones above Nyquist measured against `f_s − f`); `aliasing.md` updated to cite the sampling theorem, not just the spectrogram. LOG.
 - **Done when:** your measured aliased frequencies match the sampling-theorem prediction.
 
@@ -70,7 +70,7 @@
 ### Week 0.6 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
 - **Day 1:** Lec 23 (mapping CT→DT filters = the bilinear transform). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; PS23 checked.
 - **Day 2:** Lec 24 (Butterworth). **Deliverable:** derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
-- **Day 3:** Lec 25–26 (feedback) — *skim.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle), noting the link to reverb-feedback stability later.
+- **Day 3:** Lec 25–26 (feedback) — *skim the lectures to a summary, but keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **This is load-bearing for reverb** — revisit it before Week 14, where comb-filter feedback (gain ≤ 1) and recirculating-delay stability rest directly on it. Skim the video if tight; do not cut the idea.
 - **Day 4:** Consolidation. **Deliverable:** every Phase-0 pset closed; a from-memory bilinear-transform derivation, no notes.
 - **Day 5:** Full deck review + gap-fill. **Deliverable:** run a complete review pass; ensure every link in the chain — signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter — has at least one card you answer cold, plus derivation-prompt cards for the one-pole and the bilinear transform. This deck carries you to Month-6 interview prep. LOG.
 - **Done when:** you can walk the full chain unaided and re-derive the bilinear transform from scratch.
@@ -104,7 +104,7 @@
 *Resources:* Zavalishin, "The Art of VA Filter Design" (reinforcement — you've already derived the bilinear transform).
 - **Day 1:** Skim Zavalishin against your own bilinear derivation. **Deliverable:** a 5-line note on where the TPT/VA framing (integrators, pre-warping) differs from Oppenheim's bilinear.
 - **Day 2:** Finish unfinished types; fix Week-3 mismatches. **Deliverable:** every type's measured response now matches design; the Day-5 mismatch notes are closed.
-- **Day 3:** Add unit tests. **Deliverable:** passing tests for DC gain, Nyquist gain, and coefficient sanity across all four types.
+- **Day 3:** Add unit tests **and wire up GitHub Actions**. **Deliverable:** passing tests for DC gain, Nyquist gain, and coefficient sanity across all four types, running in CI on every push (this is the CI habit the plan calls for — it extends to plugin builds later).
 - **Day 4:** Write the README. **Deliverable:** `Biquad/README.md` walking transfer function → coefficients → code, with one response plot (you can write this cold now).
 - **Day 5:** Push the clean, tested `Biquad`. **Deliverable:** tagged commit on GitHub; buffer.
 - **Done when:** the repo builds, tests pass, and you can implement any biquad type from coefficients unaided.
@@ -121,9 +121,9 @@
 - **Day 1:** Read Bencina's article. **Deliverable:** notes listing the audio-thread "don'ts" (no allocation, no locks, no I/O, no unbounded work) with a one-line *why* for each.
 - **Day 2:** Study denormals + block (buffer) processing. **Deliverable:** a note on where denormals arise in IIR feedback and how FTZ/DAZ (or a tiny DC offset) kills them, plus a sketch of a block-processing loop.
 - **Day 3:** Write your interview cheat-sheet. **Deliverable:** a committed one-page cheat-sheet on audio-thread constraints.
-- **Day 4:** Refactor the biquad to a block-based, allocation-free API. **Deliverable:** a `process(float* block, int n)` path with zero allocation; compiles.
-- **Day 5:** Verify allocation-free. **Deliverable:** confirmed no heap traffic on the process path (inspection, or an overridden `operator new` counter in a test); commit.
-- **Done when:** the biquad runs block-based with nothing on the audio thread that can block or allocate.
+- **Day 4:** Refactor the biquad to a block-based, allocation-free API **and add denormal flushing at the root**. **Deliverable:** a `process(float* block, int n)` path with zero allocation **and denormals killed** (set FTZ/DAZ, or add a tiny anti-denormal DC offset in the feedback) — fix it here so every effect built on this filter inherits it, instead of rediscovering denormal CPU spikes at Week 16; compiles.
+- **Day 5:** Verify allocation-free; build a minimal lock-free audio→UI channel. **Deliverable:** confirmed no heap traffic on the process path (inspection, or an overridden `operator new` counter in a test); **plus a single-producer/single-consumer lock-free value pass** (a `std::atomic`, or a small SPSC ring buffer) that safely carries a number from the audio thread to the UI — the exact mechanism your **Week 12 gain-reduction meter** and any later metering will reuse. Commit.
+- **Done when:** the biquad runs block-based, allocation-free, and **denormal-safe** (a tail decaying into silence causes no CPU spike), and you have **one reusable lock-free audio→UI value pass**.
 
 ### Week 6 — JUCE setup & pass-through
 *Resources:* Official JUCE tutorials; The Audio Programmer; MatKat / freeCodeCamp "Learn Modern C++ by Building an Audio Plugin."
@@ -138,7 +138,7 @@
 *Resources:* Official JUCE tutorials; The Audio Programmer.
 - **Day 1:** Declare a gain parameter with correct range/skew/units. **Deliverable:** the param appears in the DAW's generic editor with a sane range.
 - **Day 2:** Apply gain in `processBlock`. **Deliverable:** gain audibly changes level across the block.
-- **Day 3:** Add one slider in the custom editor bound to the param. **Deliverable:** the editor slider drives gain in the DAW.
+- **Day 3:** Add one slider in the custom editor bound to the param. **Deliverable:** the editor slider drives gain in the DAW. *(You wire this by hand now; Week 8's APVTS `SliderAttachment` replaces the hand-wiring — expected scaffolding, not wasted work.)*
 - **Day 4:** Add `SmoothedValue` smoothing to gain. **Deliverable:** no zipper noise on fast slider moves; verified by ear and in a captured buffer.
 - **Day 5:** Commit the gain plugin; short README. **Deliverable:** a working, documented gain plugin on GitHub.
 - **Done when:** a parameter round-trips host → processor → audio, smoothed and artifact-free.
@@ -156,8 +156,8 @@
 *Resources:* MatKat freeCodeCamp SimpleEQ course; melatonin.dev.
 - **Day 1:** Duplicate the band into a 3-band chain. **Deliverable:** three serial bands, each independently controllable.
 - **Day 2:** Add per-band type/enable selection. **Deliverable:** each band switchable (bell/shelf/HP/LP) with bypass, in the DAW.
-- **Day 3:** Kill zipper noise / clicks; fix bugs. **Deliverable:** a clean pass over a written bug list; no audible artifacts under automation.
-- **Day 4:** Test loading in a 2nd DAW; write the README. **Deliverable:** loads in a second host; README with build steps and a response screenshot.
+- **Day 3:** Kill zipper noise / clicks; fix bugs; **add APVTS state persistence**. **Deliverable:** a clean pass over a written bug list (no audible artifacts under automation), **plus `getStateInformation`/`setStateInformation` wired through APVTS so the plugin remembers its settings across a project save/reload**. Without this, a "shipped" plugin forgets everything on reload — and this same ~3-line state block goes into *every* plugin you ship after this, so establish the pattern here.
+- **Day 4:** Test loading in a 2nd DAW; verify state survives reload; write the README. **Deliverable:** loads in a second host **and restores its settings after a DAW reload**; README with build steps and a response screenshot.
 - **Day 5:** Ship **Plugin #1 — multi-band EQ**. **Deliverable:** tagged GitHub release; buffer.
 - **Done when:** the EQ loads in two DAWs, has no artifacts, and is documented well enough for a stranger to build.
 
@@ -195,7 +195,7 @@
 - **Done when:** the measured input/output curve matches the set threshold/ratio/knee.
 
 ### Week 13 — 🔧 Catch-up / push toward Plugin #2
-- **Day 1:** Pick the strongest of delay / chorus / compressor. **Deliverable:** a decision note plus a short punch-list of what "Plugin #2" still needs.
+- **Day 1:** Pick the strongest of delay / chorus / compressor — **this pick is Plugin #2**. **Deliverable:** a decision note plus a short punch-list of what Plugin #2 still needs.
 - **Day 2:** Fix the top bugs on the chosen effect. **Deliverable:** the punch-list's correctness items closed.
 - **Day 3:** Improve the sound / voicing. **Deliverable:** an audible improvement with a before/after capture.
 - **Day 4:** Tighten parameters (ranges, skews, smoothing). **Deliverable:** every param musically ranged and smoothed.
@@ -207,7 +207,7 @@
 ---
 
 ## Month 4 — Reverb + ship Plugin #2 (Weeks 14–18)  ⚠️ reverb is the hard one
-*(Reverb gets a dedicated polish week — the plan has always warned it overruns, so this is the second honest expansion rather than pretending it fits three build weeks.)*
+*(Reverb gets a dedicated polish week — the plan has always warned it overruns, so this is the second honest expansion rather than pretending it fits three build weeks. **Plugin #2 is the Month-3 effect you picked in Week 13**; the reverb built here is a separate track that becomes Plugin #3 in Month 5.)*
 
 ### Week 14 — Reverb theory & first comb
 *Resources:* Freeverb source; Julius O. Smith, "Physical Audio Signal Processing" (Schroeder & FDN); Pirkle reverb chapter.
@@ -236,7 +236,7 @@
 
 ### Week 17 — Ship one (Plugin #2)
 *Resources:* melatonin.dev; JUCE state/preset tutorials.
-- **Day 1:** Choose the plugin to ship; add smoothing everywhere it's missing. **Deliverable:** the chosen plugin with all params smoothed.
+- **Day 1:** Finalize the Plugin #2 pick from Week 13 (your strongest delay / chorus / compressor); add smoothing everywhere it's missing. **Deliverable:** that plugin with all params smoothed.
 - **Day 2:** Add presets (state save/load). **Deliverable:** preset save/restore survives a DAW reload.
 - **Day 3:** Build a clean custom GUI. **Deliverable:** a presentable editor (not the generic one).
 - **Day 4:** Add denormal handling; test in 3 DAWs. **Deliverable:** loads clean in three hosts; denormals handled.
@@ -259,7 +259,7 @@
 
 ### Week 19 — Plugin #3
 *Resources:* ChowDSP + airwindows source.
-- **Day 1:** Choose #3 (compressor or reverb — meatier than the EQ); design one distinctive feature. **Deliverable:** a one-paragraph spec naming the distinctive feature and how you'll test it.
+- **Day 1:** Choose #3 — the reverb you built in Month 4 is the natural pick (or a compressor, if that isn't already your Plugin #2), both meatier than the EQ; design one distinctive feature. **Deliverable:** a one-paragraph spec naming the distinctive feature and how you'll test it.
 - **Day 2:** Build the core DSP. **Deliverable:** the core effect processes audio correctly (measured).
 - **Day 3:** Build the distinctive feature. **Deliverable:** the feature works and is audibly/measurably present.
 - **Day 4:** Integrate core + feature; first musical sound. **Deliverable:** the full effect runs end-to-end in a DAW.
@@ -337,7 +337,7 @@
 
 ## Where you'll realistically fall behind (revised)
 
-1. **Phase 0 is a real ~7-week commitment** (six content weeks + the 0.7 buffer). The Fourier week (0.2) and the Laplace/z week (0.5) are where rust bites — budget the problem-set days fully. Week 0.7 exists to absorb their overrun, so slide slipped work into it rather than compressing the derivations. If you slip further, cut the modulation (0.4 D1–D2) and feedback (0.6 D3) lectures first; they're the least load-bearing for the plugin path.
+1. **Phase 0 is a real ~7-week commitment** (six content weeks + the 0.7 buffer). The Fourier week (0.2) and the Laplace/z week (0.5) are where rust bites — budget the problem-set days fully. Week 0.7 exists to absorb their overrun, so slide slipped work into it rather than compressing the derivations. If you slip further, cut the modulation lectures (0.4 D1–D2) first — they're the least load-bearing for the plugin path. Keep the feedback/stability summary (0.6 D3); reverb (Weeks 14–15) depends on it.
 2. **The upside:** old Month 1's math risk is now *retired* — you'll hit biquads and the bilinear transform already understanding them. That's why Month 1 compresses to two weeks.
 3. **Month 2 is still the danger zone,** even with the extra week. JUCE onboarding + build system + a parameterized EQ is a lot; the Week 6/7 split (setup+pass-through, *then* the first parameter) is there to keep week one from collapsing. Treat Week 9's catch-up days as already spent.
 4. **Reverb (Month 4) will still fight you** — Week 16 is now an explicit polish week rather than borrowed catch-up time. Accept "decent" over "great" and move on.
