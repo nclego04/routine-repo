@@ -64,7 +64,7 @@ That's it. Next morning, run the prompt again and it picks up from the new
 
 - The plan is 5 study days/week; weekends/off-days aren't tracked — just don't
   advance the `Current:` line on days you don't study.
-- Catch-up weeks — Phase 0's Week 0.7, then build Weeks 4, 9, 13, 18, 22, 26 — are real buffer. If a deliverable
+- Catch-up weeks — Phase 0's Week 0.7, then build Weeks 4, 9, 13, 18, 22, 29 — are real buffer. If a deliverable
   slips, slide the rest down and lean on the catch-up week rather than marking
   days done that aren't.
 - The briefing trusts the log over the `Current:` line if they disagree, so an
