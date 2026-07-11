@@ -3,7 +3,7 @@
 Current: Phase 0, Week 0.1, Day 1
 
 ## Log
-- P1D1 (in progress): Watched Lec 1–2 (intro; signals & systems). Worked and self-checked PS1 against the solutions. Started PS2 — first problem done. Day 1 not yet closed: it needs PS2 fully worked/checked plus the first deck cards (e.g. "What makes a system LTI, and why does that property matter?"). Current stays at Phase 0, Week 0.1, Day 1 until PS2 and the cards are complete.
+- P1D1 (in progress): Watched Lec 1–2 (intro; signals & systems). Worked and self-checked PS1 against the solutions. Worked PS2 through problem 2.6(b), self-checked against the solutions. Day 1 not yet closed: it still needs any remaining PS2 problems past 2.6(b) plus the first deck cards (e.g. "What makes a system LTI, and why does that property matter?"). Current stays at Phase 0, Week 0.1, Day 1 until PS2 and the cards are complete.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
