@@ -1,32 +1,85 @@
-# DSP / Audio Software — Revised Plan (Theory-First, ~8.75 Months)
+# DSP / Audio — Invariant Core (Theory-First, Weeks 0.1 → 16)
 
-**What changed:** A 7-week **Phase 0 — Theory Foundation** is prepended, working through MIT RES.6-007 (Oppenheim's *Signals and Systems* video course) from Lecture 1, paired with light C++ so theory and code advance in tandem. Because Phase 0 does the derivations the old Month 1 was going to do (one-pole transfer function, z-transform, bilinear transform), **old Weeks 1–2 collapse into Phase 0** and Month 1 becomes a ~2-week "biquad" sprint.
+**What this plan is:** the body of work that is correct **regardless of which program, advisor, or research direction you end up in.** It runs from where you are now (Phase 0, Week 0.1) through Week 16, and then it deliberately stops.
 
-**What changed in this revision:** every build-month day now carries an explicit, checkable **Deliverable:** (matching Phase 0's rigor), and the old multi-day ranges ("Days 2–4") are broken into individual days. Being honest about the day count added two weeks where five clean days never fit the work: **+1 week in Month 2** (JUCE onboarding is split so week one ends at a loaded pass-through *before* any parameter) and **+1 week in Month 4** (a dedicated reverb-polish week, since reverb reliably overruns). Every build week also gained a **Done when:** finish condition. Phase 0 also gained **Week 0.8, a 1-week buffer** — the theory phase previously had no slack at all, and its two hardest stretches (the lecture-dense sampling weeks 0.4–0.5 and the derivation-dense Laplace/z weeks 0.5–0.6) drain into it; the buffer is the landing zone for their overrun and a spaced second pass otherwise. Month 6 also gained **three weeks** for what screens test but the build months never touch: Week 24 (C++ language depth, audio quantization/dither, the FFT algorithm), and two **target-conditional** weeks — Week 25 (fixed-point/Q-format + the SIMD hands-on) and Week 26 (the DSA/algorithms round). Those last two are **cuttable if you target boutique desktop-plugin shops** — fixed-point matters for embedded/DSP-firmware roles, and the DSA round for big-tech audio teams. Phase 0 was also **re-paced to one lecture (+ its pset) per study day** after the P1D1 log showed two lectures and two psets don't fit a ~2-hour session — that spread the six content weeks to seven (0.1–0.7) and moved the buffer to Week 0.8. Net timeline: **~8.75 months** instead of 6 (the Phase 0 buffer is flexible, and Weeks 25–26 are droppable by target); build weeks run 3→29.
+**Why it stops.** Your MS strategy has an active decision cluster — a self-set November 2026 go/no-go, and a December 2026 – February 2027 application window across seven programs (CSUF, UIC, KAIST, Aalto, PoliMi, Aalborg, UPF). Until that resolves, you don't know whether your next two years are mic arrays and source separation (UIC/Corey), HRTF and spatialization (CSUF/Faller), acoustic signal processing and hearing devices (Aalborg/CASPR), space-time audio (PoliMi/ISPG), spatial audio and acoustics (Aalto), or music information retrieval (KAIST/MACLab, UPF/MTG). **Those branches diverge after Week 16 and not before.** Planning past the branch point is inventing detail I'd only have to throw away — and this plan has now been rewritten twice for exactly that reason.
 
-**Assumes ~10 hrs/week = 5 study days × ~2 hrs.** Same as before.
-**Starting point:** ECE degree, comfortable in C++; you've already done the WAV writer, oscillators, and aliasing note (old Week 1) — those stay done and feed Phase 0.
-**Target (unchanged):** 2–3 polished JUCE plugins on GitHub + the depth to discuss real-time audio constraints in an interview.
+---
 
-> **On lecture numbers below:** verified against the OCW video-lectures page — 26 lectures, Lec 1 (Introduction) through Lec 26 (Feedback: the Inverted Pendulum). The numbers below are exact.
+## What got cut, and the actual reason
+
+The previous version of this plan targeted **boutique desktop-plugin work**: JUCE, VST3, APVTS, GUIs, presets, and three shipped plugins (EQ, delay/chorus, reverb, compressor). That's cut.
+
+The reason isn't a job posting. It's that **the plugin track was misaligned with your own MS strategy, and had been from the start.** Nothing on your shortlist points at desktop plugins. Not Corey's mic arrays and assistive listening. Not Faller's HRTF work. Not CASPR's acoustic signal processing. Not ISPG's space-time audio. Not MACLab or the MTG. You were running a self-study track aimed at one industry and an admissions strategy aimed at another. The plugin work is genuinely enjoyable and genuinely orthogonal to every program you're actually applying to.
+
+**What survives:** Phase 0 in full, the biquad, the measurement harness, the WAV/oscillator work already committed, and the real-time C++ discipline. Nothing you have done so far is wasted.
+
+---
+
+## The invariant core
+
+Strip out everything branch-specific and this is what remains standing under **every** program, advisor, and plausible thesis topic on your list:
+
+| | Why it's invariant |
+|---|---|
+| **Phase 0 — Deterministic theory** | Convolution, Fourier, sampling, z-transform, poles/zeros. Universal. Already in flight. |
+| **Phase 1 — Stochastic DSP** | **The one that matters most.** Random processes, PSD, Wiener filtering, linear prediction. This is *literally the coursework* at every program on your list — UIC ECE 418/530, CSUF EGEC 580, and its equivalent everywhere else. It is also the prerequisite under HRTF estimation, source separation, MIR feature extraction, beamforming, and speech enhancement **alike**. There is no audio research path that avoids it. It is also the single largest gap in your current preparation. |
+| **Phase 2 — Filters, multirate, real-time C++** | Biquads, FIR, polyphase resampling, the audio-thread rules. Every branch, every lab, every implementation. |
+| **Phase 3 — The STFT** | The substrate of nearly all of it — spatial, music, and speech. |
+
+**Everything else is contingent** and gets chosen *after* you know where you're going: AEC, beamforming, HRTF/binaural, embedded fixed-point ports, MIR feature pipelines, source separation, ANC. Building any of them now is a bet on a branch you haven't picked.
+
+---
+
+## ⚠️ This plan collides with application season
+
+Weeks 11–16 land roughly **November 2026 – February 2027**, which is exactly your go/no-go month plus the full application cluster (PoliMi ~Dec 1; Aalto Dec 7 – Jan 5; KAIST ~Dec–Jan; UPF rolling from mid-Nov; UIC registration ~Nov 23–26).
+
+**Do not plan for 10 hrs/week through that window.** Applications, statements of purpose, and advisor correspondence will eat study time, and pretending otherwise is how plans get abandoned rather than adjusted. Two deliberate responses are built in:
+- **Week 12's buffer is explicitly reserved** for application overflow, not just study overrun.
+- **Week 16 is a decision checkpoint, not a study week.**
+
+If Phase 3 slides into March 2027, that is the plan working, not the plan failing.
+
+---
+
+## ⏰ What is actually urgent, and it isn't this plan
+
+Your own strategy notes are unambiguous: **advisor outreach is the critical path, not applications, and not this study plan.**
+
+- **CSUF Open University approval opens August 10, 2026, 8:00 a.m., first-come** — about a month out. The Faller email is supposed to land *before* that window so he has context when your request reaches him.
+- **The Nam email (KAIST) is the single highest-leverage action for that entire path** — no advisor means no application at all, since GSCT requires an advisor name.
+- **Corey (UIC) MS-thesis supervision is still unconfirmed**, and UIC is the most expensive option on your list (~$85–90K). You are currently holding a 4–5× cost premium against an unverified research fit.
+
+None of those have been sent. The next 16 weeks of study are correct no matter what; the outreach has a clock on it. **If you have two hours this week, spend them on the Faller email, not on Lec 3.**
+
+---
+
+**Assumes ~10 hrs/week = 5 study days × ~2 hrs** (with the application-season exception above).
+**Starting point:** ECE degree, comfortable in C++; WAV writer, oscillators, and the aliasing note already committed.
+**Week numbering is unchanged:** build weeks still start at **Week 3**, so the `P<wk>D<day>` / `W<wk>D<day>` log scheme and the briefing routine's Phase-0 → Week-3 handoff both survive untouched.
 
 ---
 
 ## Run these habits every week
 
-- **Dev journal (`LOG.md`).** Unchanged. During Phase 0, log theory sessions too — suggest a `P1D1:` prefix (P for the theory phase) so they're distinct from your existing `W1D1:` entries.
-- **Spaced-repetition deck (Anki, or plaintext `cards.md`).** New, Phase-0-specific. Each concept becomes a few *atomic* cards — recall prompts (*"Why does convolution in time equal multiplication in frequency?"*) and, in your derive-first spirit, **derivation-prompt cards** (front: *"Derive H(z) from y[n] = (1−a)x[n] + a·y[n−1]"*; back: the steps). **Start every study session with a ~5-min review of due cards, then add the day's new ones.** The scheduling is the whole point: a concept from Week 0.2 is still sharp at your Month-9 interviews instead of re-crammed.
-- **Commit small + test as you go.** Add unit tests from the biquad onward (as before). Wire up GitHub Actions when your first unit tests land (**Week 4 Day 3**) to build + run them on every push, and extend it to plugin builds once you're in JUCE.
-- **Measure, don't just listen.** You build the impulse→FFT harness *inside* Phase 0 now (Week 0.4), grounded in the DTFT lecture. Verify every filter against its design from then on.
-- **Log planned vs actual.** Unchanged. Especially important through Phase 0 — the Fourier and Laplace/z weeks are where rust bites.
-- **(If targeting big-tech audio teams) light DSA cadence.** From Month 5 on, do 2–3 algorithm problems per week in the background. DSA rewards spacing and can't be crammed — Week 26's dedicated round is a *pattern sweep on top of* this cadence, not a substitute for it. Skip this habit entirely if you're aiming at boutique plugin shops (they use DSP take-homes instead).
+- **Dev journal (`LOG.md`).** Unchanged. `P<wk>D<day>` in Phase 0, `W<wk>D<day>` from Week 3. Keep the bug stories.
+- **Spaced-repetition deck.** Unchanged, and it now carries more load: Phase 1 is where derivation-prompt cards pay off hardest, because you will not touch the orthogonality principle again between Week 6 and whenever your program starts. Start each session with a ~5-min review, then add 3–5 cards from the day's friction.
+- **Dual-language workflow — new, from Week 7.** Prototype and validate in **Python/NumPy**, port to **C++**, and assert the two agree numerically. This is how every research group and every audio company actually works, and it's a habit you want *before* semester one, not during it. C++-only makes you slow to explore and gives you nothing to check the C against.
+- **Measure, don't listen.** If it doesn't have a number, it isn't done.
+- **Commit small + test as you go.** GitHub Actions from Week 8 (first unit tests).
+- **Log planned vs actual.** Phase 1 is where the estimates will break.
 
 ---
-
 ## Phase 0 — Theory Foundation (≈7 weeks + a 1-week buffer)
 *Resource: MIT RES.6-007 (ocw.mit.edu). **Every lecture ships a problem set with full solutions** — those are your daily deliverables. Textbook pairing: Oppenheim & Willsky follows the course chapter-for-chapter; read the matching sections. **Rule: one lecture + its problem set per study day** — never two lectures and two psets in one day (this pace is what the P1D1 log proved you need). The skim lectures (13–15, 25–26) ship no pset and may share a day; code days and consolidation days stay whole. **No day ends on "watched the video"** — each ends on a self-checked pset, a by-hand derivation, a batch of new flashcards, or committed code.*
 
-**Priority note:** the modulation lectures (Wk 0.4 D3) are the most skippable if tight — that skim day already collapses them to a written summary rather than a full pset. The feedback lectures (Wk 0.7 D3) can also be *skimmed* to a summary, but **don't cut the stability concept itself** — Weeks 14–15 (reverb) depend on it. Everything else is core-path.
+**Priority note (revised):** nothing in Phase 0 is now safely skippable, and the two lectures previously marked "skim" have been *promoted*. Both turned out to be load-bearing for the invariant core rather than for the plugin track that got cut:
+- **DT modulation (Lec 15, Wk 0.4 D3)** is now **core, with its pset.** The multiply-in-time ↔ shift-in-frequency pair is the root of the **STFT** (Phase 3), which underlies essentially every audio research path — spatial, music, and speech alike. Lec 13–14 (CT modulation / AM) remain optional watching.
+- **Decimation (Lec 19, Wk 0.5 D2)** was previously waved off as out of scope. It is now core: multirate gets its own week (Week 10), and every real audio pipeline resamples (16 / 44.1 / 48 kHz).
+- **Feedback & stability (Lec 25–26, Wk 0.7 D3)** stays a summary, but its forward-link is now generic rather than reverb-specific: it is load-bearing for **anything recursive** — IIR filters, adaptive filters, feedback loops. Keep the concept regardless of which branch you take.
+
+If you must cut, cut Lec 13–14 (CT AM) and nothing else.
 
 ### Week 0.1 — Signals, systems, LTI, convolution (Lec 1–5)
 - **Day 1:** Lec 1 (introduction). **Deliverable:** PS1 worked and self-checked against solutions; seed the deck with your first few cards (e.g., *"What makes a system LTI, and why does that property matter?"*).
@@ -52,17 +105,17 @@
 - **Day 5:** Lec 12 (filtering). **Deliverable:** sketch ideal LPF/HPF/BPF magnitude responses and state why the ideal filter is non-causal; PS12 checked.
 - **Done when:** your DFT locates a sine's frequency correctly and you can articulate the DTFT as the unit-circle evaluation.
 
-### Week 0.4 — Measurement harness; modulation skim; sampling begins (Lec 13–17)
+### Week 0.4 — Measurement harness; DT modulation; sampling begins (Lec 13–17)
 - **Day 1:** Code. **Deliverable:** the **measurement harness** — impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat. (The rig for the rest of the plan. Where the plan says "FFT," it means the **O(N²) DFT you built in Week 0.3** — that's the transform engine; a true radix-2 FFT is never required, though you can drop one in later if large-N measurements feel slow.)
 - **Day 2:** Consolidate the DT-Fourier block. **Deliverable:** any remaining PS10–12 closed; harness committed + LOG.
-- **Day 3:** Lec 13–15 (CT modulation + AM demo; DT modulation) — *skim, no pset.* **Deliverable:** one card covering AM (carrier, sidebands, coherent detection) **and** a 3-line note on frequency-shifting and where it aliases.
+- **Day 3:** Lec 15 (**DT modulation**) — *core, with pset.* Lec 13–14 (CT modulation / AM demo) are optional watching, no pset. **Deliverable:** PS15 worked/checked; write the multiply-in-time ↔ shift-in-frequency pair from memory and state where a frequency shift aliases. **Forward-link:** this is the seed of the STFT (Week 13) — windowing a signal *is* modulating it, and each analysis bin is a frequency-shifted, lowpassed copy. Add a derivation-prompt card.
 - **Day 4:** Lec 16 (sampling theorem, Nyquist). **Deliverable:** state and sketch-prove the sampling theorem in your own words; PS16 checked. (The theory under `aliasing.md`.)
 - **Day 5:** Lec 17 (interpolation / reconstruction). **Deliverable:** PS17 checked; a one-line statement of how ideal reconstruction interpolates between samples.
 - **Done when:** the harness gives a sane magnitude response and you can state and sketch-prove the sampling theorem.
 
 ### Week 0.5 — Sampling & decimation; aliasing code; Laplace begins (Lec 18–20)
 - **Day 1:** Lec 18 (DT processing of CT signals). **Deliverable:** PS18 checked.
-- **Day 2:** Lec 19 (decimation / downsampling). **Deliverable:** PS19 checked; write the "filter *before* you decimate, and why" note (the anti-aliasing-before-downsampling principle). *(The older "BLEP/oversampling" pointer is optional — none of the five planned plugins are oscillator-based, so treat band-limited synthesis as out of scope unless you later add an oscillator effect.)*
+- **Day 2:** Lec 19 (decimation / downsampling) — **core.** **Deliverable:** PS19 checked; write the "filter *before* you decimate, and why" note (the anti-aliasing-before-downsampling principle). **Forward-link:** Week 10 builds polyphase decimation/interpolation and rate conversion. Multirate is not a footnote — speech runs at 16 kHz, music at 44.1/48 kHz, and something always has to bridge them. *(Band-limited synthesis / BLEP is out of scope; no oscillator work remains.)*
 - **Day 3:** Problem-set / consolidation day — the sampling+modulation block is the lecture-dense stretch. **Deliverable:** any slipped PS16–PS19 worked, every miss re-worked to correct.
 - **Day 4:** Code. **Deliverable:** aliasing fold-back confirmed numerically (tones above Nyquist measured against `f_s − f`); `aliasing.md` updated to cite the sampling theorem, not just the spectrogram. LOG.
 - **Day 5:** Lec 20 (Laplace; s-plane, poles/zeros, ROC). **Deliverable:** Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
@@ -79,7 +132,7 @@
 ### Week 0.7 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
 - **Day 1:** Lec 23 (mapping CT→DT filters = the bilinear transform). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; PS23 checked.
 - **Day 2:** Lec 24 (Butterworth). **Deliverable:** derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
-- **Day 3:** Lec 25–26 (feedback) — *skim the lectures to a summary, no pset, but keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **This is load-bearing for reverb** — revisit it before Week 14, where comb-filter feedback (gain ≤ 1) and recirculating-delay stability rest directly on it. Skim the video if tight; do not cut the idea.
+- **Day 3:** Lec 25–26 (feedback) — *skim the lectures to a summary, no pset, but keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **Load-bearing for anything recursive** — IIR filter stability, adaptive-filter convergence bounds, and any feedback loop you later build. Which specific one depends on your branch; the concept is invariant. Skim the video if tight; do not cut the idea.
 - **Day 4:** Consolidation. **Deliverable:** every Phase-0 pset closed; a from-memory bilinear-transform derivation, no notes.
 - **Day 5:** Full deck review + gap-fill. **Deliverable:** run a complete review pass; ensure every link in the chain — signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter — has at least one card you answer cold, plus derivation-prompt cards for the one-pole and the bilinear transform. This deck carries you to Month-6 interview prep. LOG.
 - **Done when:** you can walk the full chain unaided and re-derive the bilinear transform from scratch.
@@ -95,294 +148,167 @@
 
 **✅ Phase 0 Checkpoint:** You can derive a filter's transfer function from its difference equation, place its poles, and predict its magnitude response — then confirm it with your own harness. The z-transform is no longer magic.
 
----
-## Month 1 — Biquads (Weeks 3–4, compressed: theory is done)
+## Phase 1 — Stochastic Signal Processing (Weeks 3–7)
 
-> Old Weeks 1–2 (sampling/signals, one-pole) are **complete via Phase 0**. Pick up at Biquads. This month is ~2 weeks of real work.
+**The largest gap in your preparation, and the highest-leverage weeks in this document.** Oppenheim & Willsky is entirely deterministic — known signals, known systems. But real audio signals are *random*: speech, noise, room reverberation, and the interference every algorithm is built to fight. You cannot derive the Wiener filter, NLMS, MVDR beamforming, or any modern estimator without autocorrelation, power spectral density, and the orthogonality principle.
 
-### Week 3 — Biquads
-*Resources:* RBJ Audio EQ Cookbook (coefficient reference); earlevel.com biquad series; Pirkle filter chapters.
-- **Day 1:** Review the RBJ cookbook + Direct Form I vs II. **Deliverable:** a one-page note mapping the RBJ LPF transfer function to its five coefficients (b0, b1, b2, a1, a2), plus a two-line statement of the DF-I vs DF-II trade-off (state/delay count vs. numerical behavior). You already have the bilinear/z-transform grounding, so this is coefficient bookkeeping, not new theory.
-- **Day 2:** Implement a `Biquad` class (DF-I) with LPF coefficients. **Deliverable:** the class low-passes a WAV audibly; compiles clean; committed.
-- **Day 3:** Add HPF, peaking, and shelf coefficient sets. **Deliverable:** all four types behind one `setType`/`setParams` API; committed. (Peaking/shelf Q makes sense now — see Lec 21.)
-- **Day 4:** Process a WAV through each type; measure with your Phase 0 harness. **Deliverable:** four `|H(e^jω)|` plots (one per type) from the impulse→FFT harness, saved to the repo.
-- **Day 5:** Confirm measured response matches theory. **Deliverable:** `biquad-verification.md` recording each type's measured −3 dB / peak-gain point vs. its designed value; commit.
-- **Done when:** each of the four measured responses lands on its designed corner/peak within tolerance.
+This is also the material your graduate coursework will assume you have. Doing it now means arriving to UIC ECE 418 or CSUF EGEC 580 having already derived the results rather than meeting them cold.
 
-### Week 4 — 🔧 Consolidate + push the biquad
-*Resources:* Zavalishin, "The Art of VA Filter Design" (reinforcement — you've already derived the bilinear transform).
-- **Day 1:** Skim Zavalishin against your own bilinear derivation. **Deliverable:** a 5-line note on where the TPT/VA framing (integrators, pre-warping) differs from Oppenheim's bilinear.
-- **Day 2:** Finish unfinished types; fix Week-3 mismatches. **Deliverable:** every type's measured response now matches design; the Day-5 mismatch notes are closed.
-- **Day 3:** Add unit tests **and wire up GitHub Actions**. **Deliverable:** passing tests for DC gain, Nyquist gain, and coefficient sanity across all four types, running in CI on every push (this is the CI habit the plan calls for — it extends to plugin builds later).
-- **Day 4:** Write the README. **Deliverable:** `Biquad/README.md` walking transfer function → coefficients → code, with one response plot (you can write this cold now).
-- **Day 5:** Push the clean, tested `Biquad`. **Deliverable:** tagged commit on GitHub; buffer.
-- **Done when:** the repo builds, tests pass, and you can implement any biquad type from coefficients unaided.
+*Resources:* **Hayes, _Statistical Digital Signal Processing and Modeling_** (primary — Ch. 2–3, 4, 6–7). Haykin, _Adaptive Filter Theory_ Ch. 1–2 (alternate framing). Stanford EE264 / Georgia Tech ECE 6255 notes for worked problems.
 
-**✅ Checkpoint:** Implement any biquad from coefficients and explain *why* it works from the z-transform up. WAV harness in hand.
+### Week 3 — Random processes, stationarity, autocorrelation
+- **Day 1:** Random variables → random *processes*. Ensemble average vs. time average. **Deliverable:** written statement, in your own words, of what a random process *is* and why one realization can't characterize it.
+- **Day 2:** Wide-sense stationarity; ergodicity. **Deliverable:** show by hand that a specific process is WSS; state precisely what ergodicity buys you — it is what licenses estimating from *one* recording, which is the entire practical foundation of the field.
+- **Day 3:** Autocorrelation `r_x[k]` — definition and properties (symmetry, `r_x[0]` = power, positive semi-definiteness). **Deliverable:** derive the autocorrelation of white noise, and of a sinusoid in noise, by hand.
+- **Day 4:** The autocorrelation *matrix* **R**. Toeplitz structure; why it's PSD. **Deliverable:** build **R** by hand for a 3-tap case; verify positive semi-definiteness numerically in Python.
+- **Day 5:** Code. **Deliverable:** Python — estimate autocorrelation from a finite record; show the estimator's variance blowing up at large lags. Commit + LOG.
+- **Done when:** you can explain why `r_x[k]`, not the signal itself, is the object every estimator actually optimizes against.
 
----
+### Week 4 — Power spectral density; filtering random processes
+- **Day 1:** PSD; the **Wiener–Khinchin** theorem (PSD = FT of autocorrelation). **Deliverable:** derive it. Derivation-prompt card. *(This is the stochastic mirror of Phase 0's conv↔mult duality — same structure, new object.)*
+- **Day 2:** **Filtering a random process:** `S_y(ω) = |H(e^jω)|² · S_x(ω)`. **Deliverable:** derive from scratch. This is the most-used identity in everything downstream.
+- **Day 3:** White noise through a filter; spectral factorization; the innovations representation. **Deliverable:** by hand, find the filter that shapes white noise into a given PSD.
+- **Day 4:** The periodogram and its **inconsistency**; Welch's method and why averaging fixes it. **Deliverable:** written explanation of why a longer FFT does *not* reduce periodogram variance but averaging does. *(This is a favorite interview and qualifying-exam question precisely because it's counterintuitive.)*
+- **Day 5:** Code. **Deliverable:** Python — Welch PSD estimator from scratch, validated against `scipy.signal.welch`. Commit + LOG.
+- **Done when:** you can predict the output PSD of any LTI filter driven by any input PSD, and explain why a raw periodogram is a bad estimator.
 
-## Month 2 — Real-time C++ + JUCE onboarding + Plugin #1 (Weeks 5–9)  ⚠️ tightest month
-*(Theory is front-loaded, so no theory asides here. JUCE onboarding is split across two weeks — the single highest-value expansion, since going from zero to a parameterized plugin in one week is where first-timers stall.)*
+### Week 5 — Linear prediction
+- **Day 1:** The forward linear-prediction problem. **Deliverable:** set up the prediction-error minimization by hand.
+- **Day 2:** The **normal equations** (`R·a = r`). **Deliverable:** full derivation, no notes. Derivation-prompt card.
+- **Day 3:** **Levinson–Durbin** recursion — exploiting Toeplitz structure to get O(p²). **Deliverable:** work the recursion by hand for p = 3; state what the reflection coefficients mean.
+- **Day 4:** LPC and speech: the source-filter model, and why a vocal tract is an all-pole filter. **Deliverable:** write the connection from the all-pole model back to Phase 0's pole/zero work. **This is where your z-plane intuition first cashes out on a real signal.**
+- **Day 5:** Code. **Deliverable:** Python — LPC analysis of a real speech frame; plot the LPC spectral envelope over the FFT magnitude and show it tracking the formants. Commit + LOG.
+- **Done when:** you can derive the normal equations cold and explain what LPC is *modeling*.
 
-### Week 5 — Real-time audio rules
-*Resources:* Ross Bencina, "Real-time audio programming 101"; Timur Doumler real-time C++ talks; Renn-Giles & Rowland, "Real-time 101" (ADC).
-- **Day 1:** Read Bencina's article. **Deliverable:** notes listing the audio-thread "don'ts" (no allocation, no locks, no I/O, no unbounded work) with a one-line *why* for each.
-- **Day 2:** Study denormals + block (buffer) processing. **Deliverable:** a note on where denormals arise in IIR feedback and how FTZ/DAZ (or a tiny DC offset) kills them, plus a sketch of a block-processing loop.
-- **Day 3:** Write your interview cheat-sheet. **Deliverable:** a committed one-page cheat-sheet on audio-thread constraints.
-- **Day 4:** Refactor the biquad to a block-based, allocation-free API **and add denormal flushing at the root**. **Deliverable:** a `process(float* block, int n)` path with zero allocation **and denormals killed** (set FTZ/DAZ, or add a tiny anti-denormal DC offset in the feedback) — fix it here so every effect built on this filter inherits it, instead of rediscovering denormal CPU spikes at Week 16; compiles.
-- **Day 5:** Verify allocation-free; build a minimal lock-free audio→UI channel. **Deliverable:** confirmed no heap traffic on the process path (inspection, or an overridden `operator new` counter in a test); **plus a single-producer/single-consumer lock-free value pass** (a `std::atomic`, or a small SPSC ring buffer) that safely carries a number from the audio thread to the UI — the exact mechanism your **Week 12 gain-reduction meter** and any later metering will reuse. Commit.
-- **Done when:** the biquad runs block-based, allocation-free, and **denormal-safe** (a tail decaying into silence causes no CPU spike), and you have **one reusable lock-free audio→UI value pass**.
+### Week 6 — The Wiener filter — the payoff week
+- **Day 1:** The MMSE estimation problem. The cost function; why mean-*square*. **Deliverable:** state the problem formally; identify precisely what is known and what is estimated.
+- **Day 2:** The **orthogonality principle** — derive it. **Deliverable:** full derivation plus a written geometric interpretation (the error is orthogonal to the data subspace). **This is the conceptual keystone of estimation theory.** Derivation-prompt card, no exceptions — it is the single result most likely to appear in a graduate exam, a qualifying exam, and an interview.
+- **Day 3:** The **FIR Wiener filter**: `w = R⁻¹·p`. **Deliverable:** derive it from the orthogonality principle; compute the resulting MMSE. Note its structural identity with the normal equations — LPC *is* a Wiener filter predicting `x[n]` from its own past.
+- **Day 4:** The Wiener filter for **noise reduction**: derive the frequency-domain gain `H(ω) = S_s(ω) / (S_s(ω) + S_n(ω))`. **Deliverable:** this derivation, by hand. Note what it implies: every practical enhancement algorithm ever built is an attempt to *estimate* those two PSDs online, because you never actually know them.
+- **Day 5:** Code. **Deliverable:** Python — FIR Wiener filter denoising a synthetic signal where you *do* know both PSDs (the oracle case); measure the SNR improvement. Commit + LOG.
+- **Done when:** you can derive `w = R⁻¹p` from the orthogonality principle on a blank page, and name exactly which quantity every practical algorithm is forced to estimate rather than know.
 
-### Week 6 — JUCE setup & pass-through
-*Resources:* Official JUCE tutorials; The Audio Programmer; MatKat / freeCodeCamp "Learn Modern C++ by Building an Audio Plugin."
-- **Day 1:** Install JUCE 8 + toolchain; build and run AudioPluginHost / DemoRunner. **Deliverable:** DemoRunner runs locally; toolchain verified.
-- **Day 2:** Create a plugin project via CMake; build it empty. **Deliverable:** an empty plugin that loads in AudioPluginHost.
-- **Day 3:** Wire `processBlock` for clean pass-through. **Deliverable:** in == out pass-through, no clicks or denormals.
-- **Day 4:** Map the processor/editor split and the JUCE build layout. **Deliverable:** a half-page note on `PluginProcessor` vs `PluginEditor` and where parameters live (prevents flailing in Weeks 7–8).
-- **Day 5:** Load the pass-through in your target DAW; fix any build/format issues. **Deliverable:** the pass-through loads and passes audio in the DAW; commit.
-- **Done when:** you can go from `cmake` to a loaded, audible pass-through in your DAW without notes.
+### Week 7 — 🔧 Phase 1 buffer + numerical workflow
+- **Days 1–3:** Absorb overrun. Weeks 5–6 (normal equations, orthogonality) are the derivation-dense stretch and the likely slip. If clean: spaced second pass — re-derive Wiener–Khinchin, the normal equations, and `w = R⁻¹p` cold, one per day.
+- **Day 4:** **Stand up the dual-language workflow.** **Deliverable:** repo scaffold with `python/` and `cpp/` trees, a shared test-vector format, and a harness that runs an algorithm in both and asserts numerical agreement to a stated tolerance. Prove it on the one-pole from Week 0.6.
+- **Day 5:** Deck gap-fill across Phase 1. LOG.
+- **Done when:** nothing from Weeks 3–6 is open, and you have a working Python↔C++ agreement harness you'll use for every algorithm from here on.
 
-### Week 7 — First parameter (gain plugin)
-*Resources:* Official JUCE tutorials; The Audio Programmer.
-- **Day 1:** Declare a gain parameter with correct range/skew/units. **Deliverable:** the param appears in the DAW's generic editor with a sane range.
-- **Day 2:** Apply gain in `processBlock`. **Deliverable:** gain audibly changes level across the block.
-- **Day 3:** Add one slider in the custom editor bound to the param. **Deliverable:** the editor slider drives gain in the DAW. *(You wire this by hand now; Week 8's APVTS `SliderAttachment` replaces the hand-wiring — expected scaffolding, not wasted work.)*
-- **Day 4:** Add `SmoothedValue` smoothing to gain. **Deliverable:** no zipper noise on fast slider moves; verified by ear and in a captured buffer.
-- **Day 5:** Commit the gain plugin; short README. **Deliverable:** a working, documented gain plugin on GitHub.
-- **Done when:** a parameter round-trips host → processor → audio, smoothed and artifact-free.
-
-### Week 8 — Parameters via APVTS → single-band EQ
-*Resources:* JUCE APVTS tutorials; The Audio Programmer; melatonin.dev.
-- **Day 1:** Learn `AudioProcessorValueTreeState`; route the gain param through it. **Deliverable:** gain re-implemented via APVTS with host automation working.
-- **Day 2:** Add freq / gain / Q parameters via APVTS. **Deliverable:** three automatable params with musically sensible ranges/skews.
-- **Day 3:** Add smoothing to all three. **Deliverable:** smoothed freq/gain/Q; no clicks when automated fast.
-- **Day 4:** Port the block-based biquad into `processBlock`, driven by the parameters. **Deliverable:** the biquad recomputes coefficients from the params per block; audio is filtered.
-- **Day 5:** Single-band parametric EQ in a DAW. **Deliverable:** working single-band EQ committed; a response sweep tracks the param moves.
-- **Done when:** moving freq/gain/Q in the DAW produces the matching measured response.
-
-### Week 9 — 🔧 Catch-up (ship Plugin #1)
-*Resources:* MatKat freeCodeCamp SimpleEQ course; melatonin.dev.
-- **Day 1:** Duplicate the band into a 3-band chain. **Deliverable:** three serial bands, each independently controllable.
-- **Day 2:** Add per-band type/enable selection. **Deliverable:** each band switchable (bell/shelf/HP/LP) with bypass, in the DAW.
-- **Day 3:** Kill zipper noise / clicks; fix bugs; **add APVTS state persistence**. **Deliverable:** a clean pass over a written bug list (no audible artifacts under automation), **plus `getStateInformation`/`setStateInformation` wired through APVTS so the plugin remembers its settings across a project save/reload**. Without this, a "shipped" plugin forgets everything on reload — and this same ~3-line state block goes into *every* plugin you ship after this, so establish the pattern here.
-- **Day 4:** Test loading in a 2nd DAW; verify state survives reload; write the README. **Deliverable:** loads in a second host **and restores its settings after a DAW reload**; README with build steps and a response screenshot.
-- **Day 5:** Ship **Plugin #1 — multi-band EQ**. **Deliverable:** tagged GitHub release; buffer.
-- **Done when:** the EQ loads in two DAWs, has no artifacts, and is documented well enough for a stranger to build.
-
-**✅ Checkpoint:** Build a JUCE plugin from scratch, manage parameters correctly, explain the audio-thread rules cold.
+**✅ Phase 1 Checkpoint:** You can derive the Wiener filter from the orthogonality principle, predict any LTI filter's output PSD, and explain why every practical algorithm is an approximation to a filter nobody can actually build. **You are now prepared for graduate DSP coursework anywhere on your list.**
 
 ---
 
-## Month 3 — Delay, modulation, dynamics (Weeks 10–13)
+## Phase 2 — Filters, multirate, and real-time C++ (Weeks 8–12)
 
-### Week 10 — Delay lines
-*Resources:* Pirkle delay chapters; earlevel.com on interpolation; The Audio Programmer delay tutorial.
-- **Day 1:** Implement a circular buffer with correct wraparound. **Deliverable:** a tested ring buffer (write/read with correct wrap); unit test passes.
-- **Day 2:** Add integer-sample delay; process audio through it. **Deliverable:** an audible fixed delay through the buffer; commit.
-- **Day 3:** Add fractional delay with linear interpolation. **Deliverable:** sub-sample delay; a swept delay time glides without stepping.
-- **Day 4:** Wrap in a JUCE plugin: time / feedback / mix. **Deliverable:** a delay plugin with the three params live in the DAW.
-- **Day 5:** Test in a DAW; commit. **Deliverable:** committed delay plugin; feedback stays stable at gain ≤ 1.
-- **Done when:** fractional delay is click-free on time changes and feedback behaves.
+*Resources:* RBJ Audio EQ Cookbook; Proakis & Manolakis (FIR design, multirate); Crochiere & Rabiner, _Multirate Digital Signal Processing_; Ross Bencina, "Real-time audio programming 101"; Timur Doumler's real-time C++ talks.
 
-### Week 11 — Modulation from delay
-*Resources:* Pirkle modulation chapters; The Audio Programmer chorus/flanger tutorials.
-- **Day 1:** Implement an LFO (sine / triangle). **Deliverable:** an LFO producing both shapes at a set rate; verified.
-- **Day 2:** Modulate short delay time with the LFO. **Deliverable:** an audible chorus/flanger sweep from the modulated delay.
-- **Day 3:** Add depth / rate / mix; choose a chorus or flanger voicing. **Deliverable:** three params plus a chosen voicing that sounds right.
-- **Day 4:** Add allpass (or higher-order) interpolation for smoother modulated delay. **Deliverable:** reduced artifacts on fast modulation vs. the Day-2 linear version.
-- **Day 5:** Chorus/flanger in a DAW; commit. **Deliverable:** committed modulation plugin.
-- **Done when:** modulated delay is smooth (no zipper) across the full depth/rate range.
+### Week 8 — Biquads
+- **Day 1:** RBJ cookbook; Direct Form I vs. II vs. transposed DF-II, and why DF-II behaves worse numerically. **Deliverable:** written comparison. With the bilinear transform already derived in Phase 0, this is coefficient bookkeeping, not new theory.
+- **Day 2:** Implement a `Biquad` class (DF-I) with LPF coefficients. **Deliverable:** compiles, runs, committed.
+- **Day 3:** Add HPF, peaking, shelf. **Deliverable:** all four types; trace Q behavior back to Lec 21's pole pairs.
+- **Day 4:** Measure all four through the Phase 0 harness. **Deliverable:** measured |H| matches designed |H| for each type.
+- **Day 5:** Unit tests (DC gain, Nyquist gain, coefficient sanity); GitHub Actions running them on push. **Deliverable:** green CI. Commit + LOG.
+- **Done when:** measured response matches theory for all four types, and CI is green.
 
-### Week 12 — Dynamics (compressor)
-*Resources:* Pirkle dynamics chapter; Giannoulis, Massberg & Reiss, "Digital Dynamic Range Compressor Design — A Tutorial" (JAES).
-- **Day 1:** Implement a peak envelope follower (attack/release one-poles — you built the one-pole in Phase 0). **Deliverable:** an envelope that tracks a test signal's peaks; plotted.
-- **Day 2:** Add the gain computer (threshold / ratio); apply gain reduction. **Deliverable:** the static compression curve verified against a known input.
-- **Day 3:** Add attack/release on the gain + makeup gain. **Deliverable:** time-varying gain reduction with sensible attack/release; makeup applied.
-- **Day 4:** Add a soft knee; wrap as a plugin with params + a gain-reduction meter. **Deliverable:** a compressor plugin with a knee and a working GR meter.
-- **Day 5:** Add oversampling around the nonlinear gain stage; compressor in a DAW; commit. **Deliverable:** committed compressor with a 2× oversampled gain path (`juce::dsp::Oversampling` is fine), plus a one-line note on *why* nonlinear/limiting stages need it — they generate harmonics above Nyquist that alias back down. This is the standard interview follow-up to "you built a compressor."
-- **Done when:** the measured input/output curve matches the set threshold/ratio/knee.
+### Week 9 — FIR design
+- **Day 1:** Linear phase — the four types, the symmetry condition, group delay. **Deliverable:** derive why symmetric taps ⇒ linear phase. **Phase matters** for spatial audio (ITD cues), for array processing, and for anything binaural — in a way plugin EQ let you ignore.
+- **Day 2:** Window-method design; the mainlobe/sidelobe tradeoff. **Deliverable:** design an LPF by windowing; measure it.
+- **Day 3:** Optimal design — Parks–McClellan / equiripple; the alternation theorem conceptually. **Deliverable:** design the same LPF with `remez`; compare stopband attenuation against the window method, with numbers.
+- **Day 4:** **Overlap-add and overlap-save convolution.** **Deliverable:** derive both; implement overlap-add in Python. *(Direct forward-link: this is the machinery of Week 13's STFT, and of fast convolution generally — including HRTF convolution, if you end up there.)*
+- **Day 5:** Code. **Deliverable:** C++ FIR + overlap-add, agreeing with the Python reference via the Week 7 harness. Commit + LOG.
+- **Done when:** you can say when FIR beats IIR and why, and your overlap-add convolution matches direct convolution to machine precision.
 
-### Week 13 — 🔧 Catch-up / push toward Plugin #2
-- **Day 1:** Pick the strongest of delay / chorus / compressor — **this pick is Plugin #2**. **Deliverable:** a decision note plus a short punch-list of what Plugin #2 still needs.
-- **Day 2:** Fix the top bugs on the chosen effect. **Deliverable:** the punch-list's correctness items closed.
-- **Day 3:** Improve the sound / voicing. **Deliverable:** an audible improvement with a before/after capture.
-- **Day 4:** Tighten parameters (ranges, skews, smoothing). **Deliverable:** every param musically ranged and smoothed.
-- **Day 5:** Commit meaningful progress on **Plugin #2**. **Deliverable:** committed; buffer.
-- **Done when:** the chosen effect is bug-free, well-ranged, and clearly closer to shippable.
+### Week 10 — Multirate
+- **Day 1:** Decimation and interpolation — the identities and the required anti-alias / anti-image filters. **Deliverable:** derive the spectral effect of ↓M and ↑L by hand.
+- **Day 2:** **Polyphase decomposition.** **Deliverable:** derive it; show why it's an M× saving (you filter only the samples you keep).
+- **Day 3:** The **noble identities**; cascaded rate conversion by L/M. **Deliverable:** derive; sketch an efficient 48 ↔ 44.1 kHz converter (the hard, ugly, real-world ratio).
+- **Day 4:** Code. **Deliverable:** polyphase resampler in Python; measure residual aliasing and imaging.
+- **Day 5:** Code. **Deliverable:** port to C++; agree with Python via the harness. Commit + LOG.
+- **Done when:** your resampler is measurably clean, and you can derive polyphase's saving from first principles.
 
-**✅ Checkpoint:** Three working effects. Explain envelope detection and interpolation from memory.
+### Week 11 — Real-time audio constraints
+- **Day 1:** Bencina's article; the audio-thread rules. **Deliverable:** notes — the list of what you may *never* do on the audio thread, and why the criterion is *unbounded*, not *slow*.
+- **Day 2:** Denormals; flush-to-zero; where they bite (IIR tails, decaying states, adaptive coefficients). **Deliverable:** demonstrate a denormal slowdown numerically, then fix it.
+- **Day 3:** Lock-free communication — atomics, memory ordering, SPSC ring buffers. **Deliverable:** implement an SPSC ring buffer; state precisely why a mutex is disqualified.
+- **Day 4:** Block processing; latency vs. block size; the algorithmic-delay budget. **Deliverable:** written latency analysis of a full-duplex audio pipeline.
+- **Day 5:** **Deliverable:** a one-page real-time-audio cheat sheet, written cold. Commit + LOG.
+- **Done when:** you can explain the audio-thread rules, denormals, and lock-free SPSC from memory, and your ring buffer survives a threaded stress test.
 
----
+### Week 12 — 🔧 Buffer + application overflow
+*This week is deliberately double-booked, and the applications win.* It lands near your November go/no-go and the opening of the application cluster.
+- **Days 1–3:** Absorb study overrun **or** application work — statements of purpose, advisor correspondence, UIC registration (~Nov 23–26), whichever is live. Do not feel behind if no DSP happens this week.
+- **Day 4:** If time: harden the C++ DSP core — biquad, FIR, overlap-add, polyphase, ring buffer — into a clean, tested, documented unit.
+- **Day 5:** README for the DSP core (theory → implementation → measured verification), written cold. LOG.
+- **Done when:** the DSP core is tested, CI-green, and pushed — *or* your applications are moving and you consciously chose that. Both are wins; only silence is a loss.
 
-## Month 4 — Reverb + ship Plugin #2 (Weeks 14–18)  ⚠️ reverb is the hard one
-*(Reverb gets a dedicated polish week — the plan has always warned it overruns, so this is the second honest expansion rather than pretending it fits three build weeks. **Plugin #2 is the Month-3 effect you picked in Week 13**; the reverb built here is a separate track that becomes Plugin #3 in Month 5.)*
-
-### Week 14 — Reverb theory & first comb
-*Resources:* Freeverb source; Julius O. Smith, "Physical Audio Signal Processing" (Schroeder & FDN); Pirkle reverb chapter.
-- **Day 1:** Study Schroeder reverb (comb + allpass); read the Freeverb source. **Deliverable:** a note diagramming Freeverb's comb/allpass topology and its delay lengths.
-- **Day 2:** Implement a feedback comb filter. **Deliverable:** a single comb with adjustable delay/feedback; its impulse response shows the expected echo train.
-- **Day 3:** Implement an allpass; chain parallel combs + series allpasses. **Deliverable:** the Schroeder/Freeverb block assembled; it produces a tail.
-- **Day 4:** Wrap as a plugin; get a reasonable tail. **Deliverable:** a reverb plugin that loads and gives an audible (if metallic) tail.
-- **Day 5:** Tune comb/allpass lengths; commit a basic reverb. **Deliverable:** committed basic reverb with tuned, mutually-prime delay lengths.
-- **Done when:** you get a decaying, reasonably dense tail with no runaway feedback.
-
-### Week 15 — Make it musical
-- **Day 1:** Add damping (a lowpass in the comb feedback). **Deliverable:** high frequencies decay faster than lows; verified on the tail spectrum.
-- **Day 2:** Add stereo (decorrelated left/right delay sets). **Deliverable:** a wide, decorrelated stereo tail.
-- **Day 3:** Add a size/decay control mapped sensibly. **Deliverable:** one intuitive size (and/or decay) knob spanning small room → hall.
-- **Day 4:** Add subtle modulation to reduce metallic ringing. **Deliverable:** audibly reduced ringing vs. Week 14; before/after capture.
-- **Day 5:** A noticeably better reverb; commit. **Deliverable:** committed improved reverb.
-- **Done when:** it sounds like a space, not a comb bank — smooth, damped, stereo.
-
-### Week 16 — Reverb polish & control
-- **Day 1:** Add pre-delay, dry/wet, and input filtering. **Deliverable:** a pre-delay and proper mix control, plus low/high cut on the reverb path.
-- **Day 2:** Fix density/flutter problems (allpass tuning, extra diffusion). **Deliverable:** an audibly denser, flutter-free early tail.
-- **Day 3:** Handle denormals in the feedback paths. **Deliverable:** no denormal CPU spikes when a tail decays into silence (verified).
-- **Day 4:** Smooth and range-limit size/decay/mix. **Deliverable:** no zipper when automating reverb params.
-- **Day 5:** A/B against a reference reverb; note gaps; commit. **Deliverable:** a short comparison note and a committed reverb.
-- **Done when:** the reverb holds up in an A/B against a stock reverb on at least one source.
-
-### Week 17 — Ship one (Plugin #2)
-*Resources:* melatonin.dev; JUCE state/preset tutorials.
-- **Day 1:** Finalize the Plugin #2 pick from Week 13 (your strongest delay / chorus / compressor); add smoothing everywhere it's missing. **Deliverable:** that plugin with all params smoothed.
-- **Day 2:** Add presets (state save/load). **Deliverable:** preset save/restore survives a DAW reload.
-- **Day 3:** Build a clean custom GUI. **Deliverable:** a presentable editor (not the generic one).
-- **Day 4:** Add denormal handling; test in 3 DAWs. **Deliverable:** loads clean in three hosts; denormals handled.
-- **Day 5:** Ship **Plugin #2** with README + release. **Deliverable:** a tagged release and a README with a screenshot.
-- **Done when:** Plugin #2 loads in 3 DAWs, saves/restores state, and looks intentional.
-
-### Week 18 — 🔧 Catch-up (reverb almost always overruns)
-- **Day 1:** Close the top reverb gaps from the Week-16 A/B. **Deliverable:** the two worst A/B gaps addressed.
-- **Day 2:** Fix any DAW-specific bugs from shipping. **Deliverable:** host-specific issues resolved.
-- **Day 3:** Tighten CPU (avoid per-sample recompute; check tail cost). **Deliverable:** a measured CPU drop, or confirmation it's already cheap.
-- **Day 4:** Final polish pass (defaults, a demo preset, edge cases). **Deliverable:** sane defaults plus one preset that shows the plugin off.
-- **Day 5:** Commit reverb to a presentable state; buffer. **Deliverable:** committed; buffer.
-- **Done when:** the reverb is portfolio-presentable with no known bug remaining.
-
-**✅ Checkpoint:** Two shippable plugins + a working reverb.
+**✅ Checkpoint:** A tested C++ DSP core (filters, overlap-add, multirate, lock-free IO), a Python reference for all of it, and the real-time rules cold.
 
 ---
 
-## Month 5 — Plugin #3 + open source + portfolio (Weeks 19–22)
+## Phase 3 — The STFT (Weeks 13–15)
 
-### Week 19 — Plugin #3
-*Resources:* ChowDSP + airwindows source.
-- **Day 1:** Choose #3 — the reverb you built in Month 4 is the natural pick (or a compressor, if that isn't already your Plugin #2), both meatier than the EQ; design one distinctive feature. **Deliverable:** a one-paragraph spec naming the distinctive feature and how you'll test it.
-- **Day 2:** Build the core DSP. **Deliverable:** the core effect processes audio correctly (measured).
-- **Day 3:** Build the distinctive feature. **Deliverable:** the feature works and is audibly/measurably present.
-- **Day 4:** Integrate core + feature; first musical sound. **Deliverable:** the full effect runs end-to-end in a DAW.
-- **Day 5:** Feature-complete Plugin #3; commit. **Deliverable:** committed, feature-complete #3.
-- **Done when:** the distinctive feature works and the plugin is feature-complete.
+The last invariant block. The STFT is the shared substrate of nearly every audio research direction on your list — spatial (binaural cues per band), music (chroma, onsets, MIR features), and speech (enhancement, separation). Whatever branch you take, you will build on this.
 
-### Week 20 — Polish #3
-- **Day 1:** GUI. **Deliverable:** a clean custom editor.
-- **Day 2:** Presets. **Deliverable:** preset save/load across a reload.
-- **Day 3:** Smoothing / denormals / edge cases. **Deliverable:** artifact-free under automation and silence.
-- **Day 4:** Multi-DAW testing. **Deliverable:** loads clean in 3 hosts; issues logged and fixed.
-- **Day 5:** Ship **Plugin #3** with README. **Deliverable:** a tagged release and a README.
-- **Done when:** Plugin #3 ships to the same bar as #1 and #2.
+*Resources:* Smith, _Spectral Audio Signal Processing_ (JOS, free online — Ch. on STFT and COLA). Allen & Rabiner (1977) for the original framing.
 
-### Week 21 — Open source on-ramp
-*Resources:* Surge XT repo + CONTRIBUTING guide; Surge XT Discord.
-- **Day 1:** Clone and build Surge XT from source. **Deliverable:** a local Surge XT build that runs.
-- **Day 2:** Join the Discord; read the contributing guide; run it locally. **Deliverable:** dev-setup notes; contributing rules understood.
-- **Day 3:** Find a "good first issue"; reproduce it. **Deliverable:** the issue reproduced, with a note on the suspected cause.
-- **Day 4:** Implement the fix. **Deliverable:** a local fix; the issue no longer reproduces.
-- **Day 5:** Open the PR (or have it clearly in progress). **Deliverable:** an opened PR, or a WIP branch pushed.
-- **Done when:** a real PR is open or demonstrably nearly there.
+### Week 13 — STFT theory
+- **Day 1:** The STFT as a filter bank vs. as a sequence of windowed transforms. **Deliverable:** state both views and reconcile them. *(This is the direct payoff of the Lec 15 promotion — each bin is a modulated, lowpassed channel.)*
+- **Day 2:** Windows — Hann, Hamming, Blackman; mainlobe width vs. sidelobe level; spectral leakage. **Deliverable:** measure each window's leakage; pick one with a stated reason.
+- **Day 3:** The **COLA** (constant overlap-add) condition. **Deliverable:** derive it; show why Hann at 50% overlap reconstructs perfectly.
+- **Day 4:** Time-frequency resolution — the uncertainty tradeoff; hop size vs. window length. **Deliverable:** written analysis of why you cannot have both, with a worked example.
+- **Day 5:** Consolidate + cards. **Deliverable:** derivation-prompt card for COLA. LOG.
+- **Done when:** you can explain the STFT as a modulated filter bank and derive the COLA condition cold.
 
-### Week 22 — 🔧 Catch-up / portfolio
-- **Day 1:** Iterate on OSS review feedback. **Deliverable:** the first round of reviewer comments addressed.
-- **Day 2:** Second OSS iteration / respond to re-review. **Deliverable:** the PR moved forward (approved, or next changes pushed).
-- **Day 3:** Polish READMEs on Plugins #1–#2 (screenshots, build steps, feature lists). **Deliverable:** #1 and #2 READMEs presentable.
-- **Day 4:** Polish README on Plugin #3 + the top-level profile. **Deliverable:** #3 README plus a pinned-repos/profile pass.
-- **Day 5:** GitHub profile presentable with three documented plugins. **Deliverable:** three documented plugins visible; buffer.
-- **Done when:** a stranger landing on your GitHub sees three buildable, documented plugins and an OSS contribution.
+### Week 14 — STFT/ISTFT implementation — **a hard gate**
+- **Days 1–2:** STFT forward transform (Python), then inverse with overlap-add. **Deliverable:** working analysis/synthesis.
+- **Day 3:** **Perfect reconstruction.** **Deliverable:** analysis → synthesis with no modification returns the input to machine precision. **Do not proceed past this.** Off-by-one hop errors, window normalization, and edge handling are a rite of passage, and a subtly broken STFT will silently poison everything you build on it — and you will blame the algorithm instead.
+- **Days 4–5:** Port to C++; agree with Python via the Week 7 harness. **Deliverable:** both implementations reconstructing to tolerance. Commit + LOG.
+- **Done when:** round-trip error is at machine precision in *both* languages.
 
-**✅ Checkpoint:** Three shippable plugins + one open-source contribution in motion.
+### Week 15 — STFT analysis tooling
+The one application that is invariant: **measurement infrastructure.** Every branch needs to look at time-frequency data, and this upgrades the Phase 0 harness from a magnitude-response plotter into a real analysis rig.
+- **Days 1–2:** Spectrogram — log-frequency and log-magnitude axes, dynamic-range control. **Deliverable:** your own spectrogram; reproduce the Week 1 aliasing-sweep figure with your own tool instead of Audacity's. *(A satisfying closure of the loop: you now own the instrument that first showed you the problem.)*
+- **Day 3:** Basic spectral features — centroid, flux, rolloff. **Deliverable:** implemented and sanity-checked. These are foundational whether you go toward MIR or toward speech.
+- **Day 4:** Phase — the phase spectrum, wrapping, group delay from the STFT. **Deliverable:** written note on why phase is so often discarded, and what it costs.
+- **Day 5:** Commit the analysis toolkit. **Deliverable:** documented, tested, pushed. LOG.
+- **Done when:** you can take an arbitrary WAV and produce a publication-quality time-frequency analysis with your own code.
+
+**✅ Phase 3 Checkpoint:** You own the STFT end to end — theory, perfect reconstruction, and an analysis toolkit — in both Python and C++.
 
 ---
 
-## Month 6 — Interview prep + depth consolidation (Weeks 23–29)
-*(The knowledge-building weeks (23–26) come before the timed drills and mocks (27–28). Weeks 25–26 are **target-conditional** — fixed-point/SIMD for embedded/DSP-firmware roles, DSA for big-tech audio teams — and can be cut for a boutique desktop-plugin path, shortening this month back toward five weeks. The DSP/real-time Q&A is easier than it looks because Phase 0 did the heavy lifting.)*
+## Week 16 — 🔀 The branch point
 
-### Week 23 — Depth review (build a Q&A bank)
-*Resources:* Bencina; Timur Doumler; Renn-Giles & Rowland (lock-free); ADC talks; **your own flashcard deck** (reviewed since Phase 0 — mine it for the written Q&A here).
-- **Day 1:** Real-time constraints + denormals. **Deliverable:** written Q&A for the topic, mined from your deck.
-- **Day 2:** Lock-free communication (atomics, FIFOs). **Deliverable:** written Q&A.
-- **Day 3:** Filters / biquads / bilinear transform. **Deliverable:** written Q&A (lean on Phase 0 — you derived all of this).
-- **Day 4:** Delay / interpolation / reverb / compressor internals. **Deliverable:** written Q&A.
-- **Day 5:** Assemble the full bank. **Deliverable:** a consolidated Q&A-bank document.
-- **Done when:** every core topic has answers you can deliver cold.
+**This is a decision week, not a study week.** By now you should know where you're going, or be very close.
 
-### Week 24 — C++ & audio-fundamentals depth
-*Resources:* Timur Doumler & Fabian Renn-Giles real-time C++ talks (already on your list); cppreference for the language items; a standard reference on dither/noise-shaping; Cooley–Tukey for the FFT.
-- **Day 1:** C++ object model. **Deliverable:** written Q&A plus short "what prints / what leaks / what dangles" snippets on RAII, the rule of 0/3/5, move semantics, and unique/shared/weak pointers — each answerable cold.
-- **Day 2:** C++ traps & cost model. **Deliverable:** Q&A on common undefined behavior, const-correctness, virtual-dispatch cost (vtables), and why parts of the standard library and JUCE aren't real-time-safe (allocation, `std::stable_sort`, `AudioBuffer::setSize`) — tied back to the audio-thread rules from Week 5.
-- **Day 3:** Quantization & the "numbers" of audio. **Deliverable:** a one-page note + cards on bit depth ↔ dynamic range (~6.02·N + 1.76 dB), dBFS vs dBSPL, quantization error, dither (why, and TPDF), and noise shaping.
-- **Day 4:** The FFT algorithm. **Deliverable:** derive radix-2 Cooley–Tukey (decimation-in-time) — butterflies, bit-reversal, O(N log N) — and implement a small radix-2 FFT, verified bin-for-bin against your Week 0.3 DFT on the same input. (Optional: drop it into the measurement harness so "FFT" is finally a real FFT.)
-- **Day 5:** Fold into the bank + cards. **Deliverable:** all four topics added to the Week 23 Q&A bank, with derivation-prompt cards (rule of five, dither rationale, FFT butterfly, bit-depth↔dB); each answered cold.
-- **Done when:** you can whiteboard the rule of five, explain dither and bit-depth-to-dB, and walk the radix-2 FFT — none of them cold-start gaps.
+- **Day 1:** Reconcile. Which programs admitted you? Which advisors confirmed? What did Faller, Corey, and Nam actually say? Write it down in one place.
+- **Day 2:** Pick the branch. The contingent tracks, and what each would look like:
 
-### Week 25 — Low-level & fixed-point depth  *(conditional: embedded / DSP-firmware targets)*
-*Skip this week for pure desktop-plugin roles (they're float/double). Keep it if you're aiming at embedded audio, DSP chips, or hearing-aid/firmware work — fixed-point is tested hard there. It also finally makes the SIMD hands-on real rather than read-only.*
-*Resources:* a Q-format primer (TI fixed-point docs are good); your own one-pole/biquad code; an intrinsics guide or `juce::dsp::SIMDRegister`.
-- **Day 1:** Fixed-point fundamentals. **Deliverable:** a note + cards on Q-format (e.g. Q15), converting float↔fixed (scale by 2¹⁵, round vs. truncate), and where precision is lost.
-- **Day 2:** Overflow, saturation, MAC. **Deliverable:** Q&A + a tiny code demo of wraparound vs. saturating arithmetic and multiply-accumulate; state the fixed-vs-float trade-off (range/precision/headroom, determinism, hardware cost).
-- **Day 3:** Fixed-point reimplementation. **Deliverable:** reimplement your one-pole (or biquad) in Q15 with saturation; verify its output against the float version through the harness within tolerance.
-- **Day 4:** SIMD hands-on. **Deliverable:** vectorize one hot loop (the biquad, or a gain/mix loop) with intrinsics or `juce::dsp::SIMDRegister`; **measure** the speedup vs. scalar.
-- **Day 5:** Consolidate + cards. **Deliverable:** fixed-point and SIMD folded into the Q&A bank (Q15 conversion, saturation, MAC, when SIMD helps and when it doesn't); each answered cold.
-- **Done when:** you can convert float↔Q15 and reason about overflow/saturation cold, and you have one fixed-point reimplementation plus one SIMD-vectorized loop with measured numbers.
+| If you land at… | The next block is… |
+|---|---|
+| **UIC / Corey** | Adaptive filtering (LMS → NLMS → frequency-domain), then mic arrays and beamforming (delay-and-sum → MVDR → GSC), then source separation. Aligns with ECE 516 and ECE 531. |
+| **CSUF / Faller** | HRTF and binaural processing, ITD/ILD cues, fast HRTF convolution (your Week 9 overlap-add), individualization. Builds directly on your existing JUCE room-acoustics project. |
+| **Aalborg / CASPR** | Acoustic signal processing for hearing devices — multichannel enhancement, noise reduction, the Oticon-adjacent stack. |
+| **PoliMi / ISPG** | Space-time audio processing, acoustic source localization, array geometry. |
+| **Aalto** | Spatial audio and acoustics — room acoustics, auralization, ambisonics. |
+| **KAIST / MACLab or UPF / MTG** | MIR and music AI — feature pipelines on top of your Week 15 toolkit, then deep learning for audio. |
+| **No program (self-study continues)** | Then choose a target *industry* and build the matching artifacts. This is the branch where the earlier embedded/speech plan (AEC, beamforming, Cortex-M port) becomes the right answer — but only in this branch. |
 
-### Week 26 — DSA / algorithms round  *(conditional: big-tech audio teams)*
-*Skip for boutique plugin shops (they screen with DSP take-homes, not LeetCode). Keep it if you're targeting large audio teams (Apple, Google, etc.) that fold in a standard algorithms round. **One week is a pattern sweep, not a from-zero cure** — it assumes the light DSA cadence from the weekly habits, ideally started back in Month 5.*
-*Resources:* a pattern-based resource (NeetCode roadmap or Cracking the Coding Interview); your strongest language.
-- **Day 1:** Arrays / strings / hashing — two-pointers, sliding window. **Deliverable:** a batch of problems worked; approach + time/space complexity logged for each.
-- **Day 2:** Linked lists / stacks / queues, then trees + BFS/DFS. **Deliverable:** a batch worked; logged.
-- **Day 3:** Sorting + binary search, then heaps / intervals. **Deliverable:** a batch worked; logged.
-- **Day 4:** Recursion / backtracking + intro dynamic programming. **Deliverable:** a batch worked; logged.
-- **Day 5:** Timed mixed set under interview conditions. **Deliverable:** a timed set completed; a one-page Big-O cheat-sheet for the common structures/operations.
-- **Done when:** you recognize the common patterns on sight and state time/space complexity cold (on top of the ongoing cadence — don't expect mastery from one week alone).
+- **Days 3–5:** **Write the next 12 weeks yourself, at day granularity**, for the branch you actually landed in. You'll have ~16 weeks of evidence about your real throughput by then — far better data than I have now. Bring it to me and I'll pressure-test it.
 
-### Week 27 — Implement from scratch, timed
-- **Day 1:** Biquad from memory, timed. **Deliverable:** a from-scratch biquad inside your time box; time logged.
-- **Day 2:** Delay line with interpolation, timed. **Deliverable:** timed implementation; logged.
-- **Day 3:** Envelope follower, timed. **Deliverable:** timed; logged.
-- **Day 4:** One-pole + an oscillator, timed. **Deliverable:** timed; logged.
-- **Day 5:** Re-run your weakest two under time pressure. **Deliverable:** the two slowest redone faster; logged.
-- **Done when:** each core primitive is implementable from memory inside the time box.
-
-### Week 28 — Mock interviews + project walkthroughs
-- **Day 1:** Write a 5-min demo script for Plugin #1. **Deliverable:** a written, rehearsed script.
-- **Day 2:** Same for Plugin #2. **Deliverable:** a script.
-- **Day 3:** Same for Plugin #3. **Deliverable:** a script.
-- **Day 4:** Mock DSP technical screen; log the gaps. **Deliverable:** a gap list from the mock.
-- **Day 5:** Mock behavioral + architecture walkthrough; log the gaps. **Deliverable:** a gap list.
-- **Done when:** you can demo all three plugins and survive a DSP screen.
-
-### Week 29 — 🔧 Catch-up / apply
-- **Day 1:** Fill the gaps surfaced in Week 28. **Deliverable:** the logged gaps closed.
-- **Day 2:** Finalize resume + portfolio links. **Deliverable:** resume and links done.
-- **Day 3:** First application batch. **Deliverable:** applications sent to your top target companies.
-- **Day 4:** Second application batch + tailored notes. **Deliverable:** the rest of the target list applied to.
-- **Day 5:** Buffer. **Deliverable:** buffer / follow-ups.
-- **Done when:** applications are out and you can walk your portfolio confidently.
-
-**✅ Checkpoint:** Pass a DSP technical screen and walk through your portfolio confidently.
+**Done when:** you know your branch and have planned the next block against it.
 
 ---
 
-## Where you'll realistically fall behind (revised)
+## Where you'll realistically fall behind
 
-1. **Phase 0 is a real ~8-week commitment** (seven content weeks + the 0.8 buffer). The Fourier weeks (0.2–0.3) and the Laplace/z weeks (0.5–0.6) are where rust bites — budget the problem-set days fully. Week 0.8 exists to absorb their overrun, so slide slipped work into it rather than compressing the derivations. If you slip further, cut the modulation lectures (0.4 D3) first — they're the least load-bearing for the plugin path. Keep the feedback/stability summary (0.7 D3); reverb (Weeks 14–15) depends on it.
-2. **The upside:** old Month 1's math risk is now *retired* — you'll hit biquads and the bilinear transform already understanding them. That's why Month 1 compresses to two weeks.
-3. **Month 2 is still the danger zone,** even with the extra week. JUCE onboarding + build system + a parameterized EQ is a lot; the Week 6/7 split (setup+pass-through, *then* the first parameter) is there to keep week one from collapsing. Treat Week 9's catch-up days as already spent.
-4. **Reverb (Month 4) will still fight you** — Week 16 is now an explicit polish week rather than borrowed catch-up time. Accept "decent" over "great" and move on.
-5. **"Shippable" costs 2–3× the build.** The ship days (Weeks 9, 17, 20) are the optimistic ones.
-6. **Open source can slip without hurting you.** Deprioritize Week 21 if behind — it's a credibility bonus, not a gate.
-7. **Weeks 25–26 are target-conditional, not core.** If you land on a boutique desktop-plugin target, cut the fixed-point/SIMD week (25) and the DSA round (26) outright — that pulls the plan back toward ~8 months. Only the embedded/DSP-firmware path needs fixed-point; only big-tech audio teams gate on DSA. Decide your target before Month 6 so you're not prepping for a screen you won't face.
+1. **Phase 1 is the sleeper risk.** It looks like five quiet weeks of math. It is the load-bearing wall under every branch, and it's the material you have the least prior exposure to. Do not compress it. Week 7's buffer exists for Weeks 5–6 specifically.
+2. **Week 14's perfect-reconstruction gate will take longer than a week looks like it should.** That's why it's a gate and not a checkpoint.
+3. **Application season will eat Weeks 11–16.** This is planned for (Week 12), and it is the correct trade. A shipped application beats a shipped biquad.
+4. **The outreach is the real critical path, and it has a clock.** Faller before August 10. Nam before the KAIST window. Corey before you commit $85–90K on an unconfirmed fit. **None of these should wait on this plan.**
+5. **Don't plan past Week 16.** This document has now been rewritten twice because it was built on a target that turned out to be provisional. The branch point is real; respect it.
 
+---
 ---
 
 ## Pset triage prompt (paste-in when a problem set is too long)
