@@ -1,8 +1,8 @@
-# DSP / Audio Software — Revised Plan (Theory-First, ~8.5 Months)
+# DSP / Audio Software — Revised Plan (Theory-First, ~8.75 Months)
 
-**What changed:** A 6-week **Phase 0 — Theory Foundation** is prepended, working through MIT RES.6-007 (Oppenheim's *Signals and Systems* video course) from Lecture 1, paired with light C++ so theory and code advance in tandem. Because Phase 0 does the derivations the old Month 1 was going to do (one-pole transfer function, z-transform, bilinear transform), **old Weeks 1–2 collapse into Phase 0** and Month 1 becomes a ~2-week "biquad" sprint.
+**What changed:** A 7-week **Phase 0 — Theory Foundation** is prepended, working through MIT RES.6-007 (Oppenheim's *Signals and Systems* video course) from Lecture 1, paired with light C++ so theory and code advance in tandem. Because Phase 0 does the derivations the old Month 1 was going to do (one-pole transfer function, z-transform, bilinear transform), **old Weeks 1–2 collapse into Phase 0** and Month 1 becomes a ~2-week "biquad" sprint.
 
-**What changed in this revision:** every build-month day now carries an explicit, checkable **Deliverable:** (matching Phase 0's rigor), and the old multi-day ranges ("Days 2–4") are broken into individual days. Being honest about the day count added two weeks where five clean days never fit the work: **+1 week in Month 2** (JUCE onboarding is split so week one ends at a loaded pass-through *before* any parameter) and **+1 week in Month 4** (a dedicated reverb-polish week, since reverb reliably overruns). Every build week also gained a **Done when:** finish condition. Phase 0 also gained **Week 0.7, a 1-week buffer** — the theory phase previously had no slack at all, and its two hardest weeks (0.4, 0.5) live there; the buffer is the landing zone for their overrun and a spaced second pass otherwise. Month 6 also gained **three weeks** for what screens test but the build months never touch: Week 24 (C++ language depth, audio quantization/dither, the FFT algorithm), and two **target-conditional** weeks — Week 25 (fixed-point/Q-format + the SIMD hands-on) and Week 26 (the DSA/algorithms round). Those last two are **cuttable if you target boutique desktop-plugin shops** — fixed-point matters for embedded/DSP-firmware roles, and the DSA round for big-tech audio teams. Net timeline: **~8.5 months** instead of 6 (the Phase 0 buffer is flexible, and Weeks 25–26 are droppable by target); build weeks run 3→29.
+**What changed in this revision:** every build-month day now carries an explicit, checkable **Deliverable:** (matching Phase 0's rigor), and the old multi-day ranges ("Days 2–4") are broken into individual days. Being honest about the day count added two weeks where five clean days never fit the work: **+1 week in Month 2** (JUCE onboarding is split so week one ends at a loaded pass-through *before* any parameter) and **+1 week in Month 4** (a dedicated reverb-polish week, since reverb reliably overruns). Every build week also gained a **Done when:** finish condition. Phase 0 also gained **Week 0.8, a 1-week buffer** — the theory phase previously had no slack at all, and its two hardest stretches (the lecture-dense sampling weeks 0.4–0.5 and the derivation-dense Laplace/z weeks 0.5–0.6) drain into it; the buffer is the landing zone for their overrun and a spaced second pass otherwise. Month 6 also gained **three weeks** for what screens test but the build months never touch: Week 24 (C++ language depth, audio quantization/dither, the FFT algorithm), and two **target-conditional** weeks — Week 25 (fixed-point/Q-format + the SIMD hands-on) and Week 26 (the DSA/algorithms round). Those last two are **cuttable if you target boutique desktop-plugin shops** — fixed-point matters for embedded/DSP-firmware roles, and the DSA round for big-tech audio teams. Phase 0 was also **re-paced to one lecture (+ its pset) per study day** after the P1D1 log showed two lectures and two psets don't fit a ~2-hour session — that spread the six content weeks to seven (0.1–0.7) and moved the buffer to Week 0.8. Net timeline: **~8.75 months** instead of 6 (the Phase 0 buffer is flexible, and Weeks 25–26 are droppable by target); build weeks run 3→29.
 
 **Assumes ~10 hrs/week = 5 study days × ~2 hrs.** Same as before.
 **Starting point:** ECE degree, comfortable in C++; you've already done the WAV writer, oscillators, and aliasing note (old Week 1) — those stay done and feed Phase 0.
@@ -17,72 +17,80 @@
 - **Dev journal (`LOG.md`).** Unchanged. During Phase 0, log theory sessions too — suggest a `P1D1:` prefix (P for the theory phase) so they're distinct from your existing `W1D1:` entries.
 - **Spaced-repetition deck (Anki, or plaintext `cards.md`).** New, Phase-0-specific. Each concept becomes a few *atomic* cards — recall prompts (*"Why does convolution in time equal multiplication in frequency?"*) and, in your derive-first spirit, **derivation-prompt cards** (front: *"Derive H(z) from y[n] = (1−a)x[n] + a·y[n−1]"*; back: the steps). **Start every study session with a ~5-min review of due cards, then add the day's new ones.** The scheduling is the whole point: a concept from Week 0.2 is still sharp at your Month-9 interviews instead of re-crammed.
 - **Commit small + test as you go.** Add unit tests from the biquad onward (as before). Wire up GitHub Actions when your first unit tests land (**Week 4 Day 3**) to build + run them on every push, and extend it to plugin builds once you're in JUCE.
-- **Measure, don't just listen.** You build the impulse→FFT harness *inside* Phase 0 now (Week 0.3), grounded in the DTFT lecture. Verify every filter against its design from then on.
+- **Measure, don't just listen.** You build the impulse→FFT harness *inside* Phase 0 now (Week 0.4), grounded in the DTFT lecture. Verify every filter against its design from then on.
 - **Log planned vs actual.** Unchanged. Especially important through Phase 0 — the Fourier and Laplace/z weeks are where rust bites.
 - **(If targeting big-tech audio teams) light DSA cadence.** From Month 5 on, do 2–3 algorithm problems per week in the background. DSA rewards spacing and can't be crammed — Week 26's dedicated round is a *pattern sweep on top of* this cadence, not a substitute for it. Skip this habit entirely if you're aiming at boutique plugin shops (they use DSP take-homes instead).
 
 ---
 
-## Phase 0 — Theory Foundation (≈6 weeks + a 1-week buffer)
-*Resource: MIT RES.6-007 (ocw.mit.edu). **Every lecture ships a problem set with full solutions** — those are your daily deliverables. Textbook pairing: Oppenheim & Willsky follows the course chapter-for-chapter; read the matching sections. **Rule: no day ends on "watched the video"** — each ends on a self-checked pset, a by-hand derivation, a batch of new flashcards, or committed code.*
+## Phase 0 — Theory Foundation (≈7 weeks + a 1-week buffer)
+*Resource: MIT RES.6-007 (ocw.mit.edu). **Every lecture ships a problem set with full solutions** — those are your daily deliverables. Textbook pairing: Oppenheim & Willsky follows the course chapter-for-chapter; read the matching sections. **Rule: one lecture + its problem set per study day** — never two lectures and two psets in one day (this pace is what the P1D1 log proved you need). The skim lectures (13–15, 25–26) ship no pset and may share a day; code days and consolidation days stay whole. **No day ends on "watched the video"** — each ends on a self-checked pset, a by-hand derivation, a batch of new flashcards, or committed code.*
 
-**Priority note:** the modulation lectures (Wk 0.4 D1–D2) are the most skippable if tight — for those, the deliverable is a short written summary rather than a full pset. The feedback lectures (Wk 0.6 D3) can also be *skimmed* to a summary, but **don't cut the stability concept itself** — Weeks 14–15 (reverb) depend on it. Everything else is core-path.
+**Priority note:** the modulation lectures (Wk 0.4 D3) are the most skippable if tight — that skim day already collapses them to a written summary rather than a full pset. The feedback lectures (Wk 0.7 D3) can also be *skimmed* to a summary, but **don't cut the stability concept itself** — Weeks 14–15 (reverb) depend on it. Everything else is core-path.
 
-### Week 0.1 — Signals, systems, LTI, convolution (Lec 1–6)
-- **Day 1:** Lec 1–2 (intro; signals & systems). **Deliverable:** PS1–PS2 worked and self-checked against solutions; seed the deck with your first few cards (e.g., *"What makes a system LTI, and why does that property matter?"*).
-- **Day 2:** Lec 3 + start Lec 4 (convolution). **Deliverable:** PS3 worked/checked; write the convolution-sum definition from memory with a one-line justification.
-- **Day 3:** Lec 4–5 (convolution; LTI properties). **Deliverable:** one 3-tap convolution by hand, end to end; PS4–PS5 checked.
-- **Day 4:** Code. **Deliverable:** a C++ `convolve()` with a passing test against your Day-3 hand example; committed.
-- **Day 5:** Lec 6 (differential **and** difference equations — the difference-equation form is your recursive oscillator/filter). **Deliverable:** derive the impulse response of `y[n] = b0·x[n] + a1·y[n−1]` by hand; PS6 checked; LOG.
-- **Done when:** you can say why an LTI system is fully described by its impulse response, and your `convolve()` matches the hand computation.
+### Week 0.1 — Signals, systems, LTI, convolution (Lec 1–5)
+- **Day 1:** Lec 1 (introduction). **Deliverable:** PS1 worked and self-checked against solutions; seed the deck with your first few cards (e.g., *"What makes a system LTI, and why does that property matter?"*).
+- **Day 2:** Lec 2 (signals & systems). **Deliverable:** PS2 worked/checked; a card pinning down the difference between linearity and time-invariance.
+- **Day 3:** Lec 3 (convolution). **Deliverable:** PS3 worked/checked; write the convolution-sum definition from memory with a one-line justification.
+- **Day 4:** Lec 4 (convolution). **Deliverable:** one 3-tap convolution by hand, end to end; PS4 worked/checked.
+- **Day 5:** Lec 5 (LTI properties). **Deliverable:** PS5 worked/checked; state in writing why an LTI system is fully described by its impulse response.
+- **Done when:** you can say why an LTI system is fully described by its impulse response, and you've worked a 3-tap convolution by hand.
 
-### Week 0.2 — Continuous-time Fourier (Lec 7–9)
-- **Day 1:** Lec 7 (CT Fourier series). **Deliverable:** compute the Fourier-series coefficients of a square wave by hand; PS7 checked.
-- **Day 2:** Lec 8 (CT Fourier transform). **Deliverable:** derive the transform of a rectangular pulse → sinc by hand; PS8 checked.
-- **Day 3:** Lec 9 (FT properties). **Deliverable:** one card per key property (linearity, shift, scaling, **conv↔mult**, duality) — property on the front, one-line statement + proof sketch on the back.
-- **Day 4:** Problem-set day (rust buffer). **Deliverable:** remaining PS7–PS9 problems worked, every miss re-worked to correct.
-- **Day 5:** Code. **Deliverable:** a naive O(N²) DFT in C++; single-bin spike for a sine, and your saw/square WAV harmonics match Audacity. LOG.
-- **Done when:** you can explain conv↔mult duality and your DFT locates a sine's frequency correctly.
+### Week 0.2 — Convolution in code, difference equations, CT Fourier begins (Lec 6–9)
+- **Day 1:** Code. **Deliverable:** a C++ `convolve()` with a passing test against your Week 0.1 Day-4 hand example; committed.
+- **Day 2:** Lec 6 (differential **and** difference equations — the difference-equation form is your recursive oscillator/filter). **Deliverable:** derive the impulse response of `y[n] = b0·x[n] + a1·y[n−1]` by hand; PS6 checked; LOG.
+- **Day 3:** Lec 7 (CT Fourier series). **Deliverable:** compute the Fourier-series coefficients of a square wave by hand; PS7 checked.
+- **Day 4:** Lec 8 (CT Fourier transform). **Deliverable:** derive the transform of a rectangular pulse → sinc by hand; PS8 checked.
+- **Day 5:** Lec 9 (FT properties). **Deliverable:** one card per key property (linearity, shift, scaling, **conv↔mult**, duality) — property on the front, one-line statement + proof sketch on the back; PS9 checked.
+- **Done when:** your `convolve()` matches the hand computation, and you can explain conv↔mult duality.
 
-### Week 0.3 — Discrete-time Fourier + filtering (Lec 10–12)
-- **Day 1:** Lec 10 (DT Fourier series). **Deliverable:** DTFS of a short periodic sequence by hand; PS10 checked.
-- **Day 2:** Lec 11 (DTFT — evaluated **on the unit circle**). **Deliverable:** derive the DTFT of a rectangular window; PS11 checked; add a card: *"How does the DTFT relate to the z-transform?"* → the unit-circle-slice answer.
-- **Day 3:** Lec 12 (filtering). **Deliverable:** sketch ideal LPF/HPF/BPF magnitude responses and state why the ideal filter is non-causal; PS12 checked.
-- **Day 4:** Code. **Deliverable:** the **measurement harness** — impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat. (The rig for the rest of the plan. Where the plan says "FFT," it means the **O(N²) DFT you built in Week 0.2** — that's the transform engine; a true radix-2 FFT is never required, though you can drop one in later if large-N measurements feel slow.)
-- **Day 5:** Consolidate. **Deliverable:** any remaining PS10–12 closed; harness committed + LOG.
-- **Done when:** the harness gives a sane magnitude response and you can articulate the DTFT as the unit-circle evaluation.
+### Week 0.3 — CT Fourier catch-up + DFT; DT Fourier & filtering (Lec 10–12)
+- **Day 1:** Problem-set day — the dedicated pset-catch for the CT Fourier block (Lec 7–9). **Deliverable:** remaining PS7–PS9 problems worked, every miss re-worked to correct.
+- **Day 2:** Code. **Deliverable:** a naive O(N²) DFT in C++; single-bin spike for a sine, and your saw/square WAV harmonics match Audacity. LOG.
+- **Day 3:** Lec 10 (DT Fourier series). **Deliverable:** DTFS of a short periodic sequence by hand; PS10 checked.
+- **Day 4:** Lec 11 (DTFT — evaluated **on the unit circle**). **Deliverable:** derive the DTFT of a rectangular window; PS11 checked; add a card: *"How does the DTFT relate to the z-transform?"* → the unit-circle-slice answer.
+- **Day 5:** Lec 12 (filtering). **Deliverable:** sketch ideal LPF/HPF/BPF magnitude responses and state why the ideal filter is non-causal; PS12 checked.
+- **Done when:** your DFT locates a sine's frequency correctly and you can articulate the DTFT as the unit-circle evaluation.
 
-### Week 0.4 — Modulation + sampling (Lec 13–19)
-- **Day 1:** Lec 13–14 (CT modulation + AM demo) — *skim.* **Deliverable:** one card covering AM (carrier, sidebands, coherent detection). No full pset.
-- **Day 2:** Lec 15 (DT modulation) — *skim.* **Deliverable:** 3-line note on frequency-shifting and where it aliases.
-- **Day 3:** Lec 16 (sampling theorem, Nyquist). **Deliverable:** state and sketch-prove the sampling theorem in your own words; PS16 checked. (The theory under `aliasing.md`.)
-- **Day 4:** Lec 17–19 (interpolation; DT processing of CT; decimation/downsampling). **Deliverable:** PS17–PS19 key problems checked; write the "filter *before* you decimate, and why" note (the anti-aliasing-before-downsampling principle). *(The older "BLEP/oversampling" pointer is optional — none of the five planned plugins are oscillator-based, so treat band-limited synthesis as out of scope unless you later add an oscillator effect.)*
-- **Day 5:** Code. **Deliverable:** aliasing fold-back confirmed numerically (tones above Nyquist measured against `f_s − f`); `aliasing.md` updated to cite the sampling theorem, not just the spectrogram. LOG.
-- **Done when:** your measured aliased frequencies match the sampling-theorem prediction.
+### Week 0.4 — Measurement harness; modulation skim; sampling begins (Lec 13–17)
+- **Day 1:** Code. **Deliverable:** the **measurement harness** — impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat. (The rig for the rest of the plan. Where the plan says "FFT," it means the **O(N²) DFT you built in Week 0.3** — that's the transform engine; a true radix-2 FFT is never required, though you can drop one in later if large-N measurements feel slow.)
+- **Day 2:** Consolidate the DT-Fourier block. **Deliverable:** any remaining PS10–12 closed; harness committed + LOG.
+- **Day 3:** Lec 13–15 (CT modulation + AM demo; DT modulation) — *skim, no pset.* **Deliverable:** one card covering AM (carrier, sidebands, coherent detection) **and** a 3-line note on frequency-shifting and where it aliases.
+- **Day 4:** Lec 16 (sampling theorem, Nyquist). **Deliverable:** state and sketch-prove the sampling theorem in your own words; PS16 checked. (The theory under `aliasing.md`.)
+- **Day 5:** Lec 17 (interpolation / reconstruction). **Deliverable:** PS17 checked; a one-line statement of how ideal reconstruction interpolates between samples.
+- **Done when:** the harness gives a sane magnitude response and you can state and sketch-prove the sampling theorem.
 
-### Week 0.5 — Laplace + z-transform (Lec 20–22) — the payoff week
-- **Day 1:** Lec 20 (Laplace; s-plane, poles/zeros, ROC). **Deliverable:** Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
-- **Day 2:** Lec 21 (CT second-order systems; resonance, Q). **Deliverable:** pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked. (Your biquad-Q intuition, early.)
-- **Day 3:** Lec 22 (z-transform). **Deliverable:** z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add a card: *"What does moving off the unit circle in the z-plane buy you over the DTFT?"*
+### Week 0.5 — Sampling & decimation; aliasing code; Laplace begins (Lec 18–20)
+- **Day 1:** Lec 18 (DT processing of CT signals). **Deliverable:** PS18 checked.
+- **Day 2:** Lec 19 (decimation / downsampling). **Deliverable:** PS19 checked; write the "filter *before* you decimate, and why" note (the anti-aliasing-before-downsampling principle). *(The older "BLEP/oversampling" pointer is optional — none of the five planned plugins are oscillator-based, so treat band-limited synthesis as out of scope unless you later add an oscillator effect.)*
+- **Day 3:** Problem-set / consolidation day — the sampling+modulation block is the lecture-dense stretch. **Deliverable:** any slipped PS16–PS19 worked, every miss re-worked to correct.
+- **Day 4:** Code. **Deliverable:** aliasing fold-back confirmed numerically (tones above Nyquist measured against `f_s − f`); `aliasing.md` updated to cite the sampling theorem, not just the spectrogram. LOG.
+- **Day 5:** Lec 20 (Laplace; s-plane, poles/zeros, ROC). **Deliverable:** Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
+- **Done when:** your measured aliased frequencies match the sampling-theorem prediction, and you can place a first-order system's poles in the s-plane.
+
+### Week 0.6 — Second-order systems, z-transform, the one-pole (Lec 21–22) — the payoff week
+- **Day 1:** Lec 21 (CT second-order systems; resonance, Q). **Deliverable:** pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked. (Your biquad-Q intuition, early.)
+- **Day 2:** Lec 22 (z-transform). **Deliverable:** z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add a card: *"What does moving off the unit circle in the z-plane buy you over the DTFT?"*
+- **Day 3:** Problem-set day — the dedicated pset-catch for the Laplace/z block (Lec 20–22), the derivation-dense stretch. **Deliverable:** remaining PS20–PS22 problems worked, every miss re-worked to correct.
 - **Day 4:** Derive + build. **Deliverable:** by hand, `y[n] = (1−a)x[n] + a·y[n−1]` → `H(z) = (1−a)/(1 − a·z⁻¹)`, pole at `z = a`; one-pole implemented in C++.
 - **Day 5:** Verify. **Deliverable:** one-pole impulse response through the harness; the pole predicts the measured −3 dB point and rolloff. Commit + LOG. *(Closes the theory→measurement loop; completes old Week 2.)*
 - **Done when:** your paper pole location matches the measured magnitude response.
 
-### Week 0.6 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
+### Week 0.7 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
 - **Day 1:** Lec 23 (mapping CT→DT filters = the bilinear transform). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; PS23 checked.
 - **Day 2:** Lec 24 (Butterworth). **Deliverable:** derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
-- **Day 3:** Lec 25–26 (feedback) — *skim the lectures to a summary, but keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **This is load-bearing for reverb** — revisit it before Week 14, where comb-filter feedback (gain ≤ 1) and recirculating-delay stability rest directly on it. Skim the video if tight; do not cut the idea.
+- **Day 3:** Lec 25–26 (feedback) — *skim the lectures to a summary, no pset, but keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **This is load-bearing for reverb** — revisit it before Week 14, where comb-filter feedback (gain ≤ 1) and recirculating-delay stability rest directly on it. Skim the video if tight; do not cut the idea.
 - **Day 4:** Consolidation. **Deliverable:** every Phase-0 pset closed; a from-memory bilinear-transform derivation, no notes.
 - **Day 5:** Full deck review + gap-fill. **Deliverable:** run a complete review pass; ensure every link in the chain — signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter — has at least one card you answer cold, plus derivation-prompt cards for the one-pole and the bilinear transform. This deck carries you to Month-6 interview prep. LOG.
 - **Done when:** you can walk the full chain unaided and re-derive the bilinear transform from scratch.
 
-### Week 0.7 — 🔧 Phase 0 buffer / consolidation
-*The only slack in Phase 0. Its primary job is to absorb overrun from the two hardest weeks — 0.4 (overloaded by lecture count) and 0.5 (overloaded by derivation depth) — which have no catch-up elsewhere. If a block slipped, the slid psets/derivations/code land on the matching day below. If you're fully on track, the default is a **spaced second pass**: re-derive the load-bearing results cold, a day per block. Spacing (revisiting after a gap) is exactly what depth topics like the z-transform respond to, so this week is productive even when nothing slipped — don't skip it just because you're caught up. It can compress to 2–3 days if truly clean.*
+### Week 0.8 — 🔧 Phase 0 buffer / consolidation
+*The only slack in Phase 0. Its primary job is to absorb overrun from the two hardest stretches — the sampling/modulation weeks (0.4–0.5, overloaded by lecture count) and the Laplace/z weeks (0.5–0.6, overloaded by derivation depth) — which have no catch-up elsewhere. If a block slipped, the slid psets/derivations/code land on the matching day below. If you're fully on track, the default is a **spaced second pass**: re-derive the load-bearing results cold, a day per block. Spacing (revisiting after a gap) is exactly what depth topics like the z-transform respond to, so this week is productive even when nothing slipped — don't skip it just because you're caught up. It can compress to 2–3 days if truly clean.*
 - **Day 1:** Fourier block (Weeks 0.2–0.3). **Deliverable:** any slipped PS7–PS12 closed; else re-derive one CT result (rect → sinc) and one DT result (DTFT of a rectangular window) cold, no notes.
-- **Day 2:** Sampling/modulation block (Week 0.4 — the lecture-dense week). **Deliverable:** any slipped PS16–PS19 or the 0.4 D5 aliasing code closed; else re-state and sketch-prove the sampling theorem cold and re-confirm the fold-back (`f_s − f`) against `aliasing.md`.
-- **Day 3:** Laplace/z block (Week 0.5 — the depth week). **Deliverable:** any slipped PS20–PS22 or the one-pole code closed; else re-derive `H(z) = (1−a)/(1 − a·z⁻¹)` with its pole at `z = a` cold, and re-run the one-pole through the harness to reconfirm the −3 dB point.
-- **Day 4:** CT→DT mapping block (Week 0.6). **Deliverable:** any slipped PS23–PS24 closed; else re-derive the bilinear substitution from scratch (frequency warping shown) with no notes, and re-derive the Butterworth pole placement.
-- **Day 5:** Whole-chain gate. **Deliverable:** a single unaided pass down the full chain (signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter); every link has a card you answer cold; nothing from 0.1–0.6 is left open. LOG.
+- **Day 2:** Sampling/modulation block (Weeks 0.4–0.5 — the lecture-dense stretch). **Deliverable:** any slipped PS16–PS19 or the Week 0.5 aliasing code closed; else re-state and sketch-prove the sampling theorem cold and re-confirm the fold-back (`f_s − f`) against `aliasing.md`.
+- **Day 3:** Laplace/z block (Weeks 0.5–0.6 — the depth stretch). **Deliverable:** any slipped PS20–PS22 or the one-pole code closed; else re-derive `H(z) = (1−a)/(1 − a·z⁻¹)` with its pole at `z = a` cold, and re-run the one-pole through the harness to reconfirm the −3 dB point.
+- **Day 4:** CT→DT mapping block (Week 0.7). **Deliverable:** any slipped PS23–PS24 closed; else re-derive the bilinear substitution from scratch (frequency warping shown) with no notes, and re-derive the Butterworth pole placement.
+- **Day 5:** Whole-chain gate. **Deliverable:** a single unaided pass down the full chain (signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter); every link has a card you answer cold; nothing from 0.1–0.7 is left open. LOG.
 - **Done when:** no Phase-0 pset, derivation, or code item is still open, and you can walk the chain and re-derive both the one-pole and the bilinear transform from a blank page.
 
 **✅ Phase 0 Checkpoint:** You can derive a filter's transfer function from its difference equation, place its poles, and predict its magnitude response — then confirm it with your own harness. The z-transform is no longer magic.
@@ -313,7 +321,7 @@
 - **Day 1:** C++ object model. **Deliverable:** written Q&A plus short "what prints / what leaks / what dangles" snippets on RAII, the rule of 0/3/5, move semantics, and unique/shared/weak pointers — each answerable cold.
 - **Day 2:** C++ traps & cost model. **Deliverable:** Q&A on common undefined behavior, const-correctness, virtual-dispatch cost (vtables), and why parts of the standard library and JUCE aren't real-time-safe (allocation, `std::stable_sort`, `AudioBuffer::setSize`) — tied back to the audio-thread rules from Week 5.
 - **Day 3:** Quantization & the "numbers" of audio. **Deliverable:** a one-page note + cards on bit depth ↔ dynamic range (~6.02·N + 1.76 dB), dBFS vs dBSPL, quantization error, dither (why, and TPDF), and noise shaping.
-- **Day 4:** The FFT algorithm. **Deliverable:** derive radix-2 Cooley–Tukey (decimation-in-time) — butterflies, bit-reversal, O(N log N) — and implement a small radix-2 FFT, verified bin-for-bin against your Week 0.2 DFT on the same input. (Optional: drop it into the measurement harness so "FFT" is finally a real FFT.)
+- **Day 4:** The FFT algorithm. **Deliverable:** derive radix-2 Cooley–Tukey (decimation-in-time) — butterflies, bit-reversal, O(N log N) — and implement a small radix-2 FFT, verified bin-for-bin against your Week 0.3 DFT on the same input. (Optional: drop it into the measurement harness so "FFT" is finally a real FFT.)
 - **Day 5:** Fold into the bank + cards. **Deliverable:** all four topics added to the Week 23 Q&A bank, with derivation-prompt cards (rule of five, dither rationale, FFT butterfly, bit-depth↔dB); each answered cold.
 - **Done when:** you can whiteboard the rule of five, explain dither and bit-depth-to-dB, and walk the radix-2 FFT — none of them cold-start gaps.
 
@@ -367,7 +375,7 @@
 
 ## Where you'll realistically fall behind (revised)
 
-1. **Phase 0 is a real ~7-week commitment** (six content weeks + the 0.7 buffer). The Fourier week (0.2) and the Laplace/z week (0.5) are where rust bites — budget the problem-set days fully. Week 0.7 exists to absorb their overrun, so slide slipped work into it rather than compressing the derivations. If you slip further, cut the modulation lectures (0.4 D1–D2) first — they're the least load-bearing for the plugin path. Keep the feedback/stability summary (0.6 D3); reverb (Weeks 14–15) depends on it.
+1. **Phase 0 is a real ~8-week commitment** (seven content weeks + the 0.8 buffer). The Fourier weeks (0.2–0.3) and the Laplace/z weeks (0.5–0.6) are where rust bites — budget the problem-set days fully. Week 0.8 exists to absorb their overrun, so slide slipped work into it rather than compressing the derivations. If you slip further, cut the modulation lectures (0.4 D3) first — they're the least load-bearing for the plugin path. Keep the feedback/stability summary (0.7 D3); reverb (Weeks 14–15) depends on it.
 2. **The upside:** old Month 1's math risk is now *retired* — you'll hit biquads and the bilinear transform already understanding them. That's why Month 1 compresses to two weeks.
 3. **Month 2 is still the danger zone,** even with the extra week. JUCE onboarding + build system + a parameterized EQ is a lot; the Week 6/7 split (setup+pass-through, *then* the first parameter) is there to keep week one from collapsing. Treat Week 9's catch-up days as already spent.
 4. **Reverb (Month 4) will still fight you** — Week 16 is now an explicit polish week rather than borrowed catch-up time. Accept "decent" over "great" and move on.
@@ -379,7 +387,7 @@
 
 ## Pset triage prompt (paste-in when a problem set is too long)
 
-*Use when a lecture's problem set is more than a ~2-hour day can hold. Paste this prompt plus the problem statements — solutions aren't needed (you self-check with those). It returns a keep/optional/skip cut list that deletes redundant drill without touching the load-bearing concepts. Best on rust-buffer and consolidation days; it barely helps the two hardest weeks (0.4 is overloaded by lecture count, 0.5 by derivation depth — different valves).*
+*Use when a lecture's problem set is more than a ~2-hour day can hold. Paste this prompt plus the problem statements — solutions aren't needed (you self-check with those). It returns a keep/optional/skip cut list that deletes redundant drill without touching the load-bearing concepts. Best on rust-buffer and consolidation days; it barely helps the two hardest stretches (the sampling/modulation weeks 0.4–0.5 are overloaded by lecture count, the Laplace/z weeks 0.5–0.6 by derivation depth — different valves).*
 
 > I'm triaging this problem set to fit a ~2-hour study day without losing load-bearing concepts. Below the line are the problem statements from **[lecture / week]**. This week's **Done when** is: **[paste the week's Done-when line]**.
 >
