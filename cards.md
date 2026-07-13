@@ -6,10 +6,10 @@ this file.
 
 ---
 
-## Week 0.1 Day 1 — seed cards
+## Week 0.1 Day 3 — seed cards
 
 **Q:** What makes a system LTI, and why does that property matter?
-**A:** Linear = scaling holds (a·x[n]→a·y[n]) *and* additivity holds (x₁+x₂→y₁+y₂). Time-invariant = a shifted input gives the identically shifted output (x[n−n₀]→y[n−n₀]). It matters because only when *both* hold is a system fully characterized by its impulse response h[n] — any output is just x[n]*h[n]. Without both, convolution stops being valid.
+**A:** A system is linear when scaling the input by a constant scales the output by the same constant (scaling) and when the response of a sum of inputs equals the sum of the individual responses (additivity). A system is time-invariant when a shifted input gives an output shifted by that same amount. The LTI property is important because an LTI system's impulse response determines its output for any input via convolution: y[n] = x[n] * h[n].
 
 **Q:** Find complex β such that e^β = −e⁻¹.
 **A:** Write −1 = e^{jπ} (not e^{−j3π/2} — that lands on +j, not −1). So β = −1 + jπ (+ j2πk).
