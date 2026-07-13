@@ -6,13 +6,10 @@ this file.
 
 ---
 
-## Week 0.1 Day 1 — seed cards
+## Week 0.1 Day 3 — seed cards
 
 **Q:** What makes a system LTI, and why does that property matter?
-**A:** Linear (superposition holds) + time-invariant (a shifted input gives the identically shifted output). It matters because an LTI system is fully characterized by one thing — its impulse response h[n] — so any output is just x[n]*h[n]. Without both properties, convolution stops being valid.
-
-**Q:** What's the actual difference between linearity and time-invariance?
-**A:** Linearity is about how the system treats combinations of *inputs* (scaling and superposition — a·x₁+b·x₂ → a·y₁+b·y₂), independent of time. Time-invariance is about how the system treats *shifts* — a delayed input produces the same output, just delayed. A system can have one without the other (e.g. y[n]=n·x[n] is linear but not time-invariant; y[n]=x²[n] is time-invariant but not linear).
+**A:** A system is linear when scaling the input by a constant scales the output by the same constant (scaling) and when the response of a sum of inputs equals the sum of the individual responses (additivity). A system is time-invariant when a shifted input gives an output shifted by that same amount. The LTI property is important because an LTI system's impulse response determines its output for any input via convolution: y[n] = x[n] * h[n].
 
 **Q:** Find complex β such that e^β = −e⁻¹.
 **A:** Write −1 = e^{jπ} (not e^{−j3π/2} — that lands on +j, not −1). So β = −1 + jπ (+ j2πk).
