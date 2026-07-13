@@ -1,10 +1,10 @@
 # Progress
 
-Current: Phase 0, Week 0.1, Day 2
+Current: Phase 0, Week 0.1, Day 3
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
-- P1D2 (in progress): Lec 2 (signals & systems) watched; PS2 worked through problem 2.6(b), self-checked against the solutions. Day 2 not yet closed: it still needs the remaining PS2 problems past 2.6(b), the D1 deck cards carried over, plus D2's own card pinning down the difference between linearity and time-invariance.
+- P1D2: Closed out PS2 problems 2.2–2.11 (self-checked), covering the old Day-1 PS1–PS2 scope since a few PS1 problems had been triaged/skipped in an earlier session, and seeded 7 cards including D2's required linearity-vs-time-invariance distinction; trap fell into and caught: solving `e^β = −e⁻¹` by writing −1 = e^{−j3π/2} instead of e^{jπ} — same magnitude, wrong quadrant, since e^{−j3π/2} lands on +j, not −1.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
