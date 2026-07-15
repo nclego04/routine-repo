@@ -1,11 +1,11 @@
 # Progress
 
-Current: Phase 0, Week 0.1, Day 3
+Current: Phase 0, Week 0.1, Day 4
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
 - P1D2: Closed out PS2 problems 2.2–2.11 (self-checked), covering the old Day-1 PS1–PS2 scope since a few PS1 problems had been triaged/skipped in an earlier session, and seeded 7 cards including D2's required linearity-vs-time-invariance distinction; trap fell into and caught: solving `e^β = −e⁻¹` by writing −1 = e^{−j3π/2} instead of e^{jπ} — same magnitude, wrong quadrant, since e^{−j3π/2} lands on +j, not −1.
-- P1D3 (in progress): Ran PS3 through the triage prompt; worked P3.1(c) (shift-sign check), P3.3(a) (the `x[n] = Σₖ aₖδ[n−k]` decomposition the impulse-response argument stands on), and P3.4(b) (flip-and-shift, the mechanic tomorrow's convolution sum needs), skipping the rest of P3.1, P3.3(b), and P3.4(a) per the triage's SKIP calls. Day 3 not yet closed: still needs the triage's KEEP items — P3.2 (u↔δ relations), P3.8(a,b,d,e) (the impulse-response argument itself, highest-leverage in the set), and P3.11 (the sharpest linear-but-not-TI trap) — plus the convolution-sum definition written from memory.
+- P1D3: Closed out PS3 — triage keep-set (P3.8 a,b,d,e; P3.11 a,b) plus stretch problems (P3.5, P3.8f, P3.10 a,b), on top of P3.1(c)/P3.3(a)/P3.4(b) already logged. Built the reusable decompose→time-invariance→linearity→substitute template for reusing an LTI system's known response on new inputs (P3.8), separated "two systems commute under cascade" from "a system is linear" as genuinely different claims (P3.5), and got the general LTI-cascade proof plus one-counterexample-disproves-a-universal-claim logic (P3.10). Most friction: P3.11(b), y[n]=x[n]+x[n−1]+x[0] — linear but not time-invariant.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
