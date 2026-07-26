@@ -1,11 +1,23 @@
 # Progress
 
-Current: Phase 0, Week 0.1, Day 4
+Current: Phase 0, Week 0.1, Day 5
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
 - P1D2: Closed out PS2 problems 2.2–2.11 (self-checked), covering the old Day-1 PS1–PS2 scope since a few PS1 problems had been triaged/skipped in an earlier session, and seeded 7 cards including D2's required linearity-vs-time-invariance distinction; trap fell into and caught: solving `e^β = −e⁻¹` by writing −1 = e^{−j3π/2} instead of e^{jπ} — same magnitude, wrong quadrant, since e^{−j3π/2} lands on +j, not −1.
 - P1D3: Closed out PS3 — triage keep-set (P3.8 a,b,d,e; P3.11 a,b) plus stretch problems (P3.5, P3.8f, P3.10 a,b), on top of P3.1(c)/P3.3(a)/P3.4(b) already logged. Built the reusable decompose→time-invariance→linearity→substitute template for reusing an LTI system's known response on new inputs (P3.8), separated "two systems commute under cascade" from "a system is linear" as genuinely different claims (P3.5), and got the general LTI-cascade proof plus one-counterexample-disproves-a-universal-claim logic (P3.10). Most friction: P3.11(b), y[n]=x[n]+x[n−1]+x[0] — linear but not time-invariant.
+- P1D4: Closed out PS4 — full keep-set (P4.1(c), P4.2, P4.3(b,c), P4.4(a,b), P4.9(a,b,c)); P4.2, P4.4(a), and P4.9(c) worked independently. Built the two-unit-steps → two-inequalities → overlap-is-the-window method for convolution limits (P4.3b), and reused it verbatim on the discrete sum (P4.4b). Separated convolution-with-δ (sifting, preserves the signal) from multiplication-by-δ (masking, destroys everything but one sample) — the (a)/(c) split in P4.9(a) turns on exactly that. P4.9(b): the stray factor of 2 in y(2t)=2[x(2t)*h(2t)] comes from the Jacobian dτ=2dτ′, not from x or h.
+  - **Friction:**
+    - Inequality flip on −τ again (P4.3b): read u(t−τ+1) as τ > t+1, then called t+1 the *upper* limit — self-inconsistent (two floors, no ceiling). Caught on re-derivation. Third appearance of this pattern.
+    - Collapsed signals to numbers three times in P4.9(a): gave x[0]y[0] where the answer was the signal h[0]·x[n], and y[n] where it was y[0]·δ[n]. The δ stays attached — it carries the shape.
+    - Wrote "sifting" but kept the integral (P4.3c). If an ∫ survives, the property wasn't applied.
+    - P4.9(a) write-up showed LHS and RHS have different *form* (g[n−k] trapped inside the sum vs g[n] factored out) but stopped there — different form isn't unequal. Needed the concrete counterexample (x=u[n], h=δ[n]: LHS=u[n], RHS=δ[n], differ at n=5).
+  - **Concepts locked:**
+    - Support-overlap, not "x is zero," is what turns the output on: the window exists iff the ceiling clears the floor.
+    - x(t)*aδ(t−t₀) = a·x(t−t₀) — scale and shift, shape intact. A *sum* of these is the multi-tap delay/reverb model (P4.8, P4.11).
+    - Step response settles at Σh = DC gain; for h=aⁿu[n], y[n]=2−(½)ⁿ → 1/(1−a). Same saturating shape as P4.3(b)'s 1−e⁻ᵗ — CT and DT versions of the one-pole.
+    - Finite geometric sum m=0..n has **n+1** terms, not n.
+  - **Next:** Day 5 — Lec 5 (LTI properties), PS5; state in writing why an LTI system is fully described by its impulse response.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**

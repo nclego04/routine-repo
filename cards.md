@@ -49,3 +49,15 @@ this file.
 
 **Q:** How do you expand (1+t¹⁰)/(1+t²) as a finite sum of powers of t, to feed a linear rule like T[tᵏ]=cos(kt)?
 **A:** Match to the finite geometric series 1+r+r²+...+rⁿ⁻¹ = (1−rⁿ)/(1−r) with r=−t², n=5: (1−(−t²)⁵)/(1−(−t²)) = (1+t¹⁰)/(1+t²). So the sum is Σₙ₌₀⁴(−t²)ⁿ = 1−t²+t⁴−t⁶+t⁸ — direct rematch of the PS2 finite-geometric-series slip.
+
+
+## Week 0.1 Day 4 — PS4 closeout cards
+
+**Q:** Convolving with δ vs multiplying by δ — what does each do to a signal?
+**A:** Opposite things. *Convolution* sifts and **preserves**: x[n]*δ[n−n₀] = x[n−n₀], the whole waveform, shifted. *Multiplication* masks and **destroys**: y[n]·δ[n] = y[0]·δ[n], zero everywhere except one spike at the origin. Note the result is still a *signal* (δ stays attached, carrying the shape) — not the bare number y[0]. This split is the whole content of P4.9(a).
+
+**Q:** Derive the integration limits for y(t)=∫x(τ)h(t−τ)dτ when x(τ)=e^−(τ−1)u(τ−1) and h(t−τ)=u(t−τ+1), and state when the output turns on.
+**A:** Each unit step is one inequality on τ; the overlap is the window. u(τ−1) ⇒ τ ≥ 1 (**floor**). u(t−τ+1) ⇒ t−τ+1 ≥ 0 ⇒ τ ≤ t+1 (**ceiling** — the −τ flips the direction). Output is nonzero iff the ceiling clears the floor: t+1 ≥ 1 ⇔ t ≥ 0; below that the supports don't overlap, so y=0 (it is *overlap* that vanishes, not x). Then τ′=τ−1 remaps limits to 0..t ⇒ ∫₀ᵗe^−τ′dτ′ = 1−e⁻ᵗ.
+
+**Q:** What is x(t) * aδ(t−t₀), and what audio operation is it?
+**A:** a·x(t−t₀) — delay by t₀ and gain by a; shape untouched. This is the single tap. A *sum*, h(t)=Σₖaₖδ(t−tₖ), drops a scaled copy of the input at each delay — the multi-tap echo/reverb model (P4.8, P4.11), and the atom under every delay line and chorus.
