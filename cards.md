@@ -25,9 +25,3 @@ this file.
 
 **Q:** Convolving with δ vs multiplying by δ — what does each do to a signal?<br>
 **A:** Opposite things. *Convolution* sifts and **preserves**: x[n]*δ[n−n₀] = x[n−n₀], the whole waveform, shifted. *Multiplication* masks and **destroys**: y[n]·δ[n] = y[0]·δ[n], zero everywhere except one spike at the origin. Note the result is still a *signal* (δ stays attached, carrying the shape) — not the bare number y[0]. This split is the whole content of P4.9(a).
-
-**Q:** Derive the integration limits for y(t)=∫x(τ)h(t−τ)dτ when x(τ)=e^−(τ−1)u(τ−1) and h(t−τ)=u(t−τ+1), and state when the output turns on.<br>
-**A:** Each unit step is one inequality on τ; the overlap is the window. u(τ−1) ⇒ τ ≥ 1 (**floor**). u(t−τ+1) ⇒ t−τ+1 ≥ 0 ⇒ τ ≤ t+1 (**ceiling** — the −τ flips the direction). Output is nonzero iff the ceiling clears the floor: t+1 ≥ 1 ⇔ t ≥ 0; below that the supports don't overlap, so y=0 (it is *overlap* that vanishes, not x). Then τ′=τ−1 remaps limits to 0..t ⇒ ∫₀ᵗe^−τ′dτ′ = 1−e⁻ᵗ.
-
-**Q:** What is x(t) * aδ(t−t₀), and what audio operation is it?<br>
-**A:** a·x(t−t₀) — delay by t₀ and gain by a; shape untouched. This is the single tap. A *sum*, h(t)=Σₖaₖδ(t−tₖ), drops a scaled copy of the input at each delay — the multi-tap echo/reverb model (P4.8, P4.11), and the atom under every delay line and chorus.
