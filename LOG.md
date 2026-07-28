@@ -18,6 +18,7 @@ Current: Phase 0, Week 0.1, Day 5
     - Step response settles at Σh = DC gain; for h=aⁿu[n], y[n]=2−(½)ⁿ → 1/(1−a). Same saturating shape as P4.3(b)'s 1−e⁻ᵗ — CT and DT versions of the one-pole.
     - Finite geometric sum m=0..n has **n+1** terms, not n.
   - **Next:** Day 5 — Lec 5 (LTI properties), PS5; state in writing why an LTI system is fully described by its impulse response.
+- P1D5: PS5 partially worked — P5.1 (inverse of the integrator, x(t) = dy/dt), P5.2(a) (h[n] = aⁿu[n] verified against y[n] − ay[n−1] = x[n]), P5.2(b)(ii) (causality read off h's support), P5.4 (h(t) = ds/dt by cascade commutativity — no computation, reordering does all the work). Open: P5.2(b)(i)(iii), P5.7, P5.9, P5.13. Third appearance of the negated-index flip: read k < 0 in Σ h[k]x[n−k] as reaching the past, when x[n−k] = x[n+|k|] is the future. Also dropped the leading a in a·h[n−1] so a·a^(n−1) → aⁿ didn't collapse, and labelled the inverse system's output y⁻¹(t) instead of tracking that the inverse's input is the forward system's output.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
