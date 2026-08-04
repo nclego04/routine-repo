@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.1, Day 5
+Current: Phase 0, Week 0.2, Day 2
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -19,6 +19,7 @@ Current: Phase 0, Week 0.1, Day 5
     - Finite geometric sum m=0..n has **n+1** terms, not n.
   - **Next:** Day 5 — Lec 5 (LTI properties), PS5; state in writing why an LTI system is fully described by its impulse response.
 - P1D5: PS5 partially worked — P5.1 (inverse of the integrator, x(t) = dy/dt), P5.2(a) (h[n] = aⁿu[n] verified against y[n] − ay[n−1] = x[n]), P5.2(b)(ii) (causality read off h's support), P5.4 (h(t) = ds/dt by cascade commutativity — no computation, reordering does all the work). Open: P5.2(b)(i)(iii), P5.7, P5.9, P5.13. Third appearance of the negated-index flip: read k < 0 in Σ h[k]x[n−k] as reaching the past, when x[n−k] = x[n+|k|] is the future. Also dropped the leading a in a·h[n−1] so a·a^(n−1) → aⁿ didn't collapse, and labelled the inverse system's output y⁻¹(t) instead of tracking that the inverse's input is the forward system's output.
+- P2D1: Implemented `convolve()` in C++ (direct form, O(N·M)), with the inner-loop bounds `k ∈ [max(0, n−M+1), min(n, N−1)]` derived from the two index constraints — 0 ≤ k ≤ N−1 and 0 ≤ n−k ≤ M−1 — rather than guarded with an in-range branch inside the loop. Test passes against the hand-worked vector x = {1, 4, −2, 5}, h = {2, −1, 3}, y = {2, 7, −5, 24, −11, 15}. Bug found: the bounds were written for the h-indexed form Σh[k]x[n−k] while the loop body used the x-indexed form Σx[k]h[n−k], so N and M were transposed — same structure, but an out-of-range read at the last output index. Also lost time to a linker error (`_main` undefined) that turned out to be a stale/unsaved file rather than a code problem.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
