@@ -25,3 +25,9 @@ this file.
 
 **Q:** Convolving with δ vs multiplying by δ — what does each do to a signal?<br>
 **A:** Opposite things. *Convolution* sifts and **preserves**: x[n]*δ[n−n₀] = x[n−n₀], the whole waveform, shifted. *Multiplication* masks and **destroys**: y[n]·δ[n] = y[0]·δ[n], zero everywhere except one spike at the origin. Note the result is still a *signal* (δ stays attached, carrying the shape) — not the bare number y[0]. This split is the whole content of P4.9(a).
+
+
+## Week 0.2 Day 3 — PS7 closeout card
+
+**Q:** Derive the convolution sum from LTI first principles.<br>
+**A:** Any input decomposes into a sum of scaled, shifted impulses (sifting). If the system is time-invariant, each impulse delayed by a value of k produces a system response delayed by a value of k. If the system is also linear, the response of the sum of impulses is the sum of the individual responses, which is the convolution sum.
