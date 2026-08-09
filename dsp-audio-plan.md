@@ -82,16 +82,17 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 |---|---|---|---|
 | **RES.6-007** | MIT *Signals and Systems* (Oppenheim) | Free, OCW | https://ocw.mit.edu/courses/res-6-007-signals-and-systems-spring-2011/video_galleries/video-lectures/ |
 | **NPTEL-SSP** | *Statistical Signal Processing*, Prof. Prabin Kumar Bora, IIT Guwahati | Free | https://nptel.ac.in/courses/108103158 |
+| **NPTEL-ATS** | *Applied Time-Series Analysis*, Prof. Arun Tangirala, IIT Madras — 12-week course, video permanently archived on archive.org, weekly tests and assignments. Includes prior estimation-theory lectures, so its periodogram treatment is properly random-process-framed, not just a DFT-computation exercise. | Free | https://archive.org/details/IIT_Madras_Applied_Time_Series_Analysis |
 | **DSP1–DSP4** | EPFL *Digital Signal Processing* Specialization (Prandoni & Vetterli) | Coursera (video + graded assignments accessible without certificate) | https://www.coursera.org/specializations/digital-signal-processing |
 | **ASPMA** | *Audio Signal Processing for Music Applications*, Serra (UPF) & J.O. Smith (Stanford) | Coursera (same access as above) | https://www.coursera.org/learn/audio-signal-processing |
-| **NPTEL-MR** | *Advanced DSP — Multirate and Wavelets*, Prof. V.M. Gadre, IIT Bombay | Free, YouTube/NPTEL | search the NPTEL archive |
+| **NPTEL-MR** | *Advanced DSP — Multirate and Wavelets*, Prof. V.M. Gadre, IIT Bombay — secondary/optional cross-reference for Week 10, superseded by EE123 as primary source | Free, YouTube/NPTEL | search the NPTEL archive |
 | **NPTEL-DR** | *Digital Signal Processing*, Prof. S.C. Dutta Roy, IIT Delhi (40+ lectures) | Free | https://nptel.ac.in/courses/117102060 |
 | **sms-tools** | ASPMA's Python package (reference implementation, not a course) | Free | https://github.com/MTG/sms-tools |
 | **JOS** | Julius O. Smith, *Spectral Audio Signal Processing* et al. — text, not video | Free, online books | https://ccrma.stanford.edu/~jos |
 | **6.341** | MIT *Discrete-Time Signal Processing* (Oppenheim) — **lecture notes only, no video on OCW** | Free, OCW | search "MIT OCW 6.341" |
-| **6.341x-YT** | Community reupload of 6.341x video (13 of ~23 lectures, stops at T5.2) — **not an institutional source; low view counts, no continuity guarantee, treat as bonus only** | Free, YouTube | search "MIT 6.341x Digital Signal Processing Oppenheim 2016 playlist" |
 | **RES.6-008** | MIT *Digital Signal Processing* (Oppenheim, 1987 distance-ed course) — full video, problem sets, and solutions, hosted permanently on OCW | Free, OCW | https://ocw.mit.edu/courses/res-6-008-digital-signal-processing-spring-2011/ |
-| **EE123** | UC Berkeley *Digital Signal Processing* (Miki Lustig) — 36 lectures, video hosted on archive.org via UC Berkeley's own webcast archive; weekly self-graded problem sets. **Confirmed to derive COLA explicitly (Lec 10–11); not confirmed to cover periodogram/Welch — it's a deterministic-signals course, and that argument needs the random-process framework EE123 doesn't build.** | Free, video on archive.org (search "EE123 Spring 2015 Berkeley Lustig"); current problem sets at the live course site, may require checking for public access | http://www.infocobuild.com/education/audio-video-courses/electronics/ee123-spring2015-berkeley.html |
+| **EE123** | UC Berkeley *Digital Signal Processing* (Miki Lustig) — 36 lectures, video hosted on archive.org via UC Berkeley's own webcast archive; weekly self-graded problem sets. **Confirmed to derive: COLA explicitly (Lec 10–11, DSP 504 Wk 13); polyphase decomposition and the noble identities (Lec 16–18, DSP 503 Wk 10). Not confirmed to cover periodogram/Welch (Lec 8–9) — it's a deterministic-signals course, and that argument needs the random-process framework EE123 doesn't build; use NPTEL-ATS instead for that.** | Free, video on archive.org (search "EE123 Spring 2015 Berkeley Lustig"); current problem sets at the live course site, may require checking for public access | http://www.infocobuild.com/education/audio-video-courses/electronics/ee123-spring2015-berkeley.html |
+| **Bela** | *C++ Real-Time Audio Programming with Bela* (Andrew McPherson, adapted from Queen Mary University of London's Music & Audio Programming MSc course) — 18+ lectures, confirmed live, consistent uploads since 2020. **Covers audio-thread rules and timing/block-size generally (DSP 503 Wk 11 Days 1, 4); does NOT cover denormals or lock-free multithreading specifically — its "Circular Buffers" lecture is framed for delay-line DSP, not inter-thread communication. No formally graded assignments, just downloadable hands-on examples.** | Free, YouTube | search "C++ Real-Time Audio Programming with Bela" |
 
 **Note on ASPMA:** taught by **Xavier Serra**, who directs UPF/MTG — one of your seven target programs. Completing it is a real, verifiable line in any outreach to that group.
 
@@ -217,7 +218,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 1:** PSD; the **Wiener–Khinchin** theorem (PSD = FT of autocorrelation). **Deliverable:** derive it. Derivation-prompt card. *(This is the stochastic mirror of Phase 0's conv↔mult duality — same structure, new object.)*
 - **Day 2:** **Filtering a random process:** `S_y(ω) = |H(e^jω)|² · S_x(ω)`. **Deliverable:** derive from scratch. This is the most-used identity in everything downstream.
 - **Day 3:** White noise through a filter; spectral factorization; the innovations representation. **Deliverable:** by hand, find the filter that shapes white noise into a given PSD.
-- **Day 4:** ⚠️ **Video gap — no course in the registry treats this properly.** Work from Hayes Ch. 8 and your own derivation. The periodogram and its **inconsistency**; Welch's method and why averaging fixes it. **Deliverable:** written explanation of why a longer FFT does *not* reduce periodogram variance but averaging does. *(This is a favorite interview and qualifying-exam question precisely because it's counterintuitive.)*
+- **Day 4:** *Video: NPTEL-ATS Lecture 49 ("Periodogram as PSD Estimator")* — found on a second search pass after general search missed it, since the course is indexed under time-series analysis, not DSP; the course's own prior estimation-theory lectures (Lec 36A) confirm it treats the periodogram as a statistical estimator, not just a DFT computation. The periodogram and its **inconsistency**; Welch's method and why averaging fixes it. **Deliverable:** written explanation of why a longer FFT does *not* reduce periodogram variance but averaging does; use the lecture as the reference derivation, checked against Hayes Ch. 8. *(This is a favorite interview and qualifying-exam question precisely because it's counterintuitive.)*
 - **Day 5:** Code. **Deliverable:** Python — Welch PSD estimator from scratch, validated against `scipy.signal.welch`. Commit + LOG.
 - **Done when:** you can predict the output PSD of any LTI filter driven by any input PSD, and explain why a raw periodogram is a bad estimator.
 
@@ -253,7 +254,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 
 ## Phase 2 (DSP 503) — Filters, multirate, and real-time C++ (Weeks 8–12)
 
-*Resources:* RBJ Audio EQ Cookbook; Proakis & Manolakis (FIR design, multirate); Crochiere & Rabiner, _Multirate Digital Signal Processing_; Ross Bencina, "Real-time audio programming 101"; Timur Doumler's real-time C++ talks. **Video spine: EPFL DSP2 Modules 1–2** (filter theory and design, Coursera) **+ EPFL DSP3** (sampling/multirate, Coursera) **+ NPTEL-MR and NPTEL-DR** (free) as supplementary benches. **No course exists for Week 11** — see that week for detail.
+*Resources:* RBJ Audio EQ Cookbook; Proakis & Manolakis (FIR design, multirate); Crochiere & Rabiner, _Multirate Digital Signal Processing_; Ross Bencina, "Real-time audio programming 101"; Timur Doumler's real-time C++ talks. **Video spine: EPFL DSP2 Modules 1–2** (filter theory and design, Coursera) **+ EPFL DSP3** (sampling/multirate, Coursera) **+ EE123** (UC Berkeley, Lustig — Week 10's primary multirate source) **+ NPTEL-DR** (free, deep bench). **Week 11 has no full course** — Bela covers two of its five days; see that week for detail.
 
 ### Week 8 — Biquads
 *Video: EPFL DSP2 Module 1 (13 videos — how digital filters work in time and frequency) + NPTEL-DR Lec 28–30 (filter structures, IIR realizations, all-pass)*
@@ -276,7 +277,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Done when:** you can say when FIR beats IIR and why, and your overlap-add convolution matches direct convolution to machine precision.
 
 ### Week 10 — Multirate
-*Video: EPFL DSP3 (sampling, interpolation, A/D–D/A conversion) + NPTEL-MR early lectures and the Noble Identities lecture specifically — that course is mostly wavelets, so triage hard and take only the multirate-relevant sessions. Bonus, not a replacement: 6.341x-YT's T4.1 ("Expanders and decimators") and T4.2 ("Noble identities") cover Days 1 and 3 directly, from the actual Oppenheim course — worth checking first since it's shorter and exact-topic, but don't build the week's structure around a non-institutional reupload staying online.*
+*Video: EE123 Lec 16–18 ("Resampling" → "Lab III and Polyphase Filters" → "Filter Banks") — confirmed to derive both polyphase decomposition and the noble identities directly (the interchange-of-operations diagrams showing downsample-then-filter ≡ filter-then-downsample), from the same durable archive.org-hosted source already used for Week 13. EPFL DSP3 (sampling, interpolation, A/D–D/A conversion) covers Day 1's setup. NPTEL-MR is now optional/secondary — useful for extra practice, not required.*
 
 - **Day 1:** Decimation and interpolation — the identities and the required anti-alias / anti-image filters. **Deliverable:** derive the spectral effect of ↓M and ↑L by hand.
 - **Day 2:** **Polyphase decomposition.** **Deliverable:** derive it; show why it's an M× saving (you filter only the samples you keep).
@@ -287,12 +288,12 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 
 ### Week 11 — Real-time audio constraints
 
-**⚠️ No course exists for this material — searched and confirmed.** EPFL DSP4 covers real-time audio on a hardware board, but that's embedded microcontroller work, not audio-thread discipline. This week runs entirely on talks, articles, and self-set deliverables. Treat that as a feature, not a gap: this is exactly the material that separates people who've shipped audio from people who've only taken courses.
+**No single course covers this week — confirmed after two search passes.** EPFL DSP4 covers real-time audio on a hardware board, but that's embedded microcontroller work, not audio-thread discipline. Bela's *C++ Real-Time Audio Programming* (Andrew McPherson, adapted from Queen Mary University of London's MSc course, confirmed live) covers Days 1 and 4 well — audio-thread rules and timing/block-size generally — but does not reach denormals or lock-free multithreading specifically, and has no formally graded assignments. Days 2–3 stay talk-and-article-only, deliverables entirely self-set. Treat that as a feature, not just a gap: this is exactly the material that separates people who've shipped audio from people who've only taken courses.
 
-- **Day 1:** Bencina's article; the audio-thread rules. **Deliverable:** notes — the list of what you may *never* do on the audio thread, and why the criterion is *unbounded*, not *slow*.
+- **Day 1:** *Video: Bela Lecture 1 ("Real Time")* — general concepts, cross-check against Bencina's article for the canonical rule list. Bencina's article; the audio-thread rules. **Deliverable:** notes — the list of what you may *never* do on the audio thread, and why the criterion is *unbounded*, not *slow*.
 - **Day 2:** Denormals; flush-to-zero; where they bite (IIR tails, decaying states, adaptive coefficients). **Deliverable:** demonstrate a denormal slowdown numerically, then fix it.
 - **Day 3:** Lock-free communication — atomics, memory ordering, SPSC ring buffers. **Deliverable:** implement an SPSC ring buffer; state precisely why a mutex is disqualified.
-- **Day 4:** Block processing; latency vs. block size; the algorithmic-delay budget. **Deliverable:** written latency analysis of a full-duplex audio pipeline.
+- **Day 4:** *Video: Bela Lecture 9 ("Timing") and Lecture 17 ("Block-based Processing")* — general treatment of latency and block-size tradeoffs, not audio-plugin-specific but directly transferable. Block processing; latency vs. block size; the algorithmic-delay budget. **Deliverable:** written latency analysis of a full-duplex audio pipeline.
 - **Day 5:** **Deliverable:** a one-page real-time-audio cheat sheet, written cold. Commit + LOG.
 - **Done when:** you can explain the audio-thread rules, denormals, and lock-free SPSC from memory, and your ring buffer survives a threaded stress test.
 
@@ -356,12 +357,13 @@ The one application that is invariant: **measurement infrastructure.** Every bra
 
 ## Coverage Ledger — where the video backing is thin
 
-Stated plainly so you're never surprised mid-week. Two confirmed gaps remain across 21 weeks — down from four, after RES.6-008 Lec 10 closed overlap-add and EE123 Lec 10–11 closed COLA. Both were searched specifically and repeatedly, across every platform in the Source Registry plus university OCW sites, topic-authority searches, and conference tutorials, and confirmed open rather than merely unexamined. (Week 10's multirate video coverage is imperfect and needs triage — see that week's own *Video:* line — but it's not a true gap in this sense: real sources exist, just not a clean single fit.)
+One confirmed gap remains across 21 weeks — narrowed, not fully closed. RES.6-008 Lec 10 closed overlap-add, EE123 Lec 10–11 closed COLA, NPTEL-ATS Lec 49 closed the periodogram gap on a second search pass, and Bela narrowed Week 11 from five ungraded days to two. Along the way, several courses were checked and explicitly ruled out despite strong title matches — MIT 2.161 (right content, no video at all), EE123 Lec 8–9 (video exists, wrong theoretical framing), Stanford CCRMA's real-time courses (real syllabi, no public video, wrong language for the raw-C++ need), and Vaidyanathan's own Caltech multirate course (hasn't been offered in years, no public video ever existed) — logged here so none gets re-proposed as a fix without re-checking why it failed the first time.
 
 | Where | Gap | Fallback |
 |---|---|---|
-| **DSP 502, Wk 4 D4** | Periodogram inconsistency / Welch | Hayes Ch. 8 + your own derivation. Closest near-miss: EE123 Lec 8–9 ("Spectral Analysis using DFT") — checked and ruled out, since EE123 is a deterministic-signals course and this argument needs the random-process framework it doesn't build. Don't substitute it for the real derivation. |
-| **DSP 503, Wk 11** | **Entire week — real-time audio C++** | Bencina + Doumler talks, self-set deliverables |
+| **DSP 503, Wk 11** | **Real-time audio C++ — Days 2–3 specifically (denormals, lock-free SPSC)** | Bela (Andrew McPherson) covers Days 1 and 4 with real video, confirmed live; Days 2–3 stay Bencina + Doumler talks, self-set deliverables. No graded assignments anywhere in the week. |
+
+This is the one week in the whole sequence with no external check on your own derivations. Treat it accordingly.
 
 ---
 
@@ -395,7 +397,7 @@ Stated plainly so you're never surprised mid-week. Two confirmed gaps remain acr
 1. **Phase 1 (DSP 502) is the sleeper risk.** It looks like five quiet weeks of math. It is the load-bearing wall under every branch, and it's the material you have the least prior exposure to. Do not compress it. Week 7's buffer exists for Weeks 5–6 specifically — and Week 5 Day 2, carrying the pulled-forward orthogonality lecture, is the single most likely day to need it.
 2. **Week 14's perfect-reconstruction gate will take longer than a week looks like it should.** That's why it's a gate and not a checkpoint.
 3. **Application season will eat Weeks 11–16.** This is planned for (Week 12), and it is the correct trade. A shipped application beats a shipped biquad.
-4. **The two video-coverage gaps (see the Coverage Ledger) have no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
+4. **The one remaining video-coverage gap (see the Coverage Ledger) has no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
 5. **The outreach is the real critical path, and it has a clock.** Faller before August 10. Nam before the KAIST window. Corey before you commit $85–90K on an unconfirmed fit. **None of these should wait on this plan.**
 6. **Don't plan past Week 16.** This document has now been rewritten twice because it was built on a target that turned out to be provisional. The branch point is real; respect it.
 
