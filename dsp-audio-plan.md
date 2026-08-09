@@ -12,7 +12,7 @@
 
 The previous version of this plan targeted **boutique desktop-plugin work**: JUCE, VST3, APVTS, GUIs, presets, and three shipped plugins (EQ, delay/chorus, reverb, compressor). That's cut.
 
-The reason isn't a job posting. It's that **the plugin track was misaligned with your own MS strategy, and had been from the start.** Nothing on your shortlist points at desktop plugins. Not Corey's mic arrays and assistive listening. Not Faller's HRTF work. You were running a self-study track aimed at one industry and an admissions strategy aimed at another. The plugin work is genuinely enjoyable and genuinely orthogonal to both programs you're actually applying to.
+The reason isn't a job posting. It's that **the plugin track was misaligned with your own MS strategy, and had been from the start.** Nothing on your shortlist points at desktop plugins. Not Corey's mic arrays and assistive listening. Not Faller's HRTF work. You were running a self-study track aimed at one industry and an admissions strategy aimed at another. The plugin work is genuinely enjoyable and genuinely orthogonal to both programs on your list — UIC, where you're admitted, and CSUF, where a decision is pending.
 
 **What survives:** Phase 0 in full, the biquad, the measurement harness, the WAV/oscillator work already committed, and the real-time C++ discipline. Nothing you have done so far is wasted.
 
@@ -76,7 +76,9 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 | **RES.6-007** | MIT *Signals and Systems* (Oppenheim) | Free, OCW | https://ocw.mit.edu/courses/res-6-007-signals-and-systems-spring-2011/video_galleries/video-lectures/ |
 | **NPTEL-SSP** | *Statistical Signal Processing*, Prof. Prabin Kumar Bora, IIT Guwahati | Free | https://nptel.ac.in/courses/108103158 |
 | **NPTEL-ATS** | *Applied Time-Series Analysis*, Prof. Arun Tangirala, IIT Madras — 12-week course, video permanently archived on archive.org, weekly tests and assignments. Includes prior estimation-theory lectures, so its periodogram treatment is properly random-process-framed, not just a DFT-computation exercise. | Free | https://archive.org/details/IIT_Madras_Applied_Time_Series_Analysis |
-| **DSP1–DSP4** | EPFL *Digital Signal Processing* Specialization (Prandoni & Vetterli) | Coursera (video + graded assignments accessible without certificate) | https://www.coursera.org/specializations/digital-signal-processing |
+| **EPFL DSP2** | *Digital Signal Processing 2: Filtering*, EPFL (Prandoni & Vetterli) — Module 1 (filter theory) and Module 3 (random signals, adaptive filters) both cited in this plan; Module 2 (filter design) also used. | Coursera (video + graded assignments accessible without certificate) | https://www.coursera.org/specializations/digital-signal-processing (individual course pages within the specialization; direct per-course URLs not independently verified) |
+| **EPFL DSP3** | *Digital Signal Processing 3: Sampling and Quantization*, EPFL (Prandoni & Vetterli) | Coursera (same access as above) | see above |
+| **EPFL DSP4** | *Digital Signal Processing 4: Real-Time DSP*, EPFL (Prandoni & Vetterli) — checked directly and ruled out as Week 11's fix: covers real-time audio on a hardware board, which is embedded microcontroller work, not audio-thread discipline | Coursera (same access as above) | see above |
 | **ASPMA** | *Audio Signal Processing for Music Applications*, Serra (UPF) & J.O. Smith (Stanford) | Coursera (same access as above) | https://www.coursera.org/learn/audio-signal-processing |
 | **NPTEL-MR** | *Advanced DSP — Multirate and Wavelets*, Prof. V.M. Gadre, IIT Bombay — secondary/optional cross-reference for Week 10, superseded by EE123 as primary source | Free, YouTube/NPTEL | search the NPTEL archive |
 | **NPTEL-DR** | *Digital Signal Processing*, Prof. S.C. Dutta Roy, IIT Delhi (40+ lectures) | Free | https://nptel.ac.in/courses/117102060 |
@@ -94,7 +96,7 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 
 **Note on ASPMA:** taught by **Xavier Serra**, a leading authority on this exact material. No longer relevant as an outreach angle now that UPF isn't on your shortlist, but the course quality stands on its own.
 
-**Note on Coursera access:** video and graded/programming assignments are both accessible on audit; only the certificate is gated. Treat DSP1–DSP4 and ASPMA as fully usable course spines, not partial ones.
+**Note on Coursera access:** video and graded/programming assignments are both accessible on audit; only the certificate is gated. Treat EPFL DSP2–DSP4 and ASPMA as fully usable course spines, not partial ones.
 
 ---
 ## Phase 0 (DSP 501) — Theory Foundation (≈7 weeks + a 1-week buffer)
@@ -259,7 +261,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 
 - **Day 1:** RBJ cookbook; Direct Form I vs. II vs. transposed DF-II, and why DF-II behaves worse numerically. **Deliverable:** written comparison. With the bilinear transform already derived in Phase 0, this is coefficient bookkeeping, not new theory.
 - **Day 2:** Implement a `Biquad` class (DF-I) with LPF coefficients. **Deliverable:** compiles, runs, committed.
-- **Day 3:** Add HPF, peaking, shelf. **Deliverable:** all four types; trace Q behavior back to Lec 21's pole pairs.
+- **Day 3:** Add HPF, peaking, shelf. **Deliverable:** all four types; trace Q behavior back to RES.6-007 Lec 21's pole pairs.
 - **Day 4:** Measure all four through the Phase 0 harness. **Deliverable:** measured |H| matches designed |H| for each type.
 - **Day 5:** Unit tests (DC gain, Nyquist gain, coefficient sanity); GitHub Actions running them on push. Submit the DSP2 Module 1 graded assignment. **Deliverable:** green CI. Commit + LOG.
 - **Done when:** measured response matches theory for all four types, and CI is green.
