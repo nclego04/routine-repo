@@ -2,7 +2,7 @@
 
 **What this plan is:** the body of work that is correct **regardless of which program, advisor, or research direction you end up in.** It runs from where you are now (Phase 0, Week 0.1) through Week 16, and then it deliberately stops.
 
-**Why it stops.** Your MS strategy has an active decision cluster — a self-set November 2026 go/no-go, and a December 2026 – February 2027 application window across seven programs (CSUF, UIC, KAIST, Aalto, PoliMi, Aalborg, UPF). Until that resolves, you don't know whether your next two years are mic arrays and source separation (UIC/Corey), HRTF and spatialization (CSUF/Faller), acoustic signal processing and hearing devices (Aalborg/CASPR), space-time audio (PoliMi/ISPG), spatial audio and acoustics (Aalto), or music information retrieval (KAIST/MACLab, UPF/MTG). **Those branches diverge after Week 16 and not before.** Planning past the branch point is inventing detail I'd only have to throw away — and this plan has now been rewritten twice for exactly that reason.
+**Why it stops.** Your MS strategy has one remaining decision, not a decision cluster anymore. UIC is secured — Corey's program has admitted you. CSUF is submitted and pending — Faller's outcome isn't known yet. Until CSUF resolves, you don't know whether your next two years are mic arrays and source separation (UIC/Corey) or HRTF and spatialization (CSUF/Faller). **Those branches diverge after Week 16 and not before.** Planning past the branch point is inventing detail I'd only have to throw away — and this plan has now been rewritten twice for exactly that reason.
 
 **Course structure.** This plan is organized as four linked courses — **DSP 501** (Phase 0), **DSP 502** (Phase 1), **DSP 503** (Phase 2), **DSP 504** (Phase 3) — each backed by a real course with video lectures and graded problem sets, in the same watch-lecture → work-assignment → self-check pattern RES.6-007 already established for Phase 0. Every video source is listed once in the **Source Registry** below. A handful of weeks aren't fully video-backed; those are flagged inline where they occur and summarized in the **Coverage Ledger** near the end. Day-level deliverables are unchanged in intent from earlier versions of this plan — what's new is the lecture attached to each one.
 
@@ -12,7 +12,7 @@
 
 The previous version of this plan targeted **boutique desktop-plugin work**: JUCE, VST3, APVTS, GUIs, presets, and three shipped plugins (EQ, delay/chorus, reverb, compressor). That's cut.
 
-The reason isn't a job posting. It's that **the plugin track was misaligned with your own MS strategy, and had been from the start.** Nothing on your shortlist points at desktop plugins. Not Corey's mic arrays and assistive listening. Not Faller's HRTF work. Not CASPR's acoustic signal processing. Not ISPG's space-time audio. Not MACLab or the MTG. You were running a self-study track aimed at one industry and an admissions strategy aimed at another. The plugin work is genuinely enjoyable and genuinely orthogonal to every program you're actually applying to.
+The reason isn't a job posting. It's that **the plugin track was misaligned with your own MS strategy, and had been from the start.** Nothing on your shortlist points at desktop plugins. Not Corey's mic arrays and assistive listening. Not Faller's HRTF work. You were running a self-study track aimed at one industry and an admissions strategy aimed at another. The plugin work is genuinely enjoyable and genuinely orthogonal to both programs you're actually applying to.
 
 **What survives:** Phase 0 in full, the biquad, the measurement harness, the WAV/oscillator work already committed, and the real-time C++ discipline. Nothing you have done so far is wasted.
 
@@ -33,31 +33,24 @@ Strip out everything branch-specific and this is what remains standing under **e
 
 ---
 
-## ⚠️ This plan collides with application season
+## The one thing that might still land in this window
 
-Weeks 11–16 land roughly **November 2026 – February 2027**, which is exactly your go/no-go month plus the full application cluster (PoliMi ~Dec 1; Aalto Dec 7 – Jan 5; KAIST ~Dec–Jan; UPF rolling from mid-Nov; UIC registration ~Nov 23–26).
-
-**Do not plan for 10 hrs/week through that window.** Applications, statements of purpose, and advisor correspondence will eat study time, and pretending otherwise is how plans get abandoned rather than adjusted. Two deliberate responses are built in:
-- **Week 12's buffer is explicitly reserved** for application overflow, not just study overrun.
-- **Week 16 is a decision checkpoint, not a study week.**
-
-If Phase 3 slides into March 2027, that is the plan working, not the plan failing.
+Weeks 11–16 land roughly November 2026 – February 2027. Faller's decision on CSUF could arrive somewhere in that stretch — you don't control the timing. If it does, that's worth an actual day of thought against UIC, not a rushed evening decision between problem sets. Beyond that, this window is no longer double-booked the way earlier versions of this plan assumed: no applications to write, no statements of purpose, no advisor-correspondence crunch competing with study time. Week 12's buffer reverts to being a plain buffer, and Week 16 stays a decision checkpoint — just for a lighter reason now: confirm whatever CSUF said, and choose.
 
 ---
 
 ## ⏰ What is actually urgent, and it isn't this plan
 
-Your own strategy notes are unambiguous: **advisor outreach is the critical path, not applications, and not this study plan.**
+Your own strategy notes are unambiguous: **advisor outreach is the critical path, not this study plan.** Applications themselves are no longer the clock — both are submitted, one already admitted — but two narrower things aren't automatically resolved just because the paperwork is:
 
-- **CSUF Open University approval opens August 10, 2026, 8:00 a.m., first-come** — about a month out. The Faller email is supposed to land *before* that window so he has context when your request reaches him.
-- **The Nam email (KAIST) is the single highest-leverage action for that entire path** — no advisor means no application at all, since GSCT requires an advisor name.
-- **Corey (UIC) MS-thesis supervision is still unconfirmed**, and UIC is the most expensive option on your list (~$85–90K). You are currently holding a 4–5× cost premium against an unverified research fit.
+- **CSUF Open University approval opens August 10, 2026, 8:00 a.m., first-come** — two days out. If this is a separate track from the graduate application you already submitted, it's still live, and the Faller email still needs to land first so he has context. If it's the same process, this is resolved — worth a ten-second confirmation, not a rewrite of the plan.
+- **Admission to UIC isn't the same thing as Corey's confirmed thesis supervision.** Programs admit; specific advisors commit separately. UIC is still the most expensive option on your list (~$85–90K), and until Corey has said yes specifically, you're holding a cost premium against a research fit that's likely but not locked.
 
-None of those have been sent. The next 16 weeks of study are correct no matter what; the outreach has a clock on it. **If you have two hours this week, spend them on the Faller email, not on Lec 3.**
+The next 16 weeks of study are correct no matter what; whichever of these is still open has the clock, not the plan. **If you have two hours this week and either one is unresolved, spend them there, not on Lec 3.**
 
 ---
 
-**Assumes ~10 hrs/week = 5 study days × ~2 hrs** (with the application-season exception above).
+**Assumes ~10 hrs/week = 5 study days × ~2 hrs.**
 **Starting point:** ECE degree, comfortable in C++; WAV writer, oscillators, and the aliasing note already committed.
 **Week numbering is unchanged:** build weeks still start at **Week 3**, so the `P<wk>D<day>` / `W<wk>D<day>` log scheme and the briefing routine's Phase-0 → Week-3 handoff both survive untouched.
 
@@ -94,7 +87,7 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 | **EE123** | UC Berkeley *Digital Signal Processing* (Miki Lustig) — 36 lectures, video hosted on archive.org via UC Berkeley's own webcast archive; weekly self-graded problem sets. **Confirmed to derive: COLA explicitly (Lec 10–11, DSP 504 Wk 13); polyphase decomposition and the noble identities (Lec 16–18, DSP 503 Wk 10). Not confirmed to cover periodogram/Welch (Lec 8–9) — it's a deterministic-signals course, and that argument needs the random-process framework EE123 doesn't build; use NPTEL-ATS instead for that.** | Free, video on archive.org (search "EE123 Spring 2015 Berkeley Lustig"); current problem sets at the live course site, may require checking for public access | http://www.infocobuild.com/education/audio-video-courses/electronics/ee123-spring2015-berkeley.html |
 | **Bela** | *C++ Real-Time Audio Programming with Bela* (Andrew McPherson, adapted from Queen Mary University of London's Music & Audio Programming MSc course) — 18+ lectures, confirmed live, consistent uploads since 2020. **Covers audio-thread rules and timing/block-size generally (DSP 503 Wk 11 Days 1, 4); does NOT cover denormals or lock-free multithreading specifically — its "Circular Buffers" lecture is framed for delay-line DSP, not inter-thread communication. No formally graded assignments, just downloadable hands-on examples.** | Free, YouTube | search "C++ Real-Time Audio Programming with Bela" |
 
-**Note on ASPMA:** taught by **Xavier Serra**, who directs UPF/MTG — one of your seven target programs. Completing it is a real, verifiable line in any outreach to that group.
+**Note on ASPMA:** taught by **Xavier Serra**, a leading authority on this exact material. No longer relevant as an outreach angle now that UPF isn't on your shortlist, but the course quality stands on its own.
 
 **Note on Coursera access:** video and graded/programming assignments are both accessible on audit; only the certificate is gated. Treat DSP1–DSP4 and ASPMA as fully usable course spines, not partial ones.
 
@@ -297,12 +290,12 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **Deliverable:** a one-page real-time-audio cheat sheet, written cold. Commit + LOG.
 - **Done when:** you can explain the audio-thread rules, denormals, and lock-free SPSC from memory, and your ring buffer survives a threaded stress test.
 
-### Week 12 — 🔧 Buffer + application overflow
-*This week is deliberately double-booked, and the applications win.* It lands near your November go/no-go and the opening of the application cluster.
-- **Days 1–3:** Absorb study overrun **or** application work — statements of purpose, advisor correspondence, UIC registration (~Nov 23–26), whichever is live. Do not feel behind if no DSP happens this week.
-- **Day 4:** If time: harden the C++ DSP core — biquad, FIR, overlap-add, polyphase, ring buffer — into a clean, tested, documented unit.
+### Week 12 — 🔧 Buffer / consolidation
+*A plain buffer now — the application-season double-booking that used to define this week is gone. If UIC registration (~Nov 23–26) or a CSUF decision from Faller actually lands during this week, take the time it needs; otherwise this is straightforward study-overrun absorption, same pattern as Weeks 0.8 and 7.*
+- **Days 1–3:** Absorb study overrun from Weeks 8–11. If UIC registration or a CSUF decision genuinely lands this week, that's a legitimate use of a day — but it's the exception now, not the default.
+- **Day 4:** Harden the C++ DSP core — biquad, FIR, overlap-add, polyphase, ring buffer — into a clean, tested, documented unit.
 - **Day 5:** README for the DSP core (theory → implementation → measured verification), written cold. LOG.
-- **Done when:** the DSP core is tested, CI-green, and pushed — *or* your applications are moving and you consciously chose that. Both are wins; only silence is a loss.
+- **Done when:** the DSP core is tested, CI-green, and pushed.
 
 **✅ DSP 503 Checkpoint:** A tested C++ DSP core (filters, overlap-add, multirate, lock-free IO), a Python reference for all of it, and the real-time rules cold.
 
@@ -320,7 +313,7 @@ ASPMA is a 10-week course. You take **Weeks 1–4 and 9**:
 
 - **Skim — ASPMA Wk 1–3** (intro, DFT, Fourier properties). Largely redundant with Phase 0; watch at speed to pick up the sms-tools workflow and Serra's framing, and do the programming assignments — they build the Python muscle memory you need in Wk 4. *Verify the exact week topics against the live syllabus on first contact before planning around them.*
 - **Core — ASPMA Wk 4** (STFT equation, analysis window, FFT size and hop size, the time-frequency compromise, inverse STFT — 6 videos, 1 quiz, 1 programming assignment). This is the whole spine of Weeks 13–14.
-- **Cut — ASPMA Wk 5–8** (sinusoidal model, harmonic model, sinusoidal-plus-residual modeling, sound transformations). Unambiguously MIR/music-branch material. If you land at UPF/MTG or KAIST/MACLab, this becomes the opening of DSP 505 and you'll already have the course open (see Week 16).
+- **Cut — ASPMA Wk 5–8** (sinusoidal model, harmonic model, sinusoidal-plus-residual modeling, sound transformations). Unambiguously MIR/music-branch material, and neither live branch (UIC or CSUF) nor the industry-fallback branch needs it. Full cut, no forward-link.
 - **Core — ASPMA Wk 9** (extraction of audio features; describing sounds and collections). Your Week 15 Day 3.
 
 ### Week 13 — STFT theory
@@ -369,22 +362,18 @@ This is the one week in the whole sequence with no external check on your own de
 
 ## Week 16 — 🔀 The branch point
 
-**This is a decision week, not a study week.** By now you should know where you're going, or be very close.
+**This is a decision week, not a study week.** UIC is already a known floor — the open question is just whether Faller's decision changes the answer.
 
-- **Day 1:** Reconcile. Which programs admitted you? Which advisors confirmed? What did Faller, Corey, and Nam actually say? Write it down in one place.
+- **Day 1:** Reconcile. Has CSUF responded? What did Faller say, if anything? Write it down in one place. If CSUF hasn't answered yet, that's fine — UIC stands as the default and this week still runs, just with one less unknown to resolve.
 - **Day 2:** Pick the branch. The contingent tracks, what each would look like, and — where one already exists — the course already sitting on the shelf for it:
 
 | If you land at… | The next block is… | DSP 505 spine, if already identified |
 |---|---|---|
 | **UIC / Corey** | Adaptive filtering (LMS → NLMS → frequency-domain), then mic arrays and beamforming (delay-and-sum → MVDR → GSC), then source separation. Aligns with ECE 516 and ECE 531. | **NPTEL-SSP Wk 8–11** — the block deliberately cut from DSP 502. |
-| **CSUF / Faller** | HRTF and binaural processing, ITD/ILD cues, fast HRTF convolution (your Week 9 overlap-add), individualization. Builds directly on your existing JUCE room-acoustics project. | Builds on DSP 503 Week 9 overlap-add; no single course identified yet. |
-| **Aalborg / CASPR** | Acoustic signal processing for hearing devices — multichannel enhancement, noise reduction, the Oticon-adjacent stack. | — |
-| **PoliMi / ISPG** | Space-time audio processing, acoustic source localization, array geometry. | — |
-| **Aalto** | Spatial audio and acoustics — room acoustics, auralization, ambisonics. | — |
-| **KAIST / MACLab or UPF / MTG** | MIR and music AI — feature pipelines on top of your Week 15 toolkit, then deep learning for audio. | **ASPMA Wk 5–8** — the block deliberately cut from DSP 504. |
-| **No program (self-study continues)** | Then choose a target *industry* and build the matching artifacts. This is the branch where the earlier embedded/speech plan (AEC, beamforming, Cortex-M port) becomes the right answer — but only in this branch. | — |
+| **CSUF / Faller** | HRTF and binaural processing, ITD/ILD cues, fast HRTF convolution (your Week 9 overlap-add), individualization. Builds directly on your existing JUCE room-acoustics project. | Builds on DSP 503 Week 9 overlap-add; no single course identified yet — worth researching now rather than at Week 16, given only two branches remain. |
+| **Neither (self-study continues)** | Then choose a target *industry* and build the matching artifacts. This is the branch where the earlier embedded/speech plan (AEC, beamforming, Cortex-M port) becomes the right answer — but only in this branch. | — |
 
-*Note the symmetry: the two blocks deliberately cut from DSP 502 and DSP 504 are exactly the opening modules of the two most likely branches. Nothing was thrown away — it was deferred to the week it becomes correct.*
+*The UIC branch already has its DSP 505 opener sitting on the shelf — the NPTEL-SSP block deliberately cut from DSP 502 in Week 3–7. Nothing was thrown away there; it was deferred to the week it becomes correct. CSUF doesn't have an equivalent yet, which is the one open research item this narrowing creates.*
 
 - **Days 3–5:** **Write the next 12 weeks yourself, at day granularity**, for the branch you actually landed in. You'll have ~21 weeks of evidence about your real throughput by then — far better data than I have now. Bring it to me and I'll pressure-test it.
 
@@ -396,9 +385,9 @@ This is the one week in the whole sequence with no external check on your own de
 
 1. **Phase 1 (DSP 502) is the sleeper risk.** It looks like five quiet weeks of math. It is the load-bearing wall under every branch, and it's the material you have the least prior exposure to. Do not compress it. Week 7's buffer exists for Weeks 5–6 specifically — and Week 5 Day 2, carrying the pulled-forward orthogonality lecture, is the single most likely day to need it.
 2. **Week 14's perfect-reconstruction gate will take longer than a week looks like it should.** That's why it's a gate and not a checkpoint.
-3. **Application season will eat Weeks 11–16.** This is planned for (Week 12), and it is the correct trade. A shipped application beats a shipped biquad.
-4. **The one remaining video-coverage gap (see the Coverage Ledger) has no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
-5. **The outreach is the real critical path, and it has a clock.** Faller before August 10. Nam before the KAIST window. Corey before you commit $85–90K on an unconfirmed fit. **None of these should wait on this plan.**
+3. **A CSUF decision could land anywhere in Weeks 11–16, and Week 12's buffer can absorb a day of it if it does.** That's the only remaining collision this window has — no more applications competing for the same hours.
+4. **Week 11, Days 2–3 (denormals, lock-free SPSC) have no assignment to self-check against.** You are the only verification for those two days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
+5. **The outreach is the real critical path, and it has a clock.** Faller before August 10, if the Open University track is still separate from what you already submitted. Corey's specific confirmation before you fully commit to the $85–90K UIC path — admission isn't the same thing as his agreement to supervise. **Neither should wait on this plan.**
 6. **Don't plan past Week 16.** This document has now been rewritten twice because it was built on a target that turned out to be provisional. The branch point is real; respect it.
 
 ---
