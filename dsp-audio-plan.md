@@ -396,7 +396,7 @@ Stated plainly so you're never surprised mid-week. Three confirmed gaps remain a
 1. **Phase 1 (DSP 502) is the sleeper risk.** It looks like five quiet weeks of math. It is the load-bearing wall under every branch, and it's the material you have the least prior exposure to. Do not compress it. Week 7's buffer exists for Weeks 5–6 specifically — and Week 5 Day 2, carrying the pulled-forward orthogonality lecture, is the single most likely day to need it.
 2. **Week 14's perfect-reconstruction gate will take longer than a week looks like it should.** That's why it's a gate and not a checkpoint.
 3. **Application season will eat Weeks 11–16.** This is planned for (Week 12), and it is the correct trade. A shipped application beats a shipped biquad.
-4. **The five video-coverage gaps (see the Coverage Ledger) have no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
+4. **The three video-coverage gaps (see the Coverage Ledger) have no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
 5. **The outreach is the real critical path, and it has a clock.** Faller before August 10. Nam before the KAIST window. Corey before you commit $85–90K on an unconfirmed fit. **None of these should wait on this plan.**
 6. **Don't plan past Week 16.** This document has now been rewritten twice because it was built on a target that turned out to be provisional. The branch point is real; respect it.
 
