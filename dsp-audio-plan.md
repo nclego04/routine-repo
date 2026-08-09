@@ -88,7 +88,9 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 | **NPTEL-DR** | *Digital Signal Processing*, Prof. S.C. Dutta Roy, IIT Delhi (40+ lectures) | Free | https://nptel.ac.in/courses/117102060 |
 | **sms-tools** | ASPMA's Python package (reference implementation, not a course) | Free | https://github.com/MTG/sms-tools |
 | **JOS** | Julius O. Smith, *Spectral Audio Signal Processing* et al. — text, not video | Free, online books | https://ccrma.stanford.edu/~jos |
-| **6.341** | MIT *Discrete-Time Signal Processing* (Oppenheim) — **lecture notes only, no video** | Free, OCW | search "MIT OCW 6.341" |
+| **6.341** | MIT *Discrete-Time Signal Processing* (Oppenheim) — **lecture notes only, no video on OCW** | Free, OCW | search "MIT OCW 6.341" |
+| **6.341x-YT** | Community reupload of 6.341x video (13 of ~23 lectures, stops at T5.2) — **not an institutional source; low view counts, no continuity guarantee, treat as bonus only** | Free, YouTube | search "MIT 6.341x Digital Signal Processing Oppenheim 2016 playlist" |
+| **RES.6-008** | MIT *Digital Signal Processing* (Oppenheim, 1987 distance-ed course) — full video, problem sets, and solutions, hosted permanently on OCW | Free, OCW | https://ocw.mit.edu/courses/res-6-008-digital-signal-processing-spring-2011/ |
 
 **Note on ASPMA:** taught by **Xavier Serra**, who directs UPF/MTG — one of your seven target programs. Completing it is a real, verifiable line in any outreach to that group.
 
@@ -268,12 +270,12 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 1:** Linear phase — the four types, the symmetry condition, group delay. **Deliverable:** derive why symmetric taps ⇒ linear phase. **Phase matters** for spatial audio (ITD cues), for array processing, and for anything binaural — in a way plugin EQ let you ignore.
 - **Day 2:** Window-method design; the mainlobe/sidelobe tradeoff. **Deliverable:** design an LPF by windowing; measure it.
 - **Day 3:** Optimal design — Parks–McClellan / equiripple; the alternation theorem conceptually. **Deliverable:** design the same LPF with `remez`; compare stopband attenuation against the window method, with numbers.
-- **Day 4:** ⚠️ **Video gap** — EPFL covers circular convolution and the DFT but not overlap-add/overlap-save explicitly; MIT 6.341 Lec 16 has lecture notes, no video. **Overlap-add and overlap-save convolution.** **Deliverable:** derive both from the DFT properties you already own; implement overlap-add in Python. *(Direct forward-link: this is the machinery of Week 13's STFT, and of fast convolution generally — including HRTF convolution, if you end up there.)*
+- **Day 4:** *Video: RES.6-008 Lecture 10 ("Circular Convolution")* — overlap-add and overlap-save both derive from the relationship between linear and circular convolution via zero-padding, which this lecture builds from scratch, with its own problem set and solutions. **Overlap-add and overlap-save convolution.** **Deliverable:** derive both, using the lecture as the reference derivation; implement overlap-add in Python. *(Direct forward-link: this is the machinery of Week 13's STFT, and of fast convolution generally — including HRTF convolution, if you end up there.)*
 - **Day 5:** Code. Submit the DSP2 Module 2 graded assignment. **Deliverable:** C++ FIR + overlap-add, agreeing with the Python reference via the Week 7 harness. Commit + LOG.
 - **Done when:** you can say when FIR beats IIR and why, and your overlap-add convolution matches direct convolution to machine precision.
 
 ### Week 10 — Multirate
-*Video: EPFL DSP3 (sampling, interpolation, A/D–D/A conversion) + NPTEL-MR early lectures and the Noble Identities lecture specifically — that course is mostly wavelets, so triage hard and take only the multirate-relevant sessions.*
+*Video: EPFL DSP3 (sampling, interpolation, A/D–D/A conversion) + NPTEL-MR early lectures and the Noble Identities lecture specifically — that course is mostly wavelets, so triage hard and take only the multirate-relevant sessions. Bonus, not a replacement: 6.341x-YT's T4.1 ("Expanders and decimators") and T4.2 ("Noble identities") cover Days 1 and 3 directly, from the actual Oppenheim course — worth checking first since it's shorter and exact-topic, but don't build the week's structure around a non-institutional reupload staying online.*
 
 - **Day 1:** Decimation and interpolation — the identities and the required anti-alias / anti-image filters. **Deliverable:** derive the spectral effect of ↓M and ↑L by hand.
 - **Day 2:** **Polyphase decomposition.** **Deliverable:** derive it; show why it's an M× saving (you filter only the samples you keep).
@@ -353,15 +355,14 @@ The one application that is invariant: **measurement infrastructure.** Every bra
 
 ## Coverage Ledger — where the video backing is thin
 
-Stated plainly so you're never surprised mid-week. Four gaps across 21 weeks, all of them derivations you're equipped to do unaided by the time you reach them.
+Stated plainly so you're never surprised mid-week. Three confirmed gaps remain across 21 weeks — down from four, after RES.6-008 Lec 10 closed the overlap-add gap. All three are derivations you're equipped to do unaided by the time you reach them; the first two were searched specifically across NPTEL, Coursera, edX, OCW, and community reuploads and confirmed open, not just unexamined.
 
 | Where | Gap | Fallback |
 |---|---|---|
-| **DSP 502, Wk 4 D4** | Periodogram inconsistency / Welch | Hayes Ch. 8 + your own derivation |
-| **DSP 503, Wk 9 D4** | Overlap-add / overlap-save | Derive from DFT properties; MIT 6.341 Lec 16 notes |
-| **DSP 503, Wk 10** | Polyphase & noble identities | NPTEL-MR, heavy triage required (mostly wavelets) |
+| **DSP 502, Wk 4 D4** | Periodogram inconsistency / Welch | Hayes Ch. 8 + your own derivation — searched and confirmed no video source exists |
+| **DSP 503, Wk 10** | Polyphase & noble identities | NPTEL-MR, heavy triage required (mostly wavelets); a 13-lecture reupload of 6.341x on YouTube also covers this directly (T4.1–T4.2, "Expanders and decimators" / "Noble identities") but stops short of later units — treat as a bonus, not infrastructure |
 | **DSP 503, Wk 11** | **Entire week — real-time audio C++** | Bencina + Doumler talks, self-set deliverables |
-| **DSP 504, Wk 13 D3** | COLA derivation | JOS, *Spectral Audio Signal Processing* |
+| **DSP 504, Wk 13 D3** | COLA derivation | JOS, *Spectral Audio Signal Processing* — searched and confirmed no video source exists |
 
 ---
 
