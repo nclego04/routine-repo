@@ -91,6 +91,7 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 | **6.341** | MIT *Discrete-Time Signal Processing* (Oppenheim) — **lecture notes only, no video on OCW** | Free, OCW | search "MIT OCW 6.341" |
 | **6.341x-YT** | Community reupload of 6.341x video (13 of ~23 lectures, stops at T5.2) — **not an institutional source; low view counts, no continuity guarantee, treat as bonus only** | Free, YouTube | search "MIT 6.341x Digital Signal Processing Oppenheim 2016 playlist" |
 | **RES.6-008** | MIT *Digital Signal Processing* (Oppenheim, 1987 distance-ed course) — full video, problem sets, and solutions, hosted permanently on OCW | Free, OCW | https://ocw.mit.edu/courses/res-6-008-digital-signal-processing-spring-2011/ |
+| **EE123** | UC Berkeley *Digital Signal Processing* (Miki Lustig) — 36 lectures, video hosted on archive.org via UC Berkeley's own webcast archive; weekly self-graded problem sets. **Confirmed to derive COLA explicitly (Lec 10–11); not confirmed to cover periodogram/Welch — it's a deterministic-signals course, and that argument needs the random-process framework EE123 doesn't build.** | Free, video on archive.org (search "EE123 Spring 2015 Berkeley Lustig"); current problem sets at the live course site, may require checking for public access | http://www.infocobuild.com/education/audio-video-courses/electronics/ee123-spring2015-berkeley.html |
 
 **Note on ASPMA:** taught by **Xavier Serra**, who directs UPF/MTG — one of your seven target programs. Completing it is a real, verifiable line in any outreach to that group.
 
@@ -326,7 +327,7 @@ ASPMA is a 10-week course. You take **Weeks 1–4 and 9**:
 
 - **Day 1:** The STFT as a filter bank vs. as a sequence of windowed transforms. **Deliverable:** state both views and reconcile them. *(This is the direct payoff of the Lec 15 promotion — each bin is a modulated, lowpassed channel.)*
 - **Day 2:** Windows — Hann, Hamming, Blackman; mainlobe width vs. sidelobe level; spectral leakage. **Deliverable:** measure each window's leakage; pick one with a stated reason.
-- **Day 3:** ⚠️ **Video gap** — ASPMA states the time-frequency compromise but does not derive COLA rigorously; use **JOS** for the derivation. The **COLA** (constant overlap-add) condition. **Deliverable:** derive it; show why Hann at 50% overlap reconstructs perfectly.
+- **Day 3:** *Video: EE123 Lecture 10 ("Time-Dependent Fourier Transform") and Lecture 11 ("Time-Frequency")* — these derive the reconstruction condition directly (the 50%-overlap requirement for Hann/Bartlett windows), which is COLA in practice; cross-check the derivation against JOS for the general condition. The **COLA** (constant overlap-add) condition. **Deliverable:** derive it; show why Hann at 50% overlap reconstructs perfectly.
 - **Day 4:** Time-frequency resolution — the uncertainty tradeoff; hop size vs. window length. **Deliverable:** written analysis of why you cannot have both, with a worked example.
 - **Day 5:** Consolidate + cards. Submit the ASPMA Wk 4 quiz. **Deliverable:** derivation-prompt card for COLA. LOG.
 - **Done when:** you can explain the STFT as a modulated filter bank and derive the COLA condition cold.
@@ -355,14 +356,12 @@ The one application that is invariant: **measurement infrastructure.** Every bra
 
 ## Coverage Ledger — where the video backing is thin
 
-Stated plainly so you're never surprised mid-week. Three confirmed gaps remain across 21 weeks — down from four, after RES.6-008 Lec 10 closed the overlap-add gap. All three are derivations you're equipped to do unaided by the time you reach them; the first two were searched specifically across NPTEL, Coursera, edX, OCW, and community reuploads and confirmed open, not just unexamined.
+Stated plainly so you're never surprised mid-week. Two confirmed gaps remain across 21 weeks — down from four, after RES.6-008 Lec 10 closed overlap-add and EE123 Lec 10–11 closed COLA. Both were searched specifically and repeatedly, across every platform in the Source Registry plus university OCW sites, topic-authority searches, and conference tutorials, and confirmed open rather than merely unexamined. (Week 10's multirate video coverage is imperfect and needs triage — see that week's own *Video:* line — but it's not a true gap in this sense: real sources exist, just not a clean single fit.)
 
 | Where | Gap | Fallback |
 |---|---|---|
-| **DSP 502, Wk 4 D4** | Periodogram inconsistency / Welch | Hayes Ch. 8 + your own derivation — searched and confirmed no video source exists |
-| **DSP 503, Wk 10** | Polyphase & noble identities | NPTEL-MR, heavy triage required (mostly wavelets); a 13-lecture reupload of 6.341x on YouTube also covers this directly (T4.1–T4.2, "Expanders and decimators" / "Noble identities") but stops short of later units — treat as a bonus, not infrastructure |
+| **DSP 502, Wk 4 D4** | Periodogram inconsistency / Welch | Hayes Ch. 8 + your own derivation. Closest near-miss: EE123 Lec 8–9 ("Spectral Analysis using DFT") — checked and ruled out, since EE123 is a deterministic-signals course and this argument needs the random-process framework it doesn't build. Don't substitute it for the real derivation. |
 | **DSP 503, Wk 11** | **Entire week — real-time audio C++** | Bencina + Doumler talks, self-set deliverables |
-| **DSP 504, Wk 13 D3** | COLA derivation | JOS, *Spectral Audio Signal Processing* — searched and confirmed no video source exists |
 
 ---
 
@@ -396,7 +395,7 @@ Stated plainly so you're never surprised mid-week. Three confirmed gaps remain a
 1. **Phase 1 (DSP 502) is the sleeper risk.** It looks like five quiet weeks of math. It is the load-bearing wall under every branch, and it's the material you have the least prior exposure to. Do not compress it. Week 7's buffer exists for Weeks 5–6 specifically — and Week 5 Day 2, carrying the pulled-forward orthogonality lecture, is the single most likely day to need it.
 2. **Week 14's perfect-reconstruction gate will take longer than a week looks like it should.** That's why it's a gate and not a checkpoint.
 3. **Application season will eat Weeks 11–16.** This is planned for (Week 12), and it is the correct trade. A shipped application beats a shipped biquad.
-4. **The three video-coverage gaps (see the Coverage Ledger) have no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
+4. **The two video-coverage gaps (see the Coverage Ledger) have no assignment to self-check against.** You are the only verification for those days. Take them at least as seriously as a graded one — arguably more, since nothing will catch you if you fool yourself.
 5. **The outreach is the real critical path, and it has a clock.** Faller before August 10. Nam before the KAIST window. Corey before you commit $85–90K on an unconfirmed fit. **None of these should wait on this plan.**
 6. **Don't plan past Week 16.** This document has now been rewritten twice because it was built on a target that turned out to be provisional. The branch point is real; respect it.
 
