@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.2, Day 5
+Current: Phase 0, Week 0.3, Day 1
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -33,6 +33,14 @@ Current: Phase 0, Week 0.2, Day 5
     - Periodization is convolution with an impulse train (P8.8c); combined with P8.7 and the masking-collapse move (X(ω)·δ(ω−2πk/T) → X(2πk/T)δ(ω−2πk/T)) to re-derive aₖ=(1/T)X(2πk/T) from first principles — the P8.1(e) relationship, now proven rather than just numerically verified.
     - The δ surviving multiplication isn't decorative — it's the "address" the collapsed value lives at; without it a sum of masked scalars would lose the frequency axis entirely. Same principle as P4.9(a)'s "the δ carries the shape," now confirmed on the frequency-domain side.
   - **Next:** Day 5 — Lec 9 (FT properties: linearity, shift, scaling, conv↔mult, duality); one card per property; PS9 checked.
+- P2D5: Triaged PS9 (Lec 9, FT properties) via the pset-triage prompt against the Day 4/5 Done-when (convolve() matches hand computation; explain conv↔mult duality). Keep-set: P9.1, P9.2, P9.4, P9.5(a), P9.8 — all worked and checked against solutions.
+  - P9.1: derived X(ω)=1/(½+jω) for x(t)=e^(−t/2)u(t); caught and fixed an initial sign error (e^(+jωt) instead of e^(−jωt) in the analysis equation). Computed |X(ω)|, ∠X(ω)=tan⁻¹(−2ω), Re{X}, Im{X}.
+  - P9.2: sketched |X(ω)| and phase from given Re/Im rectangular pulses. Friction: initially sketched phase as a smooth curve; caught that phase over a region with piecewise-constant Re/Im is itself a flat step (tan⁻¹(1/1)=π/4), not a curve. Confirmed x(t) not real via X(−ω)=1+j ≠ 1−j=X*(ω).
+  - P9.4 (a-i, a-ii, b-i, b-ii): full conjugate-symmetry chain, all four parts derived. Main friction on (b-ii): needed to build the real+odd hypothesis from its two component facts (x*(−t)=x(−t) from realness; x(−t)=−x(t) from oddness) before combining into x(t)=−x*(−t), rather than guessing the combined form directly. Matched integrands to get X(ω)=−X*(ω) ⇒ Re{X}=0 ⇒ imaginary; then used X(ω)=X*(−ω) to get oddness.
+  - P9.5(a): derived F{e^(−a|t|)}=2a/(a²+ω²) via linearity + scaling from the known one-sided-exponential transform.
+  - P9.8 — today's payoff problem: triangular pulse = rect*rect ⇒ X(ω)=4sin²(ω)/ω² via the convolution theorem, the direct answer to the week's conv↔mult Done-when.
+  - Deferred to Week 0.3 Day 1 pset-catch: P9.5(b–d), P9.10(c).
+  - Week 0.2 closed.
 - W1D1: Wrote a C++ WAV writer (RIFF/fmt/data, 16-bit PCM) and generated a 440 Hz sine to WAV; verified pitch/level by ear and in editor. Hit a MinGW linker error (GUI vs console subsystem), fixed it independently. Added a stereo pan crossfade between channels as a bonus. Fixed a bug where byte_rate/block_align were computed from the wrong chunk size.
 - W1D2: Refactored the WAV generator into a swappable `generate_waveform(string type, double frequency, double& phase)` so sine/saw/square share one render path.
   - **Built:**
