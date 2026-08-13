@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.3, Day 1
+Current: Phase 0, Week 0.3, Day 2
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -73,3 +73,19 @@ Current: Phase 0, Week 0.3, Day 1
   - **Refactored `render_file`:** parameterized the sweep endpoints, treated frequency as the sweep start frequency, kept the `sweep` bool so fixed-tone renders skip the per-sample `pow`, and added start/end frequency guards.
   - **Committed:** the note and the generator.
   - **Next:** Week 2 — the math behind filters (z-transform, transfer functions, poles/zeros; notes only for Day 1).
+- (Out-of-sequence PS10 prep, ahead of Week 0.3 Day 1's actual deliverable): Triaged PS10 via the pset-triage prompt against Day 3's Done-when (DTFS of a short periodic sequence by hand). Worked the keep-set:
+  - **P10.1(a):** h[n]=(½)ⁿu[n], x[n]=(-1)ⁿ=e^{jπn}. Rebuilt the eigenfunction property from the convolution sum (y[n]=H(e^{jω})e^{jωn}, H(e^{jω})=Σh[k]e^{-jωk}) rather than recalling it. Computed H(e^{jπ})=2/3; y[n]=(2/3)(-1)ⁿ.
+  - **P10.1(c):** x[n]=cos(πn/4+π/8). Euler-decomposed into two exponentials (ω=π/4 and ω=-π/4), applied linearity, collapsed the conjugate-pair sum to 2Re{...}. Derivation chain complete through H(e^{±jπ/4}); stopped before final numeric magnitude/phase evaluation.
+  - **P10.2 (full):** (a) N₁=10, N₂=6 — derived via the general ωN=2πm (smallest positive integer N), not the CT shortcut T=2π/ω, which gives a non-integer for N₂. (b) DTFS coefficients by inspection (Euler expansion matched to the synthesis equation, no summing): a₁,₀=1, a₁,±1=∓1/(2j); a₂,₀=1, a₂,±5=1/2. (c) Proved a_{k+N}=a_k in general via e^{-j2πn}=1 for integer n; connected directly to the a₂,₅/a₂,₋₁ aliasing hit in (b).
+  - **P10.5:** started — synthesis equation set up as 4 linear equations in a₀–a₃ for x[0..3]=(1,0,2,-1), N=4. Not yet solved.
+  - **Friction:**
+    - Split (½)^k·e^{-jωk} into two separate geometric series and multiplied their closed forms — invalid (Σ(a_kb_k) ≠ (Σa_k)(Σb_k)). Recurred at ω=π and ω=π/4 before correcting: combine bases first (a^k·b^k=(ab)^k), then apply the single geometric-series formula.
+    - Reused H(e^{jπ})=2/3 from P10.1(a) when evaluating P10.1(c)'s ω=π/4 terms. H(e^{jω}) must be re-evaluated at each distinct ω.
+    - P10.2(b), x̃₂[n]: initially matched the 20π/12 term to k=1 instead of solving 20π/12=k·Ω₀ with Ω₀=2π/6=π/3 (giving k=5). Self-caught.
+  - **Concepts locked:**
+    - Combine same-power factors into one base *before* applying the geometric series formula.
+    - H(e^{jω}) carries no value across different ω — fresh evaluation every time.
+    - DT period-finding requires the general ωN=2πm; the CT shortcut only coincidentally works when it lands on an integer.
+    - a_k is periodic in k with the signal's own period N — same harmonic can appear under different k labels within one ⟨N⟩ window.
+  - **Next:** finish P10.5(a) (reduce all four equations, solve for a₀–a₃), check via P10.5(b).
+- P3D1: Day 1's deliverable (remaining PS7–9 problems, every miss re-worked to correct) was already satisfied — the Week 0.2 triage keep-sets (P2D3: PS7, P2D4: PS8, P2D5: PS9) had already closed everything out. No new catch-up work needed; Week 0.3 Day 1 closes on prior work.
