@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.3, Day 2
+Current: Phase 0, Week 0.3, Day 3
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -89,3 +89,12 @@ Current: Phase 0, Week 0.3, Day 2
     - a_k is periodic in k with the signal's own period N — same harmonic can appear under different k labels within one ⟨N⟩ window.
   - **Next:** finish P10.5(a) (reduce all four equations, solve for a₀–a₃), check via P10.5(b).
 - P3D1: Day 1's deliverable (remaining PS7–9 problems, every miss re-worked to correct) was already satisfied — the Week 0.2 triage keep-sets (P2D3: PS7, P2D4: PS8, P2D5: PS9) had already closed everything out. No new catch-up work needed; Week 0.3 Day 1 closes on prior work.
+- P3D2: Built the naive O(N²) DFT (`dft.cpp`) — `dft()`, per-sample `generate_sine/square/sawtooth`, `magnitude()`, `bin_to_hz()`, `write_csv()`, and a WAV reader (`read_wav()`) that walks RIFF/fmt/data chunks and deinterleaves to mono, matching the Day 1–3 writer's 16-bit PCM/44100 Hz format. Companion `plot_spectrum.py` plots any spectrum CSV with peak-labeling via simple non-max suppression.
+  - **Bugs hit and fixed:**
+    - First full run used N=fs=44100 so a 440 Hz test tone would land on an exact integer bin with zero leakage — correct math, but ~1.9B inner-loop iterations (two transcendental calls each) took 72.353 s. Root cause: O(N²) is genuinely this expensive at real audio sample counts — the first *felt*, not just abstract, reason FFT (O(N log N)) exists.
+    - Realized the exact-bin condition only needs `N·freq/fs` to be an integer, not `N=fs`. For the actual test fundamental (220 Hz, matching the Day-3 WAV files) that reduces to N a multiple of 2205; switched to N=2205, landing the fundamental exactly on bin k=11 and cutting the work 400× (2205² vs 44100²) — now near-instant.
+    - The WAV-comparison branch computed `X = dft(x)` but wrote the raw time-domain `x` to CSV instead of `magnitude(X)`, still labeled `hz,magnitude` — would have produced a false "spectra match," since neither file being compared was actually a spectrum. Added the missing `magnitude(X)` call.
+    - Synthetic square/sawtooth test signals were initially generated at 440 Hz (carried over from the sine test) while the WAV files being compared against are 220 Hz — meaningless comparison, different fundamentals entirely. Fixed by aligning `freq=220` everywhere and recomputing N via the exact-bin math above.
+    - Both WAV-derived spectra wrote to the same filename (`sawtooth_wav_spectrum.csv`), so the square run silently overwrote the sawtooth run's output. Fixed with distinct filenames per waveform.
+  - **Verification:** sine spectrum is a genuine single-bin spike at 220 Hz (bin 11), no visible leakage. `sawtooth_wav_spectrum.csv` peaks at 220/440/660 Hz (all harmonics); `square_wav_spectrum.csv` peaks at 220/660/1100 Hz with 440/880 absent (odd only) — both match theory and match the shape of the freshly-generated (non-WAV) spectra. WAV-derived magnitudes run ~32,800× the generated-signal magnitudes, consistent with int16 PCM (±32767) vs. normalized float (±1.0) — a free check that the reader isn't mis-scaling. Cross-checked against Audacity's Frequency Analysis on the actual `sawtooth.wav`/`square.wav`: both report peak 220 Hz (A3), confirming the fundamental via an independent instrument on the real files, not just internal self-consistency.
+  - **Next:** Week 0.3 Day 3 — Lec 10 (DT Fourier series); DTFS of a short periodic sequence by hand. PS10 is partly banked already (P10.1(a), P10.1(c) through the derivation chain, P10.2 in full) from earlier out-of-sequence prep — P10.5 (the 4-equation synthesis-equation solve) is what's still open.
