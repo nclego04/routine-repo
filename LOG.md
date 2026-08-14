@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.3, Day 3
+Current: Phase 0, Week 0.3, Day 4
 
 ## Log
 - P1D1: Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -98,3 +98,5 @@ Current: Phase 0, Week 0.3, Day 3
     - Both WAV-derived spectra wrote to the same filename (`sawtooth_wav_spectrum.csv`), so the square run silently overwrote the sawtooth run's output. Fixed with distinct filenames per waveform.
   - **Verification:** sine spectrum is a genuine single-bin spike at 220 Hz (bin 11), no visible leakage. `sawtooth_wav_spectrum.csv` peaks at 220/440/660 Hz (all harmonics); `square_wav_spectrum.csv` peaks at 220/660/1100 Hz with 440/880 absent (odd only) — both match theory and match the shape of the freshly-generated (non-WAV) spectra. WAV-derived magnitudes run ~32,800× the generated-signal magnitudes, consistent with int16 PCM (±32767) vs. normalized float (±1.0) — a free check that the reader isn't mis-scaling. Cross-checked against Audacity's Frequency Analysis on the actual `sawtooth.wav`/`square.wav`: both report peak 220 Hz (A3), confirming the fundamental via an independent instrument on the real files, not just internal self-consistency.
   - **Next:** Week 0.3 Day 3 — Lec 10 (DT Fourier series); DTFS of a short periodic sequence by hand. PS10 is partly banked already (P10.1(a), P10.1(c) through the derivation chain, P10.2 in full) from earlier out-of-sequence prep — P10.5 (the 4-equation synthesis-equation solve) is what's still open.
+- P3D3: Day 3's deliverable (DTFS of a short periodic sequence by hand) was already satisfied — P10.2(a,b) from the out-of-sequence PS10 prep (period-finding via the general ωN=2πm; DTFS coefficients pulled straight from the Euler expansion by inspection) is the literal deliverable. PS10 closed on that basis — the rest of the minimal keep-set (P10.1(c)'s numeric finish, P10.5's synthesis-equation solve, P10.6) deliberately skipped, not worked.
+  - **Next:** Week 0.3 Day 4 — Lec 11 (DTFT, evaluated on the unit circle); derive the DTFT of a rectangular window; PS11 checked; add card: "How does the DTFT relate to the z-transform?"
