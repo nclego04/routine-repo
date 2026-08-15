@@ -402,6 +402,9 @@ Along the way, several courses were checked and explicitly ruled out despite str
 ---
 ---
 
-## Pset triage prompt
+## Paste-in prompts
 
-Moved to its own file: [`pset-triage-prompt.md`](pset-triage-prompt.md) — the paste-in prompt for cutting an over-long problem set down to a ~2-hour day without losing load-bearing concepts.
+Each lives in its own file:
+
+- [`pset-triage-prompt.md`](pset-triage-prompt.md) — cuts an over-long problem set down to a ~2-hour day without losing load-bearing concepts. Returns the one problem to do and the minimal keep-set.
+- [`transcript-pre-read-prompt.md`](transcript-pre-read-prompt.md) — turns a lecture transcript into a short pre-watch primer, so you watch actively instead of taking notes cold. Never gives away a result the day's deliverable is to derive.
