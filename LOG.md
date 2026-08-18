@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.3, Day 5
+Current: Phase 0, Week 0.4, Day 1
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -108,3 +108,22 @@ Current: Phase 0, Week 0.3, Day 5
   - **Skipped (per triage):** P11.1(b,d), P11.2(b), P11.4, P11.5, P11.6, all optional problems (P11.7–P11.12) — all drill or lower-priority relative to the day's two derivations.
   - **Card not yet added:** the plan calls for a card on "How does the DTFT relate to the z-transform?" — deliberately deferred; z-transform hasn't been covered yet (that's Week 0.6), so the card would be written blind. Revisit once Lec 22 lands.
   - **Next:** Week 0.3 Day 5 — Lec 12 (filtering); sketch ideal LPF/HPF/BPF magnitude responses and state why the ideal filter is non-causal; PS12 checked.
+- P3D5 (2026-08-17): Lec 12 (filtering). **Day 5 deliverable closed** — ideal LPF/HPF/BPF magnitude sketches drawn and labeled, plus the written non-causality argument. PS12 triaged (keep-set P12.1, P12.5, P12.3; stretch P12.7 dropped by choice); **P12.1 worked in full, P12.5 and P12.3 not started.**
+  - **P12.1(a):** H(ω) real and even ⇒ h(t) real and even (conjugate-symmetry chain run backwards from P9.4). Non-causality by contradiction: assume h(t)=0 for t<0; evenness mirrors that onto t>0; all that survives is h(t)=Aδ(t), whose transform is a constant (all-pass), not the rect. Answers (i), (iii), (vi).
+  - **P12.1(b):** aₖ of the period-9 impulse train = 1/9 for all k, derived from the analysis equation — window −9/2<t<9/2 admits only the n=0 impulse, collapsing the sum to a single term before sifting. X(ω)=Σₖ(2π/9)δ(ω−2πk/9). Filter passes |2πk/9|<π/3 ⇒ |k|<3/2 ⇒ k∈{−1,0,1}, so Y(ω)=(2π/9)[δ(ω+2π/9)+δ(ω)+δ(ω−2π/9)].
+  - **P12.1(c):** inverse transform via 2πδ(ω−ω₀)↔e^{jω₀t}, conjugate pair collapsed → y(t) = 1/9 + (2/9)cos(2πt/9). Sharp impulse train in, pure DC+fundamental out — the brick wall's doing, at the cost of non-causality.
+  - **Friction — four consecutive failures to complete a sifting step, all the same root:**
+    - Wrote "sifting" but kept the ∫ (P4.3c pattern, at least its second appearance).
+    - Substituted into the exponent but left `t` standing — aₖ came out time-dependent, which a Fourier coefficient can't be.
+    - Substituted `t=9n` instead of `t=0`, leaving the summation index n free after the sum had already been collapsed to one term. Root cause named: didn't separate "which impulse is in the window" (fixes n=0) from "where does sifting evaluate" (t₀=0).
+    - Deleted `t` rather than replacing it with 0, giving e^{−jkω₀} instead of e^{0}.
+    - Index collision: reused k for both the impulse index and the harmonic index (x(t) sum is over n).
+    - Wrote δ(0) for δ(ω) and (1/9)cosθ for (2/9)cosθ — the conjugate-pair collapse always leaves the factor 2 (P10.1c).
+    - First HPF sketch drawn as a bandpass (passband given an outer edge); BPF edge labels sign-swapped. Both corrected.
+  - **Concepts locked:**
+    - Sifting is a *substitution*, not a deletion: it consumes the integral AND writes t₀ in place of every t. If an ∫ survives, or a t survives, or a summation index survives, the step isn't finished.
+    - ∫_⟨T⟩ over one period pins which impulse of a train contributes — the infinite sum collapses *before* sifting, not during it.
+    - An impulse train in time is a uniform impulse train in frequency: aₖ=1/T independent of k.
+    - Every ideal passband appears twice, mirrored about ω=0 — forced by h real (P9.4 conjugate symmetry), not decoration.
+  - **Deferred:** P12.5 (moving-average vs first-difference, low/high-pass by reasoning then H(Ω)) and P12.3 (RC circuit, nonideal LPF/HPF, 1/√2 cutoff) — both untouched. Land on Week 0.4 Day 2 (the "any remaining PS10–12 closed" consolidation day).
+  - **Next:** Week 0.4 Day 1 — Code: the measurement harness (impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat), built on the Week 0.3 DFT.
