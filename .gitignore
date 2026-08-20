@@ -1,0 +1,19 @@
+# Build output
+out/
+*.o
+*.exe
+*.out
+
+# Generated audio and measurement data.
+# These rules only affect *untracked* files — anything already committed
+# (passthrough_response.csv, spectrograms.png) stays tracked regardless.
+# Keep a result only when it's evidence worth re-reading later; git add -f it.
+*.wav
+*.csv
+!passthrough_response.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
