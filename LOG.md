@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.4, Day 1
+Current: Phase 0, Week 0.4, Day 2
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -127,3 +127,30 @@ Current: Phase 0, Week 0.4, Day 1
     - Every ideal passband appears twice, mirrored about ω=0 — forced by h real (P9.4 conjugate symmetry), not decoration.
   - **Deferred:** P12.5 (moving-average vs first-difference, low/high-pass by reasoning then H(Ω)) and P12.3 (RC circuit, nonideal LPF/HPF, 1/√2 cutoff) — both untouched. Land on Week 0.4 Day 2 (the "any remaining PS10–12 closed" consolidation day).
   - **Next:** Week 0.4 Day 1 — Code: the measurement harness (impulse in → transform the impulse response → plot |H(e^jω)|; pass-through reads flat), built on the Week 0.3 DFT.
+- P4D1 (2026-08-19): Built the measurement harness (`harness.cpp`) — impulse in → capture h[n] → DFT → dB magnitude → CSV → log-frequency plot. **Day 1 deliverable closed: pass-through reads flat at exactly 0.00 dB across all 257 bins (N=512, fs=44100).**
+  - **Built:**
+    - `measure(double (*system)(double), int N, double fs)` — constructs the impulse internally (`x(N,0.0); x[0]=1`), runs it through the system under test one sample at a time, and returns `vector<pair<double,double>>` of `{hz, dB}` for bins k=0..N/2 only (upper half is the conjugate mirror, since h[n] is real — P9.4 cashing out).
+    - dB conversion with a `1e-12` floor before `20*log10`, so a genuine zero bin (ideal notch, exact cancellation) can't produce `-inf` and poison the plot.
+    - `passthrough(double x)` as the null system — h[n]=δ[n], so H[k]=1 for every k analytically. Not a filter: the one measurement where a wrong answer can *only* mean the rig is broken, which is why it comes before any real system.
+    - `write_csv` overload taking the pair vector directly (frequency already baked in by `measure`), header `hz,db`.
+    - `plot_spectrum.py` adapted from the P3D2 version: peak-labeling removed (built to answer "which harmonics are present"; a filter response's interesting features are passband level, cutoff, and rolloff slope, not local maxima), log x-axis added with `which="both"` minor gridlines — that's what turns the Week 0.6 one-pole rolloff into a readable straight line and lets the −3 dB point be read off directly. Bin 0 sliced explicitly (`hz[1:]`) rather than letting matplotlib silently clip `log(0)`.
+  - **The design question that took the session — where does the system's state live:**
+    - `double (*system)(double)` has one double in, one out, no attached object — so a stateful system like Week 0.6's one-pole (`y[n]=(1−a)x[n]+a·y[n−1]`) has nowhere in the signature to keep `y[n−1]`. It must go in a `static` local or a global.
+    - A `static` is initialized once at program start, not per call to `measure`. Run 1 ends having just written its final tail value there; run 2's first call then computes `(1−a)·1.0 + a·(tail)` instead of `(1−a)·1.0 + a·0`.
+    - Zero initial state is what *makes* the captured sequence an impulse response — the system at rest before the impulse arrives (same y[−1]=0-by-causality argument as P6.4b). Violate it and h[n] is wrong but still looks like a plausible decaying exponential: no crash, no warning, and |H| is subtly off in a way you'd blame on the filter math rather than the rig.
+    - Considered passing state through the signature (`double (*system)(double, double&)`). Works for the one-pole, fails as a general design: the amount of state differs per system, so the signature would have to change per system and the harness stops being reusable.
+    - **Resolution:** function pointer kept for today, since pass-through is stateless. Week 0.6 forces the change to an object with `process(double)` + `reset()`, where the system owns however much state it wants and `measure` calls `reset()` before each run. Known limitation, reasoned through and deferred — not an oversight.
+  - **Friction:**
+    - `for (int k = 0; k++; k < N)` — clause order scrambled. `k++` in the condition slot evaluates to 0 on the first pass, which is false in C++, so the body would run **zero** times. h stays all zeros → DFT all zeros → dB floors to a flat −240 dB line. **Flat, i.e. imitating a passing test.** This is why the check has to be "flat *at 0 dB*," not "flat."
+    - Print loop indexed `result[0]` five times instead of `result[i]` — would print bin 0 repeatedly and read as five bins agreeing. Invisible today (every bin genuinely is 0 dB), surfaces only once something has actual shape. Same family as above: a broken loop producing output that looks like a pass.
+    - dB conversion loop first written operating on whole vectors (`H_mag_dB = 20*log10(std::max(1e-12, H_mag))`) with the index `i` declared but unused.
+    - `write_csv` first written passing `data[k].first` into `bin_to_hz`'s `fs` slot — recomputing a frequency from a frequency. The point of route A is that `measure` already ran `bin_to_hz`.
+    - CSV header first left as `hz,magnitude` while writing dB — same mislabel family as P3D2's `hz,magnitude` header over time-domain samples.
+    - Filename first `impulse_spectrum_dB` (no extension, and named for the input). Every measurement from here uses the same impulse input; what distinguishes files is the system under test → `passthrough_response.csv`.
+  - **Concepts locked:**
+    - The harness *obtains* h[n], never instantiates it. Hand-writing h[n] assumes the answer and makes the rig useless for the case it exists for — "does the measured response match the pole I placed on paper?"
+    - Calibrate against a system whose answer is known analytically before trusting the rig on one whose answer isn't.
+    - dB over linear for filter responses: a −40 dB and an −80 dB stopband are visually identical on a linear axis, and stopband depth is the number being checked. Equal ratios → equal vertical distance is also what makes rolloff readable as a slope.
+    - Pass-through returns *exactly* 0 dB, not ~1e-14 — the k-sum has one surviving term with angle 0, so W=(1,0) and the sum is exactly 1.0 for every k. Multi-sample inputs will show a real noise floor.
+  - **Not committed:** `dft.cpp` and `plot_spectrum.py` have been uncommitted since P3D2; `harness.cpp` and `passthrough_response.csv` now join them. Repo main still holds only `convolve.cpp` and `wav_generator.cpp`. **Push these.**
+  - **Next:** Week 0.4 Day 2 — consolidate the DT-Fourier block: PS12's deferred P12.5 (moving-average vs first-difference) and P12.3 (RC circuit, nonideal LPF/HPF, 1/√2 cutoff), both untouched from P3D5; harness committed + LOG.
