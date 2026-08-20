@@ -26,7 +26,7 @@ std::vector<std::complex<double>> dft(const std::vector<double>& x) {
 std::vector<double> generate_sine(int N, double fs, double freq, double amplitude = 1.0) {
     std::vector<double> x(N);
     for (int n = 0; n < N; n++) {
-        x[n] = sin(2 * M_PI * freq * n / fs);
+        x[n] = amplitude * sin(2 * M_PI * freq * n / fs);
     }
     return x;
 }
