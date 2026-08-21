@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.4, Day 2
+Current: Phase 0, Week 0.4, Day 3
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -154,3 +154,21 @@ Current: Phase 0, Week 0.4, Day 2
     - Pass-through returns *exactly* 0 dB, not ~1e-14 — the k-sum has one surviving term with angle 0, so W=(1,0) and the sum is exactly 1.0 for every k. Multi-sample inputs will show a real noise floor.
   - **Not committed:** `dft.cpp` and `plot_spectrum.py` have been uncommitted since P3D2; `harness.cpp` and `passthrough_response.csv` now join them. Repo main still holds only `convolve.cpp` and `wav_generator.cpp`. **Push these.**
   - **Next:** Week 0.4 Day 2 — consolidate the DT-Fourier block: PS12's deferred P12.5 (moving-average vs first-difference) and P12.3 (RC circuit, nonideal LPF/HPF, 1/√2 cutoff), both untouched from P3D5; harness committed + LOG.
+- P4D2 (2026-08-20): Consolidation day. **Day 2 deliverable closed** — P12.5(a,b) and P12.3(a–d) worked, closing out the PS12 keep-set left over from P3D5, and the harness plus `dft.cpp`/`plot_spectrum.py` are committed (repo reorganized into `src/`, `tools/`, with a Makefile and gitignore). P12.4 and P12.6 open by choice — never in the triage keep-set, but queued for next session.
+  - **P12.5 — two-point average vs two-point difference:** (a) classified both without computing H, by probing DC and Nyquist: y₁=½(x[n]+x[n−1]) passes DC at gain 1 and kills (−1)ⁿ ⇒ **lowpass**; y₂=½(x[n]−x[n−1]) kills DC and passes (−1)ⁿ at gain 1 ⇒ **highpass**. (b) H₁(Ω)=cos(Ω/2)·e^{−jΩ/2}, H₂(Ω)=j sin(Ω/2)·e^{−jΩ/2}, giving |H₁|=|cos(Ω/2)|, |H₂|=|sin(Ω/2)|, ∠H₁=−Ω/2 and ∠H₂=π/2−Ω/2 (each +π wherever the leading trig factor goes negative).
+    - **Method — midpoint factoring:** the exponents are 0 and −Ω, so factor out the *midpoint* −Ω/2 and the remainder sits symmetrically at ±Ω/2 — exactly the form Euler needs (sum → 2cos, difference → 2j sin). Factoring out anything else leaves an asymmetric pair that no identity collapses.
+  - **P12.3 — first-order RC:** (a) across C, H₁(ω)=1/(1+jωRC), **lowpass**, phase 0 → −π/4 at ω=1/RC → −π/2. (b) across R, H₂(ω)=jωRC/(1+jωRC), **highpass**, phase π/2 → π/4 at ω=1/RC → 0; physical read is that the cap blocks DC so nothing develops across R, and shorts at high frequency so the full source does. (c) both cutoffs solved independently from |H|=1/√2 and both land on ω_c=1/RC — explained two ways: H₁+H₂=1 is just KVL (v_c+v_r=v_s) divided through by v_s, so half power for one forces it for the other; and at ω=1/RC, |Z_C|=R, so equal impedances divide the source evenly. (d) V/V_s = 1−H₁(ω) reduces algebraically to exactly H₂(ω) — subtracting the lowpass output from the original leaves precisely what the lowpass rejected, a highpass synthesized with no added components.
+  - **Friction:**
+    - P12.5(a): first gave System 2's Nyquist gain as ½. The factoring is ½(−1)ⁿ[1−(−1)^{−1}] = ½(−1)ⁿ[2] = (−1)ⁿ — gain 1, not ½.
+    - Factored out e^{−jΩ/4} instead of the midpoint e^{−jΩ/2}; caught by multiplying back out, which reconstitutes a half-sample delay rather than the original.
+    - Wrote the front factor as e^{+jΩ/2} — an *advance* (x[n+1]), not a delay. A causal filter's phase must go negative as Ω rises, so a leading e^{+jΩ} is the tell that a sign flipped.
+    - Sketched |sin(Ω/2)| with 5–6 lobes — that's |sin(Ω)|; the half-argument doubles the period.
+  - **Concepts locked:**
+    - Complementary filter pairs turned up in both problems and are the same structure in two domains: discrete ½(1+z⁻¹) and ½(1−z⁻¹), with |H₁|²+|H₂|²=1 and y₁[n]+y₂[n]=x[n] (the two-point Haar analysis filters); continuous RC lowpass and highpass, with H₁+H₂=1 by KVL.
+    - Pin the zeros and asymptotes first, then fill in the humps: |H₁| zeros at ±π, |H₂| zeros at 0 and ±2π, curves crossing at 0.707 at ±π/2 and ±3π/2.
+    - Check a factoring by multiplying it back out — that's what caught the e^{−jΩ/4} error.
+    - Causal ⇒ negative phase slope. Usable as a standing sign check, not just a fact about this filter.
+    - |product| = product of |·|, and any e^{jθ} with real θ has magnitude 1 and drops out entirely.
+    - A negative real coefficient isn't polar form: it becomes an absolute value in the magnitude and a π jump in the phase.
+  - **Still open:** P12.4 (discrete-time differentiator — read |H| and ∠H off the given plot, apply to x[n]=cos(Ω₀n+θ)) and P12.6 (general (2N+1)-point moving average, the Dirichlet-kernel generalization of P12.5). Neither was in the keep-set; both queued.
+  - **Next:** Week 0.4 Day 3 — Lec 15 (DT modulation; Lec 13–14 optional, no pset). PS15 worked/checked; write the multiply-in-time ↔ shift-in-frequency pair from memory and state where a frequency shift aliases. Add a derivation-prompt card. **Forward-link:** this seeds the STFT (Week 13) — windowing *is* modulating, and each analysis bin is a frequency-shifted, lowpassed copy.
