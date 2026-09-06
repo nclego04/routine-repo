@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.4, Day 5
+Current: Phase 0, Week 0.5, Day 1
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -215,3 +215,11 @@ Current: Phase 0, Week 0.4, Day 5
   - **One-line deliverable:** ideal reconstruction places a scaled sinc at every sample point and sums them — x(t) is recovered as a weighted sum of shifted copies of the filter's impulse response, one per sample.
   - **Still open:** P17.2 — not yet worked.
   - **Next:** P17.2 (sketch y(t) for x(t) = δ(t−1) + ½δ(t−2) through h₁, h₂, h₃).
+- (2026-09-06): Closed out P17.2 (left open from P4D5, 2026-09-02). Worked all three kernels through the superposition principle from 17.3 — y(t) = h(t-1) + ½h(t-2):
+  - (a) h₁ = unit rect on [0,1] → boxy y(t): height 1 on [1,2], 0.5 on [2,3].
+  - (b) h₂ = triangle on [-1,1] → the two shifted copies overlap on [1,2] and must be added, not concatenated; slope on [1,2] (-1+0.5=-0.5) exactly matches slope on [2,3] (-0.5 alone), so y(t) is one straight edge from (1,1) to (3,0), kink only at the peak.
+  - (c) h₃ = sinc(t) = sin(πt)/(πt) → zero at every nonzero integer, so y(t) still hits the exact sample values (1 at t=1, 0.5 at t=2) with zero cross-talk, but rings (oscillates above/below zero) and decays without ever truly flattening, unlike (a)/(b)'s finite support.
+  - Frequency-domain read on the three kernels (ties back to P17.3's rect↔sinc duality): h₁ (rect in time) → sinc-shaped H(ω), a non-ideal LPF full of sidelobes. h₂ (triangle = rect*rect in time) → sinc²-shaped H(ω), sidelobes suppressed faster, better but still non-ideal. h₃ (sinc in time) → H(ω) is a literal brick-wall rectangle, the one ideal LPF of the three. Matches the a→b→c ordering of reconstruction quality directly.
+  - Causality, derived from the convolution integral itself rather than cited: y(t₀) = ∫x(τ)h(t₀-τ)dτ. Substituting s=t₀-τ, τ>t₀ (future input) ⟺ s<0. So "h(s)=0 for all s<0" and "y(t₀) never depends on future x(τ), τ>t₀" are the same statement, not two separate facts — the convolution flip is what maps future τ onto negative arguments of h. h₃ is nonzero for all non-integer t (including all t<0), so no finite delay fixes it — genuinely requires all future samples, forever. h₂'s violation is confined to (-1,0), so a 1-unit delay makes it causal; h₁ is already causal as drawn (support entirely on [0,1]). h₁/h₂'s finite support ⟹ bounded, fixable future-reliance; h₃'s infinite support ⟹ unbounded, unfixable.
+  - **Deliverable (from P4D5):** ideal reconstruction places a scaled sinc at every sample point and sums them — confirmed and deepened via the causality/duality analysis above.
+  - **Next:** Week 0.5 Day 1 — Lec 18 (DT processing of CT signals); PS18.
