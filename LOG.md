@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.5, Day 3
+Current: Phase 0, Week 0.5, Day 4
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -238,3 +238,10 @@ Current: Phase 0, Week 0.5, Day 3
   - **Recurring pattern to flag:** dropping a ½ (or similar) scalar factor when distributing across both terms of a two-term sum, not just one — surfaced twice today (P19.2b, P19.1).
   - **Filter before you decimate, and why:** decimation creates N shifted copies of X(Ω), spaced 2π/N apart. Reconstruction only works if the copies don't overlap, requiring Ω_M<π/N. That's why you LPF before decimation — forcing the bandwidth under the cutoff π/N ensures no overlap instead of trusting the signal qualifies.
   - **Next:** Week 0.5 Day 3 — problem-set/consolidation day; any slipped PS16–PS19 worked, every miss re-worked to correct.
+- P5D3 (2026-09-13): consolidation day. Closed out stretch P19.4 (left open from P5D2); ran a cold self-test across Lec 16–19.
+  - **P19.4:** derived T₁=3T and X(Ω)'s boundary at π/2. Initial sketch of Y(Ω) was a naive stretched triangle that missed aliasing; caught by reapplying P19.3's condition (Ω_M<π/N, here π/2 not < π/3). Resolved Y(Ω): triangle of height 1/(3T) for |Ω|<π/2, flat plateau at 2/(9T) for π/2<|Ω|<π — verified by summing the two overlapping tail segments and checking three points (π/2, π, 3π/2), all landing on 2/(9T). Also resolved a standing mix-up: decimation compresses data, not time — the sampling period lengthens because fewer samples now cover the same span. Yesterday's recurring ½-factor drop (P19.2b, P19.1) did not recur here.
+  - **Self-test (cold, Lec 16–18; Lec 19 already covered by today's PS19 work):**
+    - Q1 (Nyquist sampling theorem): correct on first try.
+    - Q2 (ideal reconstruction filter spec): stated gain=1, caught and corrected to gain=T.
+    - Q3 (DT processing of CT signals, H_eff derivation via the D/C relation): gave the D/C relation without its T factor, stalling the derivation — my error, caught and corrected mid-problem. Derivation then completed correctly to H_eff(ω)=H(ωT) for |ω|<π/T. Untangled two separate facts being conflated: X(Ω)'s own reduction to its k=0 term (from x[n]'s no-aliasing) vs. the Ω=ωT substitution in the D/C relation — same numeric range, two independent steps.
+  - **Next:** Week 0.5 Day 4 — code. Deliverable: aliasing fold-back confirmed numerically (tones above Nyquist measured against f_s − f); aliasing.md updated to cite the sampling theorem, not just the spectrogram.
