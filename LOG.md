@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.5, Day 4
+Current: Phase 0, Week 0.5, Day 5
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -245,3 +245,29 @@ Current: Phase 0, Week 0.5, Day 4
     - Q2 (ideal reconstruction filter spec): stated gain=1, caught and corrected to gain=T.
     - Q3 (DT processing of CT signals, H_eff derivation via the D/C relation): gave the D/C relation without its T factor, stalling the derivation — my error, caught and corrected mid-problem. Derivation then completed correctly to H_eff(ω)=H(ωT) for |ω|<π/T. Untangled two separate facts being conflated: X(Ω)'s own reduction to its k=0 term (from x[n]'s no-aliasing) vs. the Ω=ωT substitution in the D/C relation — same numeric range, two independent steps.
   - **Next:** Week 0.5 Day 4 — code. Deliverable: aliasing fold-back confirmed numerically (tones above Nyquist measured against f_s − f); aliasing.md updated to cite the sampling theorem, not just the spectrogram.
+- P5D4 (2026-09-22): Confirmed aliasing fold-back numerically for a sweep harmonic above Nyquist: predicted 11025 Hz, measured 11025 Hz, PASS. Extended `Day 4 — Describe/aliasing.md` with the numeric check and cited the sampling theorem by name. Code day, no lecture or pset. *(The target file is not `notes/aliasing.md` — the local repo uses flat per-day folders (`DFT/`, `Measure/`) while the GitHub remote uses `src/`, `notes/`, `tools/`.)*
+  - To pick the waveform, tested half-wave symmetry x(t+T/2) = −x(t) by hand. Square passes at phase 0.1 and 0.6, so it has odd harmonics only. Sawtooth fails at the same phases, so it carries every integer harmonic. Chose sawtooth to use h=2 — also the smallest order that reaches Nyquist inside the sweep, since h=1 tops out at 20000 Hz, below f_s/2 = 22050 Hz.
+  - **Sweep law:** f(t) = 20·1000^(t/5), 20 Hz to 20 kHz, T=5 s, f_s=44100 Hz. Solving 2f(t)=22050 gives an exact-Nyquist crossing at t=4.5689 s — degenerate, since the predicted alias f_s−f equals f itself (22050=22050) there, so it can't tell aliased from not aliased.
+  - **Chirp rate:** df/dt = (ln R/T)·f(t) with R=1000, and the harmonic's rate is dg/dt = h·df/dt, about 30463 Hz/s at the crossing. For the DFT's fixed-frequency assumption to hold, the drift across the window has to stay under one bin: (dg/dt)·(N/f_s) ≤ f_s/N, giving N≤252 at the crossing.
+  - For a clean single-bin peak, chose N=200 (bin width 220.5 Hz) and put the harmonic on bin k=150, i.e. 33075 Hz. Inverting the sweep law gives t=4.8623 s. There the fundamental is 16537.5 Hz (bin 75) and the predicted alias is 11025 Hz (bin 50) — harmonic-on-bin implies alias-on-bin, because f_s spans exactly N bins.
+  - The chirp rate isn't constant, so rechecked stationarity at the new point: dg/dt=45694.8 Hz/s gives N≤206.3. N=200 still holds, with much less margin than 252.
+  - Window center: n=round(4.8623×44100)=214427, window [214327, 214527), well inside the 220500-sample file.
+  - `aliasing.cpp` reuses `WavData`, `read_wav`, `dft`, `magnitude` and `bin_to_hz` from `DFT/dft.cpp` and `Measure/dft.cpp`. Magnitudes: bin 49 = 534.029, bin 50 = 1.15772e6, bin 51 = 516.095 — bin 50 is about 2000× its neighbors. measured_hz = bin_to_hz(50, 44100, 200) = 11025, predicted_hz = 44100 − 33075 = 11025, a difference of 0 against a 220.5 Hz tolerance. One single-fold harmonic was enough for today; did not test a double fold.
+  - *(All code and derivations are the author's; Claude only reviewed.)*
+  - **Friction:**
+    - Half-wave symmetry test on the sawtooth gave a false positive at phase 0.25, a coincidental special point. Generic phases (0.1, 0.6) exposed the failure.
+    - `bin_to_hz()` was called with the peak magnitude instead of the bin index. The loop tracked the max value but never recorded where it occurred.
+    - The peak-search bound `i < N/2` excluded the Nyquist bin. Fixed to `i <= N/2`.
+    - An unrestricted global max would likely have landed on the fundamental (bin 75), not the h=2 alias (bin 50), since sawtooth coefficients scale roughly as 1/n. Switched to checking the predicted bin and its immediate neighbors — valid because bin alignment keeps each harmonic's energy in its own bin with no leakage.
+    - Unqualified `abs(double)` could resolve to `abs(int)` from `<cstdlib>` and silently truncate. Fixed with `std::abs`. The bug was latent: this run's values were exact integers.
+    - `predicted_hz` was a hardcoded 11025. Now computed as f_s − f_(h=2), so the code demonstrates the relationship instead of asserting the answer.
+    - Writeup took two revisions. Draft 1 didn't name the sampling theorem or state f_s and Nyquist. Draft 2 said "must be twice" (equality) where the theorem says "more than twice" (strict) — corrected by tying it back to the degenerate exact-Nyquist case.
+  - **Concepts locked:**
+    - Half-wave symmetry x(t+T/2) = −x(t) means odd harmonics only. Test it at generic phases, never at a single special point.
+    - Exponential sweep: df/dt = (ln R/T)·f(t), so the chirp rate grows with frequency and the h-th harmonic sweeps h times faster. Recheck stationarity at the actual measurement point, not a nearby one.
+    - DFT window stationarity: (dg/dt)·(N/f_s) ≤ f_s/N, giving N ≤ f_s/√(dg/dt).
+    - If a tone sits on bin k, its alias sits on bin N−k, because f_s is exactly N bins wide. Bin alignment gives leakage-free, isolated peaks.
+    - A test point at exactly f_s/2 can't distinguish aliased from not aliased. The sampling theorem is a strict inequality: f_s > 2f_max.
+    - When a stronger component exists elsewhere in the spectrum, measure at the predicted bin rather than taking a global max.
+    - Compute predictions in code from actual parameters. Hardcoding the expected answer makes the test circular.
+  - **Next:** Week 0.5 Day 5 — Lec 20 (Laplace; s-plane, poles/zeros, ROC). Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
