@@ -9,3 +9,7 @@ The fix for this is either band-limiting the signal (generating the waveform wit
 ![Spectrograms of the square, sawtooth, and sine sweeps (20 Hz to 20 kHz over 5 s)](../spectrograms.png)
 
 *Spectrograms of the 20 Hz to 20 kHz sweeps. **Square** (top): odd harmonics only, spaced fan; each reflects off Nyquist and sweeps back down as descending arcs. **Sawtooth** (middle): all harmonics, so the fan is denser and the alias lattice is busier. **Sine** (bottom): a single rising curve, no harmonics, no reflections — the clean control.*
+
+## Numeric check
+
+I used the sawtooth sweep WAV file, sweeping from 20 Hz to 20 kHz. I picked a time of 4.8623 seconds to measure a fundamental frequency of 16537.5 Hz and its 2nd harmonic, 33,075 Hz, which would be aliased to f_s − 2nd harmonic frequency, which is 11025 Hz. I predicted the aliased frequency to be 11025 Hz. I measured the aliased frequency to be 11025 Hz. These frequencies are equal. This aliasing occurs because of the sampling theorem, which states that the sampling frequency must be more than twice the highest frequency component to prevent aliasing. The 2nd harmonic frequency is 33,075 Hz, which is more than half of the sampling frequency, 44,100 Hz.
