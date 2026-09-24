@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.5, Day 5
+Current: Phase 0, Week 0.6, Day 1
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -271,3 +271,13 @@ Current: Phase 0, Week 0.5, Day 5
     - When a stronger component exists elsewhere in the spectrum, measure at the predicted bin rather than taking a global max.
     - Compute predictions in code from actual parameters. Hardcoding the expected answer makes the test circular.
   - **Next:** Week 0.5 Day 5 — Lec 20 (Laplace; s-plane, poles/zeros, ROC). Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
+- P5D5 (2026-09-24): PS20 (Laplace, ROC) complete: P20.2, P20.4, P20.1, P20.3, P20.6.
+  - **P20.2(a):** dropped u(t) without moving the lower limit to 0, so kept the wrong limit term and got −1/(s+a); then collapsed the double negative in 0 − 1/(−(a+s)). Also assumed the t→∞ term always vanishes; the ROC condition actually comes from requiring a+σ>0.
+  - **P20.2(c):** negated-variable flip — copied the right-sided ROC condition to the t→−∞ limit; correct is σ<−a. Sketch placed pole −a in the LHP with a<0.
+  - **P20.1(c):** same −a slip matching 3e^(2t) to e^(−at)u(t), giving poles at −2, −3. Caught because ROC Re{s}>−2 contradicted P20.1(b)(i).
+  - **P20.3, row (ii):** read "x(t)=0 for t>10" as right-sided, then two-sided. A left-sided cutoff need not be at 0.
+  - **P20.3(d):** listed Re{s}=0 as a candidate ROC; it passes through the poles.
+  - **P20.4(c):** ROC written with bounds reversed (−1<Re{s}<−2, an empty set).
+  - **P20.6(b):** target formula shown first at request, derivation done independently. First line used X(jω) instead of X(σ+jω).
+  - **Preference set:** do not state the next step during problem work; ask instead.
+  - **Next:** Week 0.6 Day 1 — Lec 21 (CT second-order systems; resonance, Q). Pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked.
