@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.6, Day 1
+Current: Phase 0, Week 0.6, Day 2
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -281,3 +281,9 @@ Current: Phase 0, Week 0.6, Day 1
   - **P20.6(b):** target formula shown first at request, derivation done independently. First line used X(jω) instead of X(σ+jω).
   - **Preference set:** do not state the next step during problem work; ask instead.
   - **Next:** Week 0.6 Day 1 — Lec 21 (CT second-order systems; resonance, Q). Pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked.
+- P6D1 (2026-09-26): PS21 (CT 2nd-order systems, resonance/Q).
+  - **P21.7 (priority), done in full:** (a) derived the differential equation from H(s), double-integrated to eliminate derivatives, and built the Direct Form II block diagram — ω_n² feedforward from x(t), −2ζω_n and −ω_n² feedback from the first/second integrator outputs respectively. Verified against the MIT RES.6-007 HW21 solutions — matches Figure S21.7-2 exactly.
+  - **P21.7(b):** derived the pole location s = −ζω_n ± jω_n√(1−ζ²). (i) ω_n fixed, ζ: 0→1 — poles trace the circle |s|=ω_n from the jω-axis to −ω_n; peak frequency decreases, bandwidth increases. (ii) ζ fixed, ω_n: 0→∞ — poles move along a fixed-angle ray from the origin (the Re/Im ratio is independent of ω_n); peak frequency and bandwidth both increase proportionally.
+  - **Recurring error:** sign drop when moving/dividing terms across the equals sign — twice this session, self-corrected once named.
+  - **Skipped:** P21.4, P21.5, P21.6 — deferred, per keep-set order, to Week 0.6 Day 3's dedicated PS20–22 catch-up.
+  - **Next:** Week 0.6 Day 2 — Lec 22 (z-transform). z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add the two deferred cards — "How does the DTFT relate to the z-transform?" and "What does moving off the unit circle in the z-plane buy you over the DTFT?"
