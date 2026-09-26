@@ -30,32 +30,20 @@ Four things changed at once. Each cut below has an actual reason attached, not a
 
 ## Reading the calendar
 
-**A "week" in this document is a unit of five study days. It is not a calendar week.** At your measured pace of three study days per week, one plan week takes **1.67 calendar weeks**.
+**A "week" in this document is a unit of five study days. It is not a calendar week.** How many calendar weeks that takes depends on pace, and pace is not fixed — see `Your measured throughput` for the current number. Do not assume five plan-days means five calendar days.
 
-The absence of that sentence is what let a six-week slip go unnamed. Every week below now carries the calendar date its final day lands on, computed at 3 study days/week from Monday 2026-08-31.
+The absence of that sentence is what let a six-week slip go unnamed. This document no longer pins a calendar date to each week — every date field it carried went stale within weeks of being written, and correctly re-deriving one has already needed its own dedicated pass more than once. What matters is the phase/week/day sequence below and the measured pace in `Your measured throughput`, not a projected date on any given week.
 
-| Phase | Weeks | Closes |
-|---|---|---|
-| **DSP 501** — Phase 0, deterministic theory | 0.4 (resume) – 0.8 | **2026-10-20** |
-| **DSP 502** — Phase 1, stochastic DSP | 3 – 7 | **2026-12-18** |
-| **DSP 503** — Phase 2, filters, multirate, real-time C++ | 8 – 12 | **2027-02-14** |
-| **DSP 504** — Phase 3, the STFT | 13 – 15 | **2027-03-21** |
-| Week 16 — checkpoint | 16 | **2027-04-02** |
-| **DSP 505** — Phase 4, adaptive & optimal filtering | 17 – 21 | **2027-05-30** |
-| **DSP 506** — Phase 5, the artifact | 22 – 26 | **2027-07-27** |
-| Week 27 — branch onramp | 27 | **2027-08-08** |
-| Week 28 — pre-term consolidation | 28 | **2027-08-20** |
+Assumed program start: **~2027-08-23.** This is the one calendar date that still matters here, because it's external — not something computed from `LOG.md`. Whether the remaining weeks (28 as of this revision) fit before it depends entirely on pace: at 3 study days/week the fit is close; below 3, it doesn't fit without cutting something. Recheck this against `Your measured throughput` periodically — the Week 16 Day 2 re-measure is the formal checkpoint for it — rather than trusting the week numbers alone to tell you where you stand.
 
-Assumed program start: **~2027-08-23**. Slack at 3 days/week: **three days.**
-
-**That is zero slack, and it is stated rather than hidden.** If the pace holds at 3, this fits. If it drops, things get cut, and the cut order is decided now rather than in a panic later:
+**If the pace drops far enough that the remaining weeks won't fit before the assumed start, things get cut, and the cut order is decided now rather than in a panic later:**
 
 1. **Week 28 goes first** (pre-term consolidation — nice, not load-bearing).
 2. **Then Week 27** (branch onramp — can be done in the first weeks of term instead).
 3. **Then Phase 5 compresses** to Weeks 22–23 only: the partitioned convolution engine, without the adaptive stage on real audio.
 4. **Phase 4 and everything before it do not get cut.** If the pace falls far enough to threaten Phase 4, the answer is to fix the pace, not the plan.
 
-At 4 study days/week the whole thing closes **2027-05-23 with thirteen weeks of slack**. That is what one extra day per week buys, stated once here so it doesn't need re-litigating.
+One extra study day per week compounds hard over 28 remaining weeks. Worth remembering when deciding whether a slipped day is worth reclaiming — the daily ~2h unit is the lever that actually moves the date, not any adjustment to the plan itself.
 
 ---
 
@@ -199,7 +187,7 @@ Every video source used anywhere in this plan, listed once. Referenced by tag in
 
 ---
 
-## Phase 0 (DSP 501) — Theory Foundation — closes 2026-10-20
+## Phase 0 (DSP 501) — Theory Foundation
 
 *Resource: MIT RES.6-007 (ocw.mit.edu). **Every lecture ships a problem set with full solutions** — those are your daily deliverables. Textbook pairing: Oppenheim & Willsky follows the course chapter-for-chapter. **Rule: one lecture + its problem set per study day** — never two lectures and two psets in one day (the P1D1 log proved you need this pace). The skim lectures (13–15, 25–26) ship no pset and may share a day; code days and consolidation days stay whole. **No day ends on "watched the video"** — each ends on a self-checked pset, a by-hand derivation, a batch of new flashcards, or committed code.*
 
@@ -215,12 +203,12 @@ If you must cut, cut Lec 13–14 (CT AM) and nothing else.
 
 Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1–PS12 and PS15 closed; `convolve()`, the O(N²) DFT, the WAV reader, and the measurement harness built, committed, and reading flat 0.00 dB pass-through across all 257 bins. Day-level detail lives in `LOG.md`; it is not restated here.
 
-### Week 0.4 (resume) — Sampling begins (Lec 16–17) — ends 2026-09-04
+### Week 0.4 (resume) — Sampling begins (Lec 16–17)
 - **Day 4:** **[LEC]** **[PSET]** Lec 16 (sampling theorem, Nyquist). **Deliverable:** state and sketch-prove the sampling theorem in your own words; PS16 checked. *(P15.1 from P4D3 is the ready-made sketch-proof — the replica picture plus ω_s > 2ω_M is the theorem, and it was derived there rather than assumed.)* The theory under `aliasing.md`.
 - **Day 5:** **[LEC]** **[PSET]** Lec 17 (interpolation / reconstruction). **Deliverable:** PS17 checked; a one-line statement of how ideal reconstruction interpolates between samples.
 - **Done when:** you can state and sketch-prove the sampling theorem from a blank page.
 
-### Week 0.5 — Sampling & decimation; aliasing code; Laplace begins (Lec 18–20) — ends 2026-09-15
+### Week 0.5 — Sampling & decimation; aliasing code; Laplace begins (Lec 18–20)
 - **Day 1:** **[LEC]** **[PSET]** Lec 18 (DT processing of CT signals). **Deliverable:** PS18 checked.
 - **Day 2:** **[LEC]** **[PSET]** Lec 19 (decimation / downsampling) — **core.** **Deliverable:** PS19 checked; write the "filter *before* you decimate, and why" note. **Forward-link:** Week 10 builds polyphase decimation/interpolation and rate conversion.
 - **Day 3:** **[PSET]** Problem-set / consolidation day — the sampling+modulation block is the lecture-dense stretch. **Deliverable:** any slipped PS16–PS19 worked, every miss re-worked to correct.
@@ -228,7 +216,7 @@ Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1�
 - **Day 5:** **[LEC]** **[PSET]** Lec 20 (Laplace; s-plane, poles/zeros, ROC). **Deliverable:** Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
 - **Done when:** your measured aliased frequencies match the sampling-theorem prediction, and you can place a first-order system's poles in the s-plane.
 
-### Week 0.6 — Second-order systems, z-transform, the one-pole (Lec 21–22) — the payoff week — ends 2026-09-27
+### Week 0.6 — Second-order systems, z-transform, the one-pole (Lec 21–22) — the payoff week
 - **Day 1:** **[LEC]** **[PSET]** Lec 21 (CT second-order systems; resonance, Q). **Deliverable:** pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked.
 - **Day 2:** **[LEC]** **[PSET]** Lec 22 (z-transform). **Deliverable:** z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add the deferred card — *"How does the DTFT relate to the z-transform?"* → the unit-circle-slice answer — plus *"What does moving off the unit circle in the z-plane buy you over the DTFT?"* *(Both were deliberately deferred at P3D4 because writing them before Lec 22 would have been writing them blind.)*
 - **Day 3:** **[PSET]** Problem-set day — the dedicated pset-catch for the Laplace/z block (Lec 20–22), the derivation-dense stretch. **Deliverable:** remaining PS20–PS22 problems worked, every miss re-worked to correct.
@@ -236,7 +224,7 @@ Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1�
 - **Day 5:** Verify. **Deliverable:** one-pole impulse response through the migrated harness; the pole predicts the measured −3 dB point and rolloff. Commit + LOG.
 - **Done when:** your paper pole location matches the measured magnitude response, and the harness handles a stateful system correctly.
 
-### Week 0.7 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26) — ends 2026-10-09
+### Week 0.7 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
 - **Day 1:** **[LEC]** **[PSET]** Lec 23 (mapping CT→DT filters = the bilinear transform). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; PS23 checked.
 - **Day 2:** **[LEC]** **[PSET]** Lec 24 (Butterworth). **Deliverable:** derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
 - **Day 3:** **[LEC]** Lec 25–26 (feedback) — *skim to a summary, no pset, keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **Load-bearing for anything recursive** — IIR stability, and directly for Phase 4's adaptive-filter convergence bounds. Skim the video if tight; do not cut the idea.
@@ -244,7 +232,7 @@ Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1�
 - **Day 5:** Full deck review + gap-fill. **Deliverable:** a complete review pass; every link in the chain — signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter — has at least one card you answer cold, plus derivation-prompt cards for the one-pole and the bilinear transform. LOG.
 - **Done when:** you can walk the full chain unaided and re-derive the bilinear transform from scratch.
 
-### Week 0.8 — 🔧 Phase 0 buffer / consolidation — ends 2026-10-20
+### Week 0.8 — 🔧 Phase 0 buffer / consolidation
 *The only slack in Phase 0. Its primary job is to absorb overrun from the two hardest stretches — the sampling/modulation weeks (0.4–0.5, overloaded by lecture count) and the Laplace/z weeks (0.5–0.6, overloaded by derivation depth) — which have no catch-up elsewhere. If a block slipped, the slid psets/derivations/code land on the matching day below. If you're fully on track, the default is a **spaced second pass**: re-derive the load-bearing results cold, a day per block. Spacing is exactly what depth topics respond to, so this week is productive even when nothing slipped. It can compress to 2–3 days if truly clean — and given the measured pace, expect to need it rather than compress it.*
 - **Day 1:** **[PSET]** Fourier block (Weeks 0.2–0.3). **Deliverable:** any slipped PS7–PS12 closed; else re-derive rect → sinc and the DTFT of a rectangular window cold, no notes.
 - **Day 2:** **[PSET]** Sampling/modulation block (Weeks 0.4–0.5). **Deliverable:** any slipped PS16–PS19 or the Week 0.5 aliasing code closed; else re-state and sketch-prove the sampling theorem cold and re-confirm the fold-back (`f_s − f`) against `aliasing.md`.
@@ -256,7 +244,7 @@ Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1�
 **✅ DSP 501 Checkpoint (2026-10-20):** You can derive a filter's transfer function from its difference equation, place its poles, and predict its magnitude response — then confirm it with your own harness. The z-transform is no longer magic.
 
 ---
-## Phase 1 (DSP 502) — Stochastic Signal Processing (Weeks 3–7) — closes 2026-12-18
+## Phase 1 (DSP 502) — Stochastic Signal Processing (Weeks 3–7)
 
 **The largest gap in your preparation, and the highest-leverage weeks in this document.** Oppenheim & Willsky is entirely deterministic — known signals, known systems. But real audio signals are *random*: speech, noise, room reverberation, and the interference every algorithm is built to fight. You cannot derive the Wiener filter, NLMS, MVDR beamforming, or any modern estimator without autocorrelation, power spectral density, and the orthogonality principle.
 
@@ -282,7 +270,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 1. **Week 6 Day 2 is no longer first exposure.** It becomes a *cold re-derivation after a one-week gap* — which is strictly better. Spacing is what depth results respond to, and the orthogonality principle is the single most exam-relevant result in the course.
 2. **Week 5 Day 2 carries two lectures' worth of load.** It is the heaviest single day in DSP 502. If a day is going to slip, this is the one — Week 7's buffer exists for it.
 
-### Week 3 — Random processes, stationarity, autocorrelation — ends 2026-11-01
+### Week 3 — Random processes, stationarity, autocorrelation
 *Video: EPFL DSP2 Module 3 (random signals) + NPTEL-SSP Wk 1*
 
 - **Day 1:** **[LEC]** EPFL DSP2 M3 opening videos on random signals; NPTEL-SSP Wk 1 (random processes). Random variables → random *processes*. Ensemble average vs. time average. **Deliverable:** written statement, in your own words, of what a random process *is* and why one realization can't characterize it.
@@ -292,7 +280,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Code. **Deliverable:** Python — estimate autocorrelation from a finite record; show the estimator's variance blowing up at large lags. Submit the EPFL DSP2 M3 graded assignment. Commit + LOG.
 - **Done when:** you can explain why `r_x[k]`, not the signal itself, is the object every estimator actually optimizes against.
 
-### Week 4 — Power spectral density; filtering random processes — ends 2026-11-13
+### Week 4 — Power spectral density; filtering random processes
 *Video: EPFL DSP2 Module 3 (remainder) + NPTEL-SSP Wk 1*
 
 - **Day 1:** PSD; the **Wiener–Khinchin** theorem (PSD = FT of autocorrelation). **Deliverable:** derive it. Derivation-prompt card. *(This is the stochastic mirror of Phase 0's conv↔mult duality — same structure, new object.)*
@@ -302,7 +290,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** Code. **Deliverable:** Python — Welch PSD estimator from scratch, validated against `scipy.signal.welch`. Commit + LOG.
 - **Done when:** you can predict the output PSD of any LTI filter driven by any input PSD, and explain why a raw periodogram is a bad estimator.
 
-### Week 5 — Linear prediction — ends 2026-11-24
+### Week 5 — Linear prediction
 *Video: NPTEL-SSP Wk 6 (linear prediction, Levinson–Durbin, LPC of speech) + **NPTEL-SSP Wk 5 pulled forward to Day 2** (LMMSE, orthogonality principle, Wiener–Hopf). Optional supplement: MIT 6.341 Lec 12–13 lecture notes (notes only, no video).*
 
 - **Day 1:** The forward linear-prediction problem. **Deliverable:** set up the prediction-error minimization by hand.
@@ -312,7 +300,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Code. **Deliverable:** Python — LPC analysis of a real speech frame; plot the LPC spectral envelope over the FFT magnitude and show it tracking the formants. Submit the NPTEL assignment for the covered weeks. Commit + LOG.
 - **Done when:** you can derive the normal equations cold and explain what LPC is *modeling*.
 
-### Week 6 — The Wiener filter — the payoff week — ends 2026-12-06
+### Week 6 — The Wiener filter — the payoff week
 *Video: NPTEL-SSP Wk 7 (causal/non-causal IIR Wiener — stretch). **NPTEL Wk 5 was already watched in Week 5 Day 2** — this week works from your own notes, not a re-watch.*
 
 - **Day 1:** The MMSE estimation problem. The cost function; why mean-*square*. **Deliverable:** state the problem formally; identify precisely what is known and what is estimated.
@@ -322,7 +310,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Code. **Deliverable:** Python — FIR Wiener filter denoising a synthetic signal where you *do* know both PSDs (the oracle case); measure the SNR improvement. Submit the NPTEL assignment. Commit + LOG.
 - **Done when:** you can derive `w = R⁻¹p` from the orthogonality principle on a blank page, and name exactly which quantity every practical algorithm is forced to estimate rather than know. **Forward-link:** that naming is the whole premise of Phase 4 — LMS is the answer to "you don't know `R` or `p`, now what."
 
-### Week 7 — 🔧 Phase 1 buffer + numerical workflow — ends 2026-12-18
+### Week 7 — 🔧 Phase 1 buffer + numerical workflow
 - **Days 1–3:** Absorb overrun. Weeks 5–6 (normal equations, orthogonality) are the derivation-dense stretch and the likely slip — Week 5 Day 2 in particular. If clean: spaced second pass — re-derive Wiener–Khinchin, the normal equations, and `w = R⁻¹p` cold, one per day.
 - **Day 4:** **Stand up the dual-language workflow.** **Deliverable:** repo scaffold with `python/` and `cpp/` trees, a shared test-vector format, and a harness that runs an algorithm in both and asserts numerical agreement to a stated tolerance. Prove it on the one-pole from Week 0.6.
 - **Day 5:** Deck gap-fill across Phase 1. LOG.
@@ -332,11 +320,11 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 
 ---
 
-## Phase 2 (DSP 503) — Filters, multirate, and real-time C++ (Weeks 8–12) — closes 2027-02-14
+## Phase 2 (DSP 503) — Filters, multirate, and real-time C++ (Weeks 8–12)
 
 *Resources:* RBJ Audio EQ Cookbook; Proakis & Manolakis (FIR design, multirate); Crochiere & Rabiner, _Multirate Digital Signal Processing_; Ross Bencina, "Real-time audio programming 101"; Timur Doumler's real-time C++ talks. **Video spine: EPFL DSP2 Modules 1–2** (filter theory and design, Coursera) **+ EPFL DSP3** (sampling/multirate, Coursera) **+ EE123** (UC Berkeley, Lustig — Week 10's primary multirate source) **+ NPTEL-DR** (free, deep bench). **Week 11 has no full course** — Bela covers two of its five days; see that week for detail.
 
-### Week 8 — Biquads — ends 2026-12-29
+### Week 8 — Biquads
 *Video: EPFL DSP2 Module 1 (13 videos — how digital filters work in time and frequency) + NPTEL-DR Lec 28–30 (filter structures, IIR realizations, all-pass)*
 
 - **Day 1:** RBJ cookbook; Direct Form I vs. II vs. transposed DF-II, and why DF-II behaves worse numerically. **Deliverable:** written comparison. With the bilinear transform already derived in Phase 0, this is coefficient bookkeeping, not new theory.
@@ -346,7 +334,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Unit tests (DC gain, Nyquist gain, coefficient sanity); GitHub Actions running them on push. Submit the DSP2 Module 1 graded assignment. **Deliverable:** green CI. Commit + LOG.
 - **Done when:** measured response matches theory for all four types, and CI is green.
 
-### Week 9 — FIR design — ends 2027-01-10
+### Week 9 — FIR design
 *Video: EPFL DSP2 Module 2 (13 videos — designing filters via the z-transform and numerical tools) + NPTEL-DR Lec 38–40, 42 (FIR by windowing, by frequency sampling)*
 
 - **Day 1:** Linear phase — the four types, the symmetry condition, group delay. **Deliverable:** derive why symmetric taps ⇒ linear phase. **Phase matters** for spatial audio (ITD cues), for array processing, and for anything binaural — in a way plugin EQ let you ignore.
@@ -356,7 +344,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Code. Submit the DSP2 Module 2 graded assignment. **Deliverable:** C++ FIR + overlap-add, agreeing with the Python reference via the Week 7 harness. Commit + LOG.
 - **Done when:** you can say when FIR beats IIR and why, and your overlap-add convolution matches direct convolution to machine precision.
 
-### Week 10 — Multirate — ends 2027-01-22
+### Week 10 — Multirate
 *Video: EE123 Lec 16–18 ("Resampling" → "Lab III and Polyphase Filters" → "Filter Banks") — confirmed to derive both polyphase decomposition and the noble identities directly (the interchange-of-operations diagrams showing downsample-then-filter ≡ filter-then-downsample), from the same durable archive.org-hosted source already used for Week 13. EPFL DSP3 (sampling, interpolation, A/D–D/A conversion) covers Day 1's setup. NPTEL-MR is now optional/secondary — useful for extra practice, not required.*
 
 - **Day 1:** Decimation and interpolation — the identities and the required anti-alias / anti-image filters. **Deliverable:** derive the spectral effect of ↓M and ↑L by hand.
@@ -366,7 +354,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **[PSET]** Code. Submit the DSP3 graded assignment. **Deliverable:** port to C++; agree with Python via the harness. Commit + LOG.
 - **Done when:** your resampler is measurably clean, and you can derive polyphase's saving from first principles.
 
-### Week 11 — Real-time audio constraints — ends 2027-02-02
+### Week 11 — Real-time audio constraints
 
 **No single course covers this week, and this is the final state — checked repeatedly, from every reasonable angle, and confirmed empty each time.** EPFL DSP4 covers real-time audio on a hardware board, but that's embedded microcontroller work, not audio-thread discipline. Bela's *C++ Real-Time Audio Programming* (Andrew McPherson, adapted from Queen Mary University of London's MSc course, confirmed live) covers Days 1 and 4 well — audio-thread rules and timing/block-size generally — but does not reach denormals or lock-free multithreading specifically. Days 2 and 3 have named individual video references (a well-vetted independent series for denormals, a single ground-up CppCon talk for lock-free SPSC), and — more importantly — objective, falsifiable checks in place of a graded assignment: a benchmark that either shows the denormal fix worked or didn't, and ThreadSanitizer, which reports a ring buffer clean or not-clean with no room for self-deception. No course exists for this week, but that's not the same as no verification. Treat that as a feature, not a gap: this is exactly the material that separates people who've shipped audio from people who've only taken courses.
 
@@ -377,7 +365,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 - **Day 5:** **Deliverable:** a one-page real-time-audio cheat sheet, written cold. Commit + LOG.
 - **Done when:** you can explain the audio-thread rules, denormals, and lock-free SPSC from memory; your denormal fix is confirmed faster by benchmark, not just observed; and your ring buffer passes ThreadSanitizer clean, not just "seems to work" under a stress test.
 
-### Week 12 — 🔧 Buffer / consolidation — ends 2027-02-14
+### Week 12 — 🔧 Buffer / consolidation
 *A plain buffer. This week lands 2027-02-02 → 2027-02-14; under the Fall 2027 timeline no registration window or admissions deadline sits inside it, so the application-season double-booking that used to define this week is gone entirely. Straightforward study-overrun absorption, same pattern as Weeks 0.8 and 7.*
 - **Days 1–3:** Absorb study overrun from Weeks 8–11. Week 11 is the likely source — it is the week with no course and the highest chance of a day going sideways on a data race.
 - **Day 4:** Harden the C++ DSP core — biquad, FIR, overlap-add, polyphase, ring buffer — into a clean, tested, documented unit.
@@ -388,7 +376,7 @@ NPTEL derives the orthogonality principle **first** (its Wk 5) and treats linear
 
 ---
 
-## Phase 3 (DSP 504) — The STFT (Weeks 13–15) — closes 2027-03-21
+## Phase 3 (DSP 504) — The STFT (Weeks 13–15)
 
 The last invariant block. The STFT is the shared substrate of nearly every audio research direction on your list — spatial (binaural cues per band), music (chroma, onsets, MIR features), and speech (enhancement, separation). Whatever branch you take, you will build on this.
 
@@ -403,7 +391,7 @@ ASPMA is a 10-week course. You take **Weeks 1–4 and 9**:
 - **Cut — ASPMA Wk 5–8** (sinusoidal model, harmonic model, sinusoidal-plus-residual modeling, sound transformations). Unambiguously MIR/music-branch material, and neither live branch (UIC or CSUF) nor the industry-fallback branch needs it. Full cut, no forward-link.
 - **Core — ASPMA Wk 9** (extraction of audio features; describing sounds and collections). Your Week 15 Day 3.
 
-### Week 13 — STFT theory — ends 2027-02-26
+### Week 13 — STFT theory
 *Video: ASPMA Wk 4 (6 videos)*
 
 - **Day 1:** The STFT as a filter bank vs. as a sequence of windowed transforms. **Deliverable:** state both views and reconcile them. *(This is the direct payoff of the Lec 15 promotion — each bin is a modulated, lowpassed channel.)*
@@ -413,7 +401,7 @@ ASPMA is a 10-week course. You take **Weeks 1–4 and 9**:
 - **Day 5:** **[PSET]** Consolidate + cards. Submit the ASPMA Wk 4 quiz. **Deliverable:** derivation-prompt card for COLA. LOG.
 - **Done when:** you can explain the STFT as a modulated filter bank and derive the COLA condition cold.
 
-### Week 14 — STFT/ISTFT implementation — **a hard gate** — ends 2027-03-09
+### Week 14 — STFT/ISTFT implementation — **a hard gate**
 *Video: ASPMA Wk 4 programming assignment; sms-tools source as a reference implementation to diff against, not to start from.*
 
 - **Days 1–2:** **[PSET]** STFT forward transform (Python), then inverse with overlap-add. Complete the ASPMA Wk 4 programming assignment. **Deliverable:** working analysis/synthesis. *Write yours before reading sms-tools' — then diff against it.*
@@ -421,7 +409,7 @@ ASPMA is a 10-week course. You take **Weeks 1–4 and 9**:
 - **Days 4–5:** Port to C++; agree with Python via the Week 7 harness. **Deliverable:** both implementations reconstructing to tolerance. Commit + LOG.
 - **Done when:** round-trip error is at machine precision in *both* languages.
 
-### Week 15 — STFT analysis tooling — ends 2027-03-21
+### Week 15 — STFT analysis tooling
 *Video: ASPMA Wk 9 (audio feature extraction)*
 
 The one application that is invariant: **measurement infrastructure.** Every branch needs to look at time-frequency data, and this upgrades the Phase 0 harness from a magnitude-response plotter into a real analysis rig.
@@ -434,7 +422,7 @@ The one application that is invariant: **measurement infrastructure.** Every bra
 **✅ DSP 504 Checkpoint (2027-03-21):** You own the STFT end to end — theory, perfect reconstruction, and an analysis toolkit — in both Python and C++.
 
 ---
-## Week 16 — 📍 Checkpoint — ends 2027-04-02
+## Week 16 — 📍 Checkpoint
 
 **Demoted from branch point to checkpoint in this revision.** Under Spring 2027 this week sat just before a program start and a decision had to be made in it. Under Fall 2027 it sits twenty weeks out, and forcing a decision here would mean deciding with less information than waiting costs nothing to obtain. The branch decision moved to *The branch decision* above — a dated event with a trigger rule, not a week number.
 
@@ -449,13 +437,13 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 ---
 
-## Phase 4 (DSP 505) — Adaptive & Optimal Filtering (Weeks 17–21) — closes 2027-05-30
+## Phase 4 (DSP 505) — Adaptive & Optimal Filtering (Weeks 17–21)
 
 **Promoted to invariant core in this revision.** Phase 1 taught you to derive the optimal filter when you know `R` and `p`. You never know `R` and `p`. This phase is the entire field's answer to that, and it is the same answer whether the signal is a room impulse response, a head-related transfer function, an echo path, or a beamformer's interference statistics. `candidate-profile.md` lists "adaptive filters, LMS/RLS" as a gap with no branch attached; this closes it.
 
 *Resources:* **NPTEL-SSP Weeks 8–11** (the block deferred from Phase 1 — same lecturer, notation, and assignment format you'll have used for five weeks already). **Haykin-AFT** Ch. 4–6, 9–10 as the reference for what the lectures state without proof. **EPFL DSP2 Module 3** adaptive-filter videos as a second framing.
 
-### Week 17 — The error surface and steepest descent — ends 2027-04-13
+### Week 17 — The error surface and steepest descent
 - **Day 1:** The MSE cost surface. **Deliverable:** derive `J(w) = σ²_d − 2wᵀp + wᵀRw`; show it is a paraboloid; identify its minimum as `w = R⁻¹p` and recognize it as Week 6's result arriving from a different direction.
 - **Day 2:** Steepest descent: `w(n+1) = w(n) + μ[p − Rw(n)]`. **Deliverable:** derive the update; derive the stability bound `0 < μ < 2/λ_max` from the modal decomposition. Derivation-prompt card.
 - **Day 3:** Convergence modes and eigenvalue spread. **Deliverable:** by hand, decouple the update into independent modes via **R**'s eigenvectors; state the time constant of each and why the spread `λ_max/λ_min`, not the size of **R**, sets convergence speed.
@@ -463,7 +451,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** **[PSET]** Consolidate + cards. **Deliverable:** derivation-prompt cards for the error surface and the μ bound. Submit the NPTEL assignment for the covered week. Commit + LOG.
 - **Done when:** you can derive the steepest-descent stability bound from **R**'s eigenvalues, and you produced a divergence you predicted numerically before you saw it.
 
-### Week 18 — LMS and NLMS — ends 2027-04-25
+### Week 18 — LMS and NLMS
 - **Day 1:** The stochastic-gradient approximation. **Deliverable:** derive LMS from steepest descent by replacing the expectation with its instantaneous single-sample estimate. **State precisely what is being approximated and what is being given up** — this is the conceptual hinge of the whole phase.
 - **Day 2:** Convergence in the mean and in the mean square; **misadjustment**. **Deliverable:** derive the misadjustment expression; state the three-way tradeoff between `μ`, convergence speed, and steady-state excess error.
 - **Day 3:** **NLMS.** **Deliverable:** derive the normalized step from the minimum-disturbance principle; show why it removes LMS's sensitivity to input power, and why that is what makes it usable on real audio whose level you don't control.
@@ -471,7 +459,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** **[PSET]** Code (C++). **Deliverable:** port both via the Week 7 harness; the two languages agree to stated tolerance. Submit the NPTEL assignment. Commit + LOG.
 - **Done when:** your measured misadjustment matches the derived expression, and you can state in one sentence what LMS approximates and what that approximation costs.
 
-### Week 19 — RLS — ends 2027-05-07
+### Week 19 — RLS
 - **Day 1:** Deterministic least squares vs. stochastic MMSE. **Deliverable:** derive the deterministic normal equations; state exactly how they differ from Week 5's, and what changes when the expectation becomes a sum over observed data.
 - **Day 2:** The matrix inversion lemma and the RLS recursion. **Deliverable:** derive RLS from the lemma; state the role of the forgetting factor `λ` and what `λ = 1` means physically. Derivation-prompt card.
 - **Day 3:** RLS vs. LMS — convergence rate, cost, numerical stability. **Deliverable:** written comparison carrying the `O(p)` vs `O(p²)` accounting explicitly, plus the divergence failure mode RLS has and LMS doesn't.
@@ -479,7 +467,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** **[PSET]** Consolidate + cards. Submit the NPTEL assignment. Commit + LOG.
 - **Done when:** you can derive RLS from the matrix inversion lemma, and say with numbers when it is worth its cost and when it isn't.
 
-### Week 20 — Frequency-domain adaptive filtering; the Kalman frame — ends 2027-05-18
+### Week 20 — Frequency-domain adaptive filtering; the Kalman frame
 - **Day 1:** Block LMS. **Deliverable:** derive it; state its exact relationship to sample-by-sample LMS and what block length costs in tracking speed.
 - **Day 2:** **Frequency-domain adaptive filtering (FDAF) via overlap-save.** **Deliverable:** derive it using Week 9's overlap-save directly; identify where the gradient constraint enters and state what the unconstrained version buys and breaks. *(This is the second of three times overlap-save is load-bearing.)*
 - **Day 3:** The Kalman filter as recursive Bayesian estimation. **Deliverable:** state the state-space model; derive the update as predict-then-correct; **show RLS falling out as a special case.** This is the unifying view, and it is what makes the whole phase one idea rather than four algorithms.
@@ -487,7 +475,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** **[PSET]** Consolidate. Submit the NPTEL assignment. Commit + LOG.
 - **Done when:** your FDAF matches time-domain NLMS in converged response and beats it in measured cost at long filter lengths, at a crossover you can explain.
 
-### Week 21 — 🔧 Phase 4 buffer — ends 2027-05-30
+### Week 21 — 🔧 Phase 4 buffer
 *Weeks 18–19 are the derivation-dense stretch — misadjustment and the matrix inversion lemma are the two most likely days to slip. Same pattern as Weeks 0.8, 7, and 12.*
 - **Days 1–3:** Absorb overrun. If clean: spaced second pass — re-derive the `μ` bound, NLMS from minimum-disturbance, and RLS from the lemma, cold, one per day.
 - **Day 4:** Integration rehearsal. **Deliverable:** NLMS running inside the Week 7 dual-language harness with a fixed test vector, ready to be dropped into Phase 5 without re-litigating its correctness.
@@ -498,7 +486,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 ---
 
-## Phase 5 (DSP 506) — The Artifact (Weeks 22–26) — closes 2027-07-27
+## Phase 5 (DSP 506) — The Artifact (Weeks 22–26)
 
 **The one thing five phases of theory still leaves missing.** `candidate-profile.md` is blunt about it: *"No audio-domain project of any kind."* The harness, the biquad, the resampler, and the STFT toolkit are instruments — real work, but instruments. This phase builds the thing you put a link to.
 
@@ -508,14 +496,14 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 **No course covers this phase, and none should.** It is integration work against your own prior code. See the Coverage Ledger.
 
-### Week 22 — Partitioned convolution — ends 2027-06-11
+### Week 22 — Partitioned convolution
 - **Day 1:** Uniformly partitioned overlap-save. **Deliverable:** derive the partition scheme; write the latency budget explicitly — algorithmic delay, block delay, and where each comes from.
 - **Day 2:** Non-uniform partitioning: a zero-latency head block with progressively larger tail blocks. **Deliverable:** derive the schedule; state the cost-versus-latency tradeoff and why the uniform scheme cannot have both.
 - **Day 3:** Code (Python). **Deliverable:** uniform partitioned convolution; **verified against direct convolution to machine precision.** *(Same discipline as Week 14's gate: a subtly wrong convolver poisons everything downstream and you will blame the adaptive filter.)*
 - **Days 4–5:** Port to C++; agree with Python via the Week 7 harness. **Deliverable:** both implementations at machine precision, plus a benchmark against direct convolution locating the crossover length. Commit + LOG.
 - **Done when:** your partitioned convolver reconstructs to machine precision in both languages and beats direct convolution past a crossover length you predicted before measuring.
 
-### Week 23 — Real-time integration — ends 2027-06-22
+### Week 23 — Real-time integration
 - **Day 1:** Put the convolver on an audio thread under the Week 11 rules. **Deliverable:** preallocated buffers, no allocation, no locks, no syscalls on the RT path; parameter changes crossing via your Week 11 SPSC ring buffer.
 - **Day 2:** **Audit it, don't trust it.** **Deliverable, falsifiable:** run under **RADSan** (promoted from optional to required here) and ThreadSanitizer. **The check:** zero real-time-safety violations reported, or it isn't done. "Seems to work" is not a result and this is exactly the material where self-assessment fails silently.
 - **Day 3:** Denormals in the adaptive tail. **Deliverable, falsifiable via benchmark:** let the NLMS coefficient state decay into denormal range, benchmark, apply flush-to-zero, benchmark again. If it isn't measurably faster, the case wasn't triggered or the fix didn't take.
@@ -523,7 +511,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** Commit + LOG.
 - **Done when:** the engine runs a full-duplex block loop with zero reported RT-path violations and a measured worst-case block time inside a stated budget.
 
-### Week 24 — The adaptive stage on real audio — ends 2027-07-04
+### Week 24 — The adaptive stage on real audio
 - **Day 1:** State the problem formally before writing code. **Deliverable:** a written signal model — which signal is desired, which is the reference, what the error is, and what assumption about their correlation makes the whole thing work.
 - **Day 2:** NLMS on real recordings. **Deliverable:** convergence curves on real input, with step size and regularization chosen for stated reasons rather than tuned until the plot looked nice.
 - **Day 3:** **Failure modes, produced deliberately.** **Deliverable:** reproduce non-stationarity, a correlated reference, and divergence; log what each looks like in the curves. *(You will meet all three in a lab. Meeting them here, on purpose, is cheaper.)*
@@ -531,14 +519,14 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 5:** Commit + LOG.
 - **Done when:** you have one reproducible number that says whether it works, and you can diagnose each failure mode from its curve alone.
 
-### Week 25 — Write it up — ends 2027-07-16
+### Week 25 — Write it up
 - **Days 1–2:** The report: theory, implementation, measurement method, results, **and limitations stated plainly.** **Deliverable:** draft. The limitations section is not a formality — it is the part that reads as engineering rather than marketing.
 - **Day 3:** Figures, generated with your own Week 15 analysis toolkit rather than a library's defaults. **Deliverable:** spectrograms and convergence plots that are yours end to end. *(The loop closes: your instrument measures your artifact.)*
 - **Day 4:** README, build instructions, CI green **on a clean checkout on a machine that isn't yours.**
 - **Day 5:** Final pass. Commit + LOG.
 - **Done when:** someone who has never seen the repo can clone it, build it, run it, and read what it does and how well it does it.
 
-### Week 26 — 🔧 Phase 5 buffer / hardening — ends 2027-07-27
+### Week 26 — 🔧 Phase 5 buffer / hardening
 - **Days 1–3:** Absorb overrun. Week 23 (RT audit) and Week 24 (real audio) are the likely sources — real recordings break assumptions that synthetic ones don't.
 - **Day 4:** Test coverage on the DSP path; property tests where they're cheap (round-trip precision, gain at DC and Nyquist, convergence to a known plant).
 - **Day 5:** Final polish. LOG.
@@ -548,7 +536,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 ---
 
-## Week 27 — Branch onramp — ends 2027-08-08
+## Week 27 — Branch onramp
 
 **First week where branch-specific work is the correct thing to do**, because by now the answer exists.
 
@@ -559,7 +547,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 *First to be cut if the pace drops. This is doable in the first weeks of term; Phases 4 and 5 are not.*
 
-## Week 28 — Pre-term consolidation — ends 2027-08-20
+## Week 28 — Pre-term consolidation
 
 - **Days 1–2:** Full deck pass across DSP 501–505. **Deliverable:** every derivation-prompt card answered cold. This deck was built over twelve months for this week.
 - **Day 3:** Re-derive the four load-bearing results from a blank page: the bilinear transform, `w = R⁻¹p` from the orthogonality principle, the NLMS update, and the COLA condition.
