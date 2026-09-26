@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.6, Day 3
+Current: Phase 0, Week 0.6, Day 4
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -298,3 +298,12 @@ Current: Phase 0, Week 0.6, Day 3
   - **Recurring errors:** reciprocal inequality direction (twice: P22.2(c), P22.4(c)(i)); dropped coefficient between lines (twice: P22.1(b), P22.4(c)(i)); negated-index flip (P22.4(a)(ii)).
   - **Skipped:** P22.7(a)–(c), carried to Day 3. The two deferred cards are not added yet.
   - **Next:** Week 0.6 Day 3 — PS20–22 catch-up. P22.7, P21.4–P21.6; add pending cards.
+- P6D3 (2026-09-26): PS20–22 catch-up. P22.7, P21.4, P21.5, P21.6 done; PS20–22 closed.
+  - **P22.7(a):** x[n] = (−½)ⁿu[n]. Sketch hatched the whole plane; ROC is outside |z| = ½ only.
+  - **P22.7(b):** partial fractions in z on a rational with equal numerator/denominator degree. A, B matched at two points but not as an identity; z→∞ check exposed it (0 vs 1). Cancelling the shared (z − ½) gives the same x[n] as (a); the pole at ½ cancels.
+  - **P22.7(c):** factored −1/a instead of −a out of z⁻¹ − a (reciprocal slip). Then pulled the leading minus into the exponential base, and a stray 1/a came back after the a's cancelled. Final x[n] = −(1/a)ⁿ⁺¹u[n] + (1/a)ⁿ⁻¹u[n−1]; MIT splits out −(1/a)δ[n], equivalent.
+  - **P21.4:** H(s) = 1/((s−2)(s+1)). ROCs: stable −1 < Re{s} < 2, causal Re{s} > 2, neither Re{s} < −1. (c) recalled e^(−at)u(t) as 1/(s−a), Re{s} < a; re-derived from the integral. Then mapped 1/(s−2) to e^(−2t) (same −a slip) and wrote the ROC as −2. Final h(t) = ⅓e^(2t)u(t) − ⅓e^(−t)u(t).
+  - **P21.5:** vector method not in hand at the start; used the pole vector alone for |H(j1)|. Rebuilt it: H(jω) = (jω − zero)/(jω − pole), so magnitude is the length ratio and phase is the angle difference. ∠H(j0) = π/2 via ω→0⁺ (the zero vector has length 0 at exactly ω = 0). |H(j∞)| = 1 was justified as ∞/∞, which is invalid; the lengths converge. Said mirroring about the real axis adds π to angles; it negates them. So |H| is even and ∠H is odd.
+  - **P21.6:** null at ω = 0, peaks near ω = ±2; zero at −5 negligible.
+  - **Recurring errors:** −a slip (P21.4(c), twice); reciprocal slip (P22.7(c)); stray coefficient (P22.7(c)).
+  - **Next:** Week 0.6 Day 4 — one-pole by hand + C++, harness migration to process()/reset().
