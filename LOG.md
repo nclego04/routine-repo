@@ -287,3 +287,13 @@ Current: Phase 0, Week 0.6, Day 2
   - **Recurring error:** sign drop when moving/dividing terms across the equals sign — twice this session, self-corrected once named.
   - **Skipped:** P21.4, P21.5, P21.6 — deferred, per keep-set order, to Week 0.6 Day 3's dedicated PS20–22 catch-up.
   - **Next:** Week 0.6 Day 2 — Lec 22 (z-transform). z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add the two deferred cards — "How does the DTFT relate to the z-transform?" and "What does moving off the unit circle in the z-plane buy you over the DTFT?"
+- P6D2 (2026-09-26): PS22 (z-transform, ROC) partial: P22.2, P22.1, P22.3, P22.4 done; P22.7 not started.
+  - **P22.2 (priority), done in full:** (b) asked why failing absolute summability doesn't settle DTFT divergence. It's sufficient, not necessary (sinc counterexample), so checked the sum directly: |2e^(−jΩ)| = 2. (c) took the reciprocal of r but not the bound: |r⁻¹| < 0.5 → wrote |r| > 0.5; correct is |r| > 2. (e) x₁[n] = (2/3)ⁿu[n].
+  - **P22.1(b):** dropped the coefficient 3 on the 2ⁿ term between lines. Phrasing fix: the eigenvalue is H(z₀), not H(z), and it holds only for z₀ in the ROC.
+  - **P22.3(a):** called the right-sided ROC boundary the "rightmost" pole; the rule is outermost (largest |z|).
+  - **P22.4(a)(ii):** negated-index flip. Applied m = −n to (1/2)ⁿ but not to z⁻ⁿ (should give z^m). Then the m = 1 lower limit: subtracted the m = 1 term (2z) instead of the m = 0 term, then applied the correction with the wrong sign (−1 instead of +1 after distributing the leading minus). Final X₂(z) = 1/(1 − ½z⁻¹), |z| < ½.
+  - **P22.4(c)(i):** treated the constant 2 in 2u[n] as an exponential base (a = 2⁻ⁿz⁻¹), then dropped the factor 2 and flipped the ROC (|z⁻¹| < 1 → wrote |z| < 1). Same reciprocal slip as P22.2(c).
+  - **P22.4(d):** x₁ and x₄ converge; x₃ fails because its pole at z = 1 sits on the unit circle.
+  - **Recurring errors:** reciprocal inequality direction (twice: P22.2(c), P22.4(c)(i)); dropped coefficient between lines (twice: P22.1(b), P22.4(c)(i)); negated-index flip (P22.4(a)(ii)).
+  - **Skipped:** P22.7(a)–(c), session ended. **The Day 2 by-hand deliverable (z-transform + ROC + pole/zero of a first-order difference equation) is also not done.** Both carry to Day 3. The two deferred cards are not added yet.
+  - **Next:** Week 0.6 Day 3 — PS20–22 catch-up. P22.7, P21.4–P21.6, the first-order difference equation by hand; add pending cards.
