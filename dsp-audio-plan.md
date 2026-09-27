@@ -20,6 +20,8 @@ Four things changed at once. Each cut below has an actual reason attached, not a
 
 **5. Week 16 is demoted from branch point to checkpoint.** The branch decision is no longer a week number. It is a **dated event** — whenever the admissions answer actually lands — with a trigger rule attached. See *The branch decision*.
 
+**6. Machine learning applied to audio is added as a real study block.** It is named in Required/Minimum qualification tiers at three employers on your list, paired with exactly the surface Phases 3–5 already build — noise suppression, echo cancellation, beamforming, STFT analysis/synthesis — and nothing in Weeks 0.1–28 covered it before this revision. **Week 21.5** (5 study days, no course — see the Coverage Ledger) sits immediately before Week 22 as Phase 5 preparation: it trains a learned spectral-mask baseline on your own Week 15 STFT frames, and Week 24 Day 4 now reports that number beside the classical adaptive stage's on the same frames. **Cost:** the block runs 2 study days past the plan's three days of margin against the Fall 2027 start; Week 28 pays for it (compressed from 5 study days to 3 — see *Reading the calendar* and Week 28 below).
+
 **Also cut, smaller:** the CSUF Open University August 10, 2026 item (the date passed, and `open-items-tracker.md` §6 records that you are not enrolling through that track at all); the "one thing that might still land in this window" section, which was entirely Spring-2027 reasoning; and the duplicated preamble sections, which were the visible seam from the previous two rewrites.
 
 **Unchanged and deliberately so:** the DSP 501–504 phase framing, week numbering with build weeks starting at **Week 3**, the `P<wk>D<day>` / `W<wk>D<day>` log scheme, a **Done when** gate on every week, the Source Registry, and the Coverage Ledger. The day-level deliverables in Weeks 0.4–16 are unchanged in content.
@@ -38,7 +40,7 @@ Assumed program start: **~2027-08-23.** This is the one calendar date that still
 
 **If the pace drops far enough that the remaining weeks won't fit before the assumed start, things get cut, and the cut order is decided now rather than in a panic later:**
 
-1. **Week 28 goes first** (pre-term consolidation — nice, not load-bearing).
+1. **Week 28 goes first** (pre-term consolidation — nice, not load-bearing). **Already reduced from 5 study days to 3 by this revision's Week 21.5 ML block — a pace slip finds two fewer days here than this list used to promise.**
 2. **Then Week 27** (branch onramp — can be done in the first weeks of term instead).
 3. **Then Phase 5 compresses** to Weeks 22–23 only: the partitioned convolution engine, without the adaptive stage on real audio.
 4. **Phase 4 and everything before it do not get cut.** If the pace falls far enough to threaten Phase 4, the answer is to fix the pace, not the plan.
@@ -486,11 +488,26 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 ---
 
-## Phase 5 (DSP 506) — The Artifact (Weeks 22–26)
+### Week 21.5 — Learned spectral masking, as Phase 5 preparation
+
+**No formal course covers this block — see the Coverage Ledger.** Machine learning applied to audio is named in Required/Minimum qualification tiers at three employers on your list, paired with exactly the surface Phases 3–5 already build. This block closes that gap with the smallest defensible unit: a supervised spectral-mask model trained on your own Week 15 STFT frames, evaluated the same way Week 24 evaluates the classical baseline — so Phase 5's artifact can report both. *Resources: PyTorch's own tutorials and documentation for the mechanics; the Week 6 Wiener derivation and Week 15 STFT toolkit supply everything else.* **Deliberately out of scope: TFLite Micro, ExecuTorch, ONNX Runtime, quantization, or any edge-deployment tooling** — this block is about the model existing and being measured, not about shipping it.
+
+- **Day 1:** PyTorch mechanics — tensors, autograd, a training loop written from scratch on a toy regression. **Deliverable, falsifiable:** loss decreases monotonically on a fixed seed, and one parameter's gradient is verified against a by-hand derivative to stated tolerance.
+- **Day 2:** Data — noisy/clean speech pairs turned into STFT magnitude frames using **your own Week 15 toolkit**, not a library's spectrogram. **Deliverable:** a dataloader emitting (noisy, clean) frame pairs, sanity-checked by reconstructing one batch back to audio and by spectrogram.
+- **Day 3:** The model — a small MLP or 1-D conv net predicting a real-valued gain mask per bin. **Deliverable, falsifiable:** it trains, and the learned mask is plotted on the same frame as the Week 6 Wiener gain, both from identical input.
+- **Day 4:** Evaluation. **Deliverable:** one defensible number — PESQ, STOI, or segmental SNR improvement — computed by a written-down procedure a stranger could reproduce, on a held-out set, **and the same number for the Week 6 oracle Wiener filter on the identical set.** Mirror the Week 24 Day 4 discipline exactly.
+- **Day 5:** Inference path and stated limits. **Deliverable:** weights exported in a form the C++ side can consume, plus a written note on what the comparison does **not** establish — train/test mismatch, dataset realism, latency not yet measured.
+- **Done when:** the learned mask's number and the oracle Wiener baseline's number exist on the same held-out set by the same procedure, and the exported weights are ready for Week 24 to re-run on real audio for the head-to-head against the NLMS artifact.
+
+---
+
+## Phase 5 (DSP 506) — The Artifact (Weeks 21.5, 22–26)
 
 **The one thing five phases of theory still leaves missing.** `candidate-profile.md` is blunt about it: *"No audio-domain project of any kind."* The harness, the biquad, the resampler, and the STFT toolkit are instruments — real work, but instruments. This phase builds the thing you put a link to.
 
 **What it is:** a **real-time partitioned fast-convolution engine driving an NLMS adaptive stage on real audio**, in C++ with a Python reference, measured end to end, documented.
+
+**Week 21.5, immediately before this phase, adds one more comparison point:** a learned spectral-mask baseline, trained ahead of time so Week 24 can run it on the same real-audio frames as the classical adaptive stage and report both numbers.
 
 **Why this and not something else.** It is branch-neutral by construction: partitioned convolution is the machinery of HRTF rendering (CSUF/Faller) *and* of frequency-domain adaptive filtering (UIC/Corey), and the adaptive stage is the core of AEC, noise suppression, and array front-ends without distinction. It cashes out Week 9's overlap-save, Week 11's real-time rules, Week 15's analysis toolkit, and all of Phase 4 simultaneously — **it builds nothing new, it integrates everything.** And it produces a number, which is what a portfolio artifact has to do.
 
@@ -515,7 +532,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Day 1:** State the problem formally before writing code. **Deliverable:** a written signal model — which signal is desired, which is the reference, what the error is, and what assumption about their correlation makes the whole thing work.
 - **Day 2:** NLMS on real recordings. **Deliverable:** convergence curves on real input, with step size and regularization chosen for stated reasons rather than tuned until the plot looked nice.
 - **Day 3:** **Failure modes, produced deliberately.** **Deliverable:** reproduce non-stationarity, a correlated reference, and divergence; log what each looks like in the curves. *(You will meet all three in a lab. Meeting them here, on purpose, is cheaper.)*
-- **Day 4:** The metric. **Deliverable:** one defensible number — ERLE or segmental SNR improvement — computed identically every run, with the measurement procedure written down so a stranger could reproduce it.
+- **Day 4:** The metric. **Deliverable:** one defensible number — ERLE or segmental SNR improvement — computed identically every run, with the measurement procedure written down so a stranger could reproduce it. The same procedure also scores the Week 21.5 learned spectral-mask model on these identical frames, so the write-up reports the learned and classical numbers side by side.
 - **Day 5:** Commit + LOG.
 - **Done when:** you have one reproducible number that says whether it works, and you can diagnose each failure mode from its curve alone.
 
@@ -549,13 +566,12 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 ## Week 28 — Pre-term consolidation
 
-- **Days 1–2:** Full deck pass across DSP 501–505. **Deliverable:** every derivation-prompt card answered cold. This deck was built over twelve months for this week.
-- **Day 3:** Re-derive the four load-bearing results from a blank page: the bilinear transform, `w = R⁻¹p` from the orthogonality principle, the NLMS update, and the COLA condition.
-- **Day 4:** Repo final state — everything builds, CI green, READMEs current, `LOG.md` closed out with a retrospective entry.
-- **Day 5:** Stop. **Deliverable:** nothing. Start the term rested rather than mid-sprint.
+- **Day 1:** Full deck pass across DSP 501–505. **Deliverable:** every derivation-prompt card answered cold. This deck was built over twelve months for this week.
+- **Day 2:** Re-derive the four load-bearing results from a blank page: the bilinear transform, `w = R⁻¹p` from the orthogonality principle, the NLMS update, and the COLA condition.
+- **Day 3:** Repo final state — everything builds, CI green, READMEs current, `LOG.md` closed out with a retrospective entry.
 - **Done when:** you can walk the whole chain from a blank page, and the repo is in a state you'd hand to someone else.
 
-*Second to be cut if the pace drops. Note that Day 5 is not padding — starting a graduate program already depleted is a real and common failure, and this plan has run for twelve months by this point.*
+*Second to be cut if the pace drops. Compressed from 5 study days to 3 in this revision — the Week 21.5 ML block spent the other two (see the cut-order list in* Reading the calendar *and* What changed in this revision*). Rest before term is not cut, only un-numbered: it survives as the calendar days remaining before ~2027-08-23 once Day 3 closes, rather than as its own study day — starting a graduate program already depleted is a real and common failure, and this plan has run for twelve months by this point.*
 
 ---
 ## Coverage Ledger — closed
@@ -564,11 +580,16 @@ Four rounds of search closed every video-coverage gap Weeks 0.1–16 had, down t
 
 **This revision adds two rows and closes one.** Phase 4 (DSP 505) **closes** rather than opens a gap: NPTEL-SSP Weeks 8–11 was always a real course with graded assignments, previously deferred rather than unsourced, so Phase 4 arrives fully covered on day one. Phase 5 (DSP 506) has no course by design, and that needs saying explicitly so nobody goes looking for one later.
 
+**A later revision adds one more row, no-course by the same design.** Week 21.5 (machine learning applied to audio) was checked against the same standard as everything else in this table — a real course with public video and graded assignments — and none was pinned down with confidence, so this follows the Week 11 and Phase 5 precedent rather than guessing at a URL or a lecture numbering that can't be verified.
+
 | Block | What's different from the rest of the plan | Why that's acceptable here |
 |---|---|---|
 | **DSP 503, Wk 11** | No formal course, no graded assignment. Bela (Days 1, 4) plus named individual references (Days 2–3) instead. | Verification is falsifiable, not absent: a before/after benchmark for denormals, ThreadSanitizer + a moodycamel reference-diff for the ring buffer. |
 | **DSP 505, Wks 17–21** | *No gap.* NPTEL-SSP Wk 8–11, graded, same lecturer and notation as Phase 1. | Listed only to record that the "no course for adaptive filtering" question was never open — the material was deferred, not missing. Do not re-search it. |
+| **DSP 505, Wk 21.5** | No formal course, no graded assignment — a practical ML-for-audio block built from PyTorch's own docs/tutorials plus this plan's own Week 6 and Week 15 machinery, not a sourced curriculum. | Verification is falsifiable, not absent: a gradient check against a by-hand derivative (Day 1), a reconstruction sanity check (Day 2), a mask plotted against the Week 6 Wiener gain on identical input (Day 3), a classical-vs-learned metric computed by an identical written procedure on a held-out set (Day 4), and stated limitations in place of an unqualified claim (Day 5). |
 | **DSP 506, Wks 22–26** | No course, and none is wanted. | **This is integration work against your own prior code, and a course would be the wrong instrument.** Verification is stronger here than anywhere else in the plan: machine-precision reconstruction (Wk 22), RADSan and ThreadSanitizer clean (Wk 23), a benchmarked denormal fix (Wk 23), a worst-case block-time budget (Wk 23), and one reproducible ERLE/SNR number (Wk 24). Five objective checks, no grader. |
+
+**Week 21.5 is scoped narrowly on purpose:** the model existing and being measured, not shipped — edge-deployment tooling (TFLite Micro, ExecuTorch, ONNX Runtime, quantization) is out of scope and not implied by anything in the table above.
 
 **Week 11 is the final state.** No formal course exists and none is coming — checked directly, repeatedly, from every reasonable angle (course platforms, university programs, hardware-vendor courses, dedicated video search), and confirmed empty each time.
 
