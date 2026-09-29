@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.6, Day 4
+Current: Phase 0, Week 0.6, Day 5
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -307,3 +307,4 @@ Current: Phase 0, Week 0.6, Day 4
   - **P21.6:** null at ω = 0, peaks near ω = ±2; zero at −5 negligible.
   - **Recurring errors:** −a slip (P21.4(c), twice); reciprocal slip (P22.7(c)); stray coefficient (P22.7(c)).
   - **Next:** Week 0.6 Day 4 — one-pole by hand + C++, harness migration to process()/reset().
+- P6D4 (2026-09-29): Derived H(z)=(1-a)/(1-az^-1) from y[n]=(1-a)x[n]+ay[n-1] by hand, pole at z=a, no errors on first pass. Migrated harness off the function-pointer interface (blocker since P4D1): built OnePole as a named struct with process()/reset(), measure() now takes OnePole and calls reset() before each run. First harness bug caught: measure() taking the object but never calling reset(). Second: main() still passing the old passthrough() function pointer where an OnePole was needed — leftover from the old interface, didn't compile. Third: initial test used a=1, which zeroes the numerator and makes every output sample 0 — degenerate test, switched to a=0.5. Compiled clean (-Wall -Wextra), ran, magnitude response shows expected lowpass rolloff from 0 dB at DC. Ready for Day 5 pole-vs-measured-response verification.

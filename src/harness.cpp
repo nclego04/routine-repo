@@ -8,6 +8,25 @@
 #include <iostream>
 #include <algorithm>
 
+struct OnePole {
+    double a;
+    double y_n_minus_1;
+
+    OnePole(double b){
+        a = b;
+    }
+
+    double process(double x){
+        double y = (1 - a) * x + a * y_n_minus_1;
+        y_n_minus_1 = y;
+        return y;
+    }
+
+    void reset(){
+        y_n_minus_1 = 0;
+    }
+};
+
 std::vector<std::complex<double>> dft(const std::vector<double>& x) {
     int N = (int)x.size();
     std::vector<std::complex<double>> X(N,0);
@@ -36,14 +55,16 @@ double bin_to_hz(int k, double fs, int N) {
     return f;
 }
 
-std::vector<std::pair<double,double>> measure(double (*system)(double), int N, double fs) {
+std::vector<std::pair<double,double>> measure(OnePole function, int N, double fs) {
     std::vector<double>  x(N,0.0);
     x[0] = 1;
 
     std::vector<double> h(N,0.0);
+
+    function.reset();
     for (int k = 0; k < N; k++) {
-        h[k] = system(x[k]);
-    }   
+        h[k] = function.process(x[k]);
+    }
 
     std::vector<std::complex<double>> H = dft(h);
     std::vector<double> H_mag = magnitude(H);
@@ -75,13 +96,15 @@ void write_csv(const std::vector<std::pair<double,double>>& data, const std::str
 }
 
 int main() {
-    std::vector<std::pair<double, double>> result = measure(passthrough, 512, 44100.0);
-    
+    double a = 0.5;
+    OnePole function(a);
+    std::vector<std::pair<double, double>> result = measure(function, 512, 44100.0);
+
     for (int i = 0; i < 5; i++) {
         std::cout << "hz = " << result[i].first << ", dB = " << result[i].second << "\n";
     }
 
     write_csv(result, "passthrough_response.csv");
-    
+
     return 0;
 }
