@@ -114,3 +114,21 @@ this file.
 
 **Q:** Three interpolation kernels — rect, triangle, sinc — same reconstruction task. What's the tradeoff, and which causality violations are fixable?<br>
 **A:** Rect (time) → sinc-shaped H(ω), lots of sidelobes, non-ideal LPF. Triangle (= rect✻rect) → sinc²-shaped H(ω), sidelobes decay faster, still non-ideal. Sinc (time) → H(ω) is a literal brick wall, the one truly ideal LPF of the three — but it has infinite support in time. Rect/triangle have finite support, so their causality violation is confined to a bounded interval and a finite delay fixes it. Sinc's violation is unbounded (nonzero for every non-integer t, including all t<0) — no finite delay ever makes it causal; it genuinely needs every future sample, forever.
+
+
+## Week 0.5 Day 5 — Laplace transform and the ROC (P5D5)
+
+**Q:** Why is the Laplace transform at s = σ + jω a Fourier transform? Of what signal?<br>
+**A:** X(σ+jω) = F{x(t)e^(−σt)}. The ROC is the set of σ for which the weighted signal's FT converges.
+
+**Q:** X(s) = 1/(s+a). Give both possible time signals and ROCs.<br>
+**A:** e^(−at)u(t), Re{s} > −a (right-sided). −e^(−at)u(−t), Re{s} < −a (left-sided).
+
+**Q:** Where is the ROC relative to the poles for right-sided, left-sided, and two-sided signals?<br>
+**A:** Right-sided: right of the rightmost pole. Left-sided: left of the leftmost pole. Two-sided: vertical strip between poles.
+
+**Q:** Can an ROC contain a pole? A zero?<br>
+**A:** Never a pole; boundaries pass through poles' real parts. Zeros can lie anywhere.
+
+**Q:** Inverse Laplace: where do the 1/j and the limits σ±j∞ come from?<br>
+**A:** Change of variables s = σ+jω with σ fixed: ds = j dω gives 1/j; ω = ±∞ maps to σ±j∞.

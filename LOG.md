@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.5, Day 5
+Current: Phase 0, Week 0.6, Day 5
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -271,4 +271,40 @@ Current: Phase 0, Week 0.5, Day 5
     - When a stronger component exists elsewhere in the spectrum, measure at the predicted bin rather than taking a global max.
     - Compute predictions in code from actual parameters. Hardcoding the expected answer makes the test circular.
   - **Next:** Week 0.5 Day 5 — Lec 20 (Laplace; s-plane, poles/zeros, ROC). Laplace transform + ROC + pole/zero plot of a first-order system by hand; PS20 checked.
+- P5D5 (2026-09-24): PS20 (Laplace, ROC) complete: P20.2, P20.4, P20.1, P20.3, P20.6.
+  - **P20.2(a):** dropped u(t) without moving the lower limit to 0, so kept the wrong limit term and got −1/(s+a); then collapsed the double negative in 0 − 1/(−(a+s)). Also assumed the t→∞ term always vanishes; the ROC condition actually comes from requiring a+σ>0.
+  - **P20.2(c):** negated-variable flip — copied the right-sided ROC condition to the t→−∞ limit; correct is σ<−a. Sketch placed pole −a in the LHP with a<0.
+  - **P20.1(c):** same −a slip matching 3e^(2t) to e^(−at)u(t), giving poles at −2, −3. Caught because ROC Re{s}>−2 contradicted P20.1(b)(i).
+  - **P20.3, row (ii):** read "x(t)=0 for t>10" as right-sided, then two-sided. A left-sided cutoff need not be at 0.
+  - **P20.3(d):** listed Re{s}=0 as a candidate ROC; it passes through the poles.
+  - **P20.4(c):** ROC written with bounds reversed (−1<Re{s}<−2, an empty set).
+  - **P20.6(b):** target formula shown first at request, derivation done independently. First line used X(jω) instead of X(σ+jω).
+  - **Preference set:** do not state the next step during problem work; ask instead.
+  - **Next:** Week 0.6 Day 1 — Lec 21 (CT second-order systems; resonance, Q). Pole-pair diagrams for under/critical/over-damped, relating ζ and ω_n to pole location; PS21 checked.
+- P6D1 (2026-09-26): PS21 (CT 2nd-order systems, resonance/Q).
+  - **P21.7 (priority), done in full:** (a) derived the differential equation from H(s), double-integrated to eliminate derivatives, and built the Direct Form II block diagram — ω_n² feedforward from x(t), −2ζω_n and −ω_n² feedback from the first/second integrator outputs respectively. Verified against the MIT RES.6-007 HW21 solutions — matches Figure S21.7-2 exactly.
+  - **P21.7(b):** derived the pole location s = −ζω_n ± jω_n√(1−ζ²). (i) ω_n fixed, ζ: 0→1 — poles trace the circle |s|=ω_n from the jω-axis to −ω_n; peak frequency decreases, bandwidth increases. (ii) ζ fixed, ω_n: 0→∞ — poles move along a fixed-angle ray from the origin (the Re/Im ratio is independent of ω_n); peak frequency and bandwidth both increase proportionally.
+  - **Recurring error:** sign drop when moving/dividing terms across the equals sign — twice this session, self-corrected once named.
+  - **Skipped:** P21.4, P21.5, P21.6 — deferred, per keep-set order, to Week 0.6 Day 3's dedicated PS20–22 catch-up.
+  - **Next:** Week 0.6 Day 2 — Lec 22 (z-transform). z-transform + ROC + pole/zero of a first-order difference equation by hand; PS22 checked; add the two deferred cards — "How does the DTFT relate to the z-transform?" and "What does moving off the unit circle in the z-plane buy you over the DTFT?"
+- P6D2 (2026-09-26): PS22 (z-transform, ROC) partial: P22.2, P22.1, P22.3, P22.4 done; P22.7 not started. By-hand deliverable done.
+  - **P22.2 (priority), done in full:** (b) asked why failing absolute summability doesn't settle DTFT divergence. It's sufficient, not necessary (sinc counterexample), so checked the sum directly: |2e^(−jΩ)| = 2. (c) took the reciprocal of r but not the bound: |r⁻¹| < 0.5 → wrote |r| > 0.5; correct is |r| > 2. (e) x₁[n] = (2/3)ⁿu[n].
+  - **P22.1(b):** dropped the coefficient 3 on the 2ⁿ term between lines. Phrasing fix: the eigenvalue is H(z₀), not H(z), and it holds only for z₀ in the ROC.
+  - **P22.3(a):** called the right-sided ROC boundary the "rightmost" pole; the rule is outermost (largest |z|).
+  - **P22.4(a)(ii):** negated-index flip. Applied m = −n to (1/2)ⁿ but not to z⁻ⁿ (should give z^m). Then the m = 1 lower limit: subtracted the m = 1 term (2z) instead of the m = 0 term, then applied the correction with the wrong sign (−1 instead of +1 after distributing the leading minus). Final X₂(z) = 1/(1 − ½z⁻¹), |z| < ½.
+  - **P22.4(c)(i):** treated the constant 2 in 2u[n] as an exponential base (a = 2⁻ⁿz⁻¹), then dropped the factor 2 and flipped the ROC (|z⁻¹| < 1 → wrote |z| < 1). Same reciprocal slip as P22.2(c).
+  - **P22.4(d):** x₁ and x₄ converge; x₃ fails because its pole at z = 1 sits on the unit circle.
+  - **Deliverable (first-order difference equation by hand):** y[n] − (4/5)y[n−1] = x[n] − (1/2)x[n−1], causal. H(z) = (1 − ½z⁻¹)/(1 − (4/5)z⁻¹), zero at 1/2, pole at 4/5. ROC |z| > 4/5 from causality (right-sided, outside outermost pole). First concluded H(e^jΩ) doesn't exist; checking |z| = 1 against |z| > 4/5 corrected it: the ROC contains the unit circle, so H(e^jΩ) exists.
+  - **Recurring errors:** reciprocal inequality direction (twice: P22.2(c), P22.4(c)(i)); dropped coefficient between lines (twice: P22.1(b), P22.4(c)(i)); negated-index flip (P22.4(a)(ii)).
+  - **Skipped:** P22.7(a)–(c), carried to Day 3. The two deferred cards are not added yet.
+  - **Next:** Week 0.6 Day 3 — PS20–22 catch-up. P22.7, P21.4–P21.6; add pending cards.
+- P6D3 (2026-09-26): PS20–22 catch-up. P22.7, P21.4, P21.5, P21.6 done; PS20–22 closed.
+  - **P22.7(a):** x[n] = (−½)ⁿu[n]. Sketch hatched the whole plane; ROC is outside |z| = ½ only.
+  - **P22.7(b):** partial fractions in z on a rational with equal numerator/denominator degree. A, B matched at two points but not as an identity; z→∞ check exposed it (0 vs 1). Cancelling the shared (z − ½) gives the same x[n] as (a); the pole at ½ cancels.
+  - **P22.7(c):** factored −1/a instead of −a out of z⁻¹ − a (reciprocal slip). Then pulled the leading minus into the exponential base, and a stray 1/a came back after the a's cancelled. Final x[n] = −(1/a)ⁿ⁺¹u[n] + (1/a)ⁿ⁻¹u[n−1]; MIT splits out −(1/a)δ[n], equivalent.
+  - **P21.4:** H(s) = 1/((s−2)(s+1)). ROCs: stable −1 < Re{s} < 2, causal Re{s} > 2, neither Re{s} < −1. (c) recalled e^(−at)u(t) as 1/(s−a), Re{s} < a; re-derived from the integral. Then mapped 1/(s−2) to e^(−2t) (same −a slip) and wrote the ROC as −2. Final h(t) = ⅓e^(2t)u(t) − ⅓e^(−t)u(t).
+  - **P21.5:** vector method not in hand at the start; used the pole vector alone for |H(j1)|. Rebuilt it: H(jω) = (jω − zero)/(jω − pole), so magnitude is the length ratio and phase is the angle difference. ∠H(j0) = π/2 via ω→0⁺ (the zero vector has length 0 at exactly ω = 0). |H(j∞)| = 1 was justified as ∞/∞, which is invalid; the lengths converge. Said mirroring about the real axis adds π to angles; it negates them. So |H| is even and ∠H is odd.
+  - **P21.6:** null at ω = 0, peaks near ω = ±2; zero at −5 negligible.
+  - **Recurring errors:** −a slip (P21.4(c), twice); reciprocal slip (P22.7(c)); stray coefficient (P22.7(c)).
+  - **Next:** Week 0.6 Day 4 — one-pole by hand + C++, harness migration to process()/reset().
 - P6D4 (2026-09-29): Derived H(z)=(1-a)/(1-az^-1) from y[n]=(1-a)x[n]+ay[n-1] by hand, pole at z=a, no errors on first pass. Migrated harness off the function-pointer interface (blocker since P4D1): built OnePole as a named struct with process()/reset(), measure() now takes OnePole and calls reset() before each run. First harness bug caught: measure() taking the object but never calling reset(). Second: main() still passing the old passthrough() function pointer where an OnePole was needed — leftover from the old interface, didn't compile. Third: initial test used a=1, which zeroes the numerator and makes every output sample 0 — degenerate test, switched to a=0.5. Compiled clean (-Wall -Wextra), ran, magnitude response shows expected lowpass rolloff from 0 dB at DC. Ready for Day 5 pole-vs-measured-response verification.
