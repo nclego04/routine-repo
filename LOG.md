@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.6, Day 5
+Current: Phase 0, Week 0.7, Day 1
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -308,3 +308,7 @@ Current: Phase 0, Week 0.6, Day 5
   - **Recurring errors:** −a slip (P21.4(c), twice); reciprocal slip (P22.7(c)); stray coefficient (P22.7(c)).
   - **Next:** Week 0.6 Day 4 — one-pole by hand + C++, harness migration to process()/reset().
 - P6D4 (2026-09-29): Derived H(z)=(1-a)/(1-az^-1) from y[n]=(1-a)x[n]+ay[n-1] by hand, pole at z=a, no errors on first pass. Migrated harness off the function-pointer interface (blocker since P4D1): built OnePole as a named struct with process()/reset(), measure() now takes OnePole and calls reset() before each run. First harness bug caught: measure() taking the object but never calling reset(). Second: main() still passing the old passthrough() function pointer where an OnePole was needed — leftover from the old interface, didn't compile. Third: initial test used a=1, which zeroes the numerator and makes every output sample 0 — degenerate test, switched to a=0.5. Compiled clean (-Wall -Wextra), ran, magnitude response shows expected lowpass rolloff from 0 dB at DC. Ready for Day 5 pole-vs-measured-response verification.
+- P6D5 (2026-09-29): Verified the one-pole against the migrated harness. By hand from |H(e^jw)|^2 = 1/2 with a=0.5: cos w = 0.75, w = 0.723 rad/sample, f = 5072 Hz at fs=44100. Measured: interpolated between the 4995.70 Hz (-2.947 dB) and 5081.84 Hz (-3.018 dB) bins, giving 5072.70 Hz, within 0.02 Hz of the prediction (bin width is 86 Hz, nearest-bin would have been off by ~9 Hz). Rolloff spot-check: -6.53 dB at 2fc vs -6.99 dB for an analog single pole; slope cannot hold -6 dB/oct because fc is ~2 octaves under Nyquist and |H(e^jπ)| floors at -9.54 dB. Consistent with a single real pole. Week 0.6 closed.
+  - **Errors caught:** took the modulus of 1 - ae^-jw as sqrt(1 + (ae^-jw)^2) instead of splitting into real and imaginary parts with Euler (fixed: 1 - a cos w and a sin w); rewrote 1 - 2a cos w + a^2 as (1 - a cos w)^2; squared the denominator and right side but not the numerator; expanded (1-a)^2 as a^2 + 2a + 1; gave the range of w when asked for the range of cos w; used w = 2πf instead of w = 2πf/fs (caught by the Nyquist sanity check, 31.9 kHz > 22.05 kHz).
+  - **Recurring errors:** dropped or wrong-signed term between lines (P6D5 numerator, (1-a)^2 sign).
+  - **Next:** Week 0.7 Day 1: Lec 23 (CT→DT mapping, bilinear transform) + PS23; re-derive the bilinear substitution showing the frequency warping.
