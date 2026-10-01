@@ -8,7 +8,7 @@
 
 ## What changed in this revision
 
-Four things changed at once. Each cut below has an actual reason attached, not a rationalization.
+Seven things changed at once. Each cut below has an actual reason attached, not a rationalization.
 
 **1. Target start moved from Spring 2027 to Fall 2027.** Every date in this document was recomputed from 2026-08-29 forward. The mid-January 2027 hard gate that Phase 0 + Phase 1 were paced against **no longer exists** and has been removed everywhere it appeared. Nothing is due in January now.
 
