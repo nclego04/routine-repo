@@ -8,7 +8,7 @@
 
 ## What changed in this revision
 
-Seven things changed at once. Each cut below has an actual reason attached, not a rationalization.
+Nine things changed at once. Each cut below has an actual reason attached, not a rationalization.
 
 **1. Target start moved from Spring 2027 to Fall 2027.** Every date in this document was recomputed from 2026-08-29 forward. The mid-January 2027 hard gate that Phase 0 + Phase 1 were paced against **no longer exists** and has been removed everywhere it appeared. Nothing is due in January now.
 
@@ -23,6 +23,10 @@ Seven things changed at once. Each cut below has an actual reason attached, not 
 **6. Machine learning applied to audio is added as a real study block.** It is named in Required/Minimum qualification tiers at three employers on your list, paired with exactly the surface Phases 3–5 already build — noise suppression, echo cancellation, beamforming, STFT analysis/synthesis — and nothing in Weeks 0.1–28 covered it before this revision. **Week 21.5** (5 study days, no course — see the Coverage Ledger) sits immediately before Week 22 as Phase 5 preparation: it trains a learned spectral-mask baseline on your own Week 15 STFT frames, and Week 24 Day 4 now reports that number beside the classical adaptive stage's on the same frames. **Cost:** the block runs 2 study days past the plan's three days of margin against the Fall 2027 start; Week 28 pays for it (compressed from 5 study days to 3 — see *Reading the calendar* and Week 28 below).
 
 **7. AI-assisted development is adopted as a working practice** (see *Run these habits every week*). No study days, no schedule change.
+
+**8. Week 24's branch-neutral default is now a single-channel acoustic echo canceller.** Microphone-array and voice front-end processing (AEC, beamforming, noise reduction, VAD) is named by seven employers on your list, two of them at Minimum/Required tier. The plan already had the machinery; what it lacked was a fixed problem. Week 24 Day 1's signal model is now set in advance: far-end reference plus near-end microphone, with NLMS estimating the echo path. Day 4 reports **ERLE** for the adaptive stage. The side-by-side with the Week 21.5 learned mask stays on segmental SNR over the **noise-only frames**, so Week 21.5 doesn't change. Beamforming proper (delay-and-sum → MVDR) stays term-one coursework under UIC/Corey, as decided in *The branch decision*. **Cost:** 0 study days. Week 24 was already going to spend Day 1 choosing a signal model and Day 4 choosing a metric; this just makes both choices now.
+
+**9. Week 23's real-time loop runs directly on ALSA.** Host audio-stack knowledge (ALSA/PipeWire, Audio HAL, WASAPI) is named by four employers, one at Required tier. Week 23 Day 1 previously said "an audio thread" without saying what supplies it. It now opens the device through ALSA's PCM interface on Linux, with no cross-platform wrapper, and Day 4's block-size sweep also logs the device's period size, buffer count and xrun count. **Cost:** 0–0.5 study days over a wrapper. If it overruns, the overrun goes to Week 26 Days 1–3, which already exist to absorb Week 23, and **not to Week 28**. The cut order is unchanged.
 
 **Also cut, smaller:** the CSUF Open University August 10, 2026 item (the date passed, and `open-items-tracker.md` §6 records that you are not enrolling through that track at all); the "one thing that might still land in this window" section, which was entirely Spring-2027 reasoning; and the duplicated preamble sections, which were the visible seam from the previous two rewrites.
 
@@ -130,7 +134,7 @@ Week 16 ends **2027-04-02**. A Fall 2027 term starts around **2027-08-23**. That
 
 **Week 16 is no longer the branch point.** It is a checkpoint. The decision is a **dated event** — whenever the admissions answer actually lands — governed by one rule:
 
-> **If the branch is known before Week 22 begins (~2027-05-30), Phase 5's artifact takes on branch flavor.** UIC/Corey: the adaptive stage becomes a two-mic AEC or a delay-and-sum front end. CSUF/Faller: the convolution engine runs measured HRIRs and the report addresses ITD/ILD preservation. **If the branch is not known by then, the branch-neutral default runs and nothing waits.**
+> **If the branch is known before Week 22 begins (~2027-05-30), Phase 5's artifact takes on branch flavor.** UIC/Corey: the default single-channel AEC grows into a two-mic AEC or a delay-and-sum front end. CSUF/Faller: the convolution engine runs measured HRIRs and the report addresses ITD/ILD preservation. **If the branch is not known by then, the branch-neutral default runs and nothing waits.**
 
 Nothing in Weeks 17–26 blocks on the answer. That is the point of choosing invariant content for the gap.
 
@@ -516,7 +520,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 
 **What it is:** a **real-time partitioned fast-convolution engine driving an NLMS adaptive stage on real audio**, in C++ with a Python reference, measured end to end, documented.
 
-**Week 21.5, immediately before this phase, adds one more comparison point:** a learned spectral-mask baseline, trained ahead of time so Week 24 can run it on the same real-audio frames as the classical adaptive stage and report both numbers.
+**Week 21.5, immediately before this phase, adds one more comparison point:** a learned spectral-mask baseline, trained ahead of time so Week 24 can run it on the same real-audio frames as the classical adaptive stage and report both numbers. Those are the noise-only frames, since the adaptive stage's own echo-cancellation number is ERLE.
 
 **Why this and not something else.** It is branch-neutral by construction: partitioned convolution is the machinery of HRTF rendering (CSUF/Faller) *and* of frequency-domain adaptive filtering (UIC/Corey), and the adaptive stage is the core of AEC, noise suppression, and array front-ends without distinction. It cashes out Week 9's overlap-save, Week 11's real-time rules, Week 15's analysis toolkit, and all of Phase 4 simultaneously — **it builds nothing new, it integrates everything.** And it produces a number, which is what a portfolio artifact has to do.
 
@@ -530,18 +534,18 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Done when:** your partitioned convolver reconstructs to machine precision in both languages and beats direct convolution past a crossover length you predicted before measuring.
 
 ### Week 23 — Real-time integration
-- **Day 1:** Put the convolver on an audio thread under the Week 11 rules. **Deliverable:** preallocated buffers, no allocation, no locks, no syscalls on the RT path; parameter changes crossing via your Week 11 SPSC ring buffer.
+- **Day 1:** Put the convolver on an audio thread under the Week 11 rules, with the full-duplex loop opened **directly through ALSA's PCM interface** (capture and playback, `snd_pcm_*`), not a cross-platform wrapper. **Deliverable:** preallocated buffers, no allocation, no locks, no syscalls on the RT path beyond the ALSA read/write calls themselves; parameter changes crossing via your Week 11 SPSC ring buffer; the chosen period size and buffer count written down with a reason. *(If the ALSA setup overruns, it goes to Week 26 Days 1–3, not Week 28.)*
 - **Day 2:** **Audit it, don't trust it.** **Deliverable, falsifiable:** run under **RADSan** (promoted from optional to required here) and ThreadSanitizer. **The check:** zero real-time-safety violations reported, or it isn't done. "Seems to work" is not a result and this is exactly the material where self-assessment fails silently.
 - **Day 3:** Denormals in the adaptive tail. **Deliverable, falsifiable via benchmark:** let the NLMS coefficient state decay into denormal range, benchmark, apply flush-to-zero, benchmark again. If it isn't measurably faster, the case wasn't triggered or the fix didn't take.
-- **Day 4:** Block-size sweep. **Deliverable:** measured throughput and **worst-case** block processing time versus block size; the deadline-miss curve. Worst case, not mean — the mean is not what drops audio.
+- **Day 4:** Block-size sweep. **Deliverable:** measured throughput and **worst-case** block processing time versus block size; the deadline-miss curve. Worst case, not mean — the mean is not what drops audio. Each sweep point also logs the ALSA **period size, buffer count, and xrun count**, so the deadline-miss curve can be checked against what the device actually reported.
 - **Day 5:** Commit + LOG.
-- **Done when:** the engine runs a full-duplex block loop with zero reported RT-path violations and a measured worst-case block time inside a stated budget.
+- **Done when:** the engine runs a full-duplex ALSA block loop with zero reported RT-path violations and a measured worst-case block time inside a stated budget.
 
 ### Week 24 — The adaptive stage on real audio
-- **Day 1:** State the problem formally before writing code. **Deliverable:** a written signal model — which signal is desired, which is the reference, what the error is, and what assumption about their correlation makes the whole thing work.
+- **Day 1:** State the problem formally before writing code. The branch-neutral default is a **single-channel acoustic echo canceller**: a far-end reference played out, a near-end microphone that picks up its echo, and NLMS estimating the echo path. **Deliverable:** a written signal model for that setup: which signal is desired, which is the reference, what the error is, and what assumption about their correlation makes the whole thing work.
 - **Day 2:** NLMS on real recordings. **Deliverable:** convergence curves on real input, with step size and regularization chosen for stated reasons rather than tuned until the plot looked nice.
 - **Day 3:** **Failure modes, produced deliberately.** **Deliverable:** reproduce non-stationarity, a correlated reference, and divergence; log what each looks like in the curves. *(You will meet all three in a lab. Meeting them here, on purpose, is cheaper.)*
-- **Day 4:** The metric. **Deliverable:** one defensible number — ERLE or segmental SNR improvement — computed identically every run, with the measurement procedure written down so a stranger could reproduce it. The same procedure also scores the Week 21.5 learned spectral-mask model on these identical frames, so the write-up reports the learned and classical numbers side by side.
+- **Day 4:** The metric. **Deliverable:** one defensible number for the adaptive stage, **ERLE**, computed identically every run, with the measurement procedure written down so a stranger could reproduce it. For the side-by-side with the Week 21.5 learned spectral-mask model, segmental SNR improvement stays the shared yardstick, computed on **noise-only frames** (no echo) by one written procedure for both models, so the write-up reports the learned and classical numbers side by side.
 - **Day 5:** Commit + LOG.
 - **Done when:** you have one reproducible number that says whether it works, and you can diagnose each failure mode from its curve alone.
 
@@ -553,7 +557,7 @@ What this week is instead: the last checkpoint before the invariant core stops b
 - **Done when:** someone who has never seen the repo can clone it, build it, run it, and read what it does and how well it does it.
 
 ### Week 26 — 🔧 Phase 5 buffer / hardening
-- **Days 1–3:** Absorb overrun. Week 23 (RT audit) and Week 24 (real audio) are the likely sources — real recordings break assumptions that synthetic ones don't.
+- **Days 1–3:** Absorb overrun. Week 23 (RT audit and the direct ALSA loop) and Week 24 (real audio) are the likely sources — real recordings break assumptions that synthetic ones don't.
 - **Day 4:** Test coverage on the DSP path; property tests where they're cheap (round-trip precision, gain at DC and Nyquist, convergence to a known plant).
 - **Day 5:** Final polish. LOG.
 - **Done when:** the artifact is tested, CI-green, documented, measured, and you would put the link in an application without a caveat.
