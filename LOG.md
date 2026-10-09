@@ -334,3 +334,4 @@ Current: Phase 0, Week 0.7, Day 1
   - **Review note:** the parallel Gemini session flagged a sign error in the P23.2(d) left-sided answer. That flag was wrong; the circled answer was right.
   - **Skipped:** P23.1 (in the Oct 8 briefing keep-set, not on the worksheet used); P23.3 and P23.4 (dropped as drill). **Not done:** the two cold-retrieval answers. The h_d[n] = h_c(nT) check ran for n = 0, 1 only; an all-n run is deferred to Phase 2, when the second-order filter is ported to the harness.
   - **Next:** Week 0.7 Day 2 — Lec 24. The bilinear substitution with frequency warping now lands here, alongside Butterworth. Flashcard candidates held until confirmed.
+  - — 2026-10-08 · Week 0.7 Day 1 · gap 9d
