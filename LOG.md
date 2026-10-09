@@ -312,3 +312,25 @@ Current: Phase 0, Week 0.7, Day 1
   - **Errors caught:** took the modulus of 1 - ae^-jw as sqrt(1 + (ae^-jw)^2) instead of splitting into real and imaginary parts with Euler (fixed: 1 - a cos w and a sin w); rewrote 1 - 2a cos w + a^2 as (1 - a cos w)^2; squared the denominator and right side but not the numerator; expanded (1-a)^2 as a^2 + 2a + 1; gave the range of w when asked for the range of cos w; used w = 2πf instead of w = 2πf/fs (caught by the Nyquist sanity check, 31.9 kHz > 22.05 kHz).
   - **Recurring errors:** dropped or wrong-signed term between lines (P6D5 numerator, (1-a)^2 sign).
   - **Next:** Week 0.7 Day 1: Lec 23 (CT→DT mapping, bilinear transform) + PS23; re-derive the bilinear substitution showing the frequency warping.
+- P7D1 (2026-10-08): PS23 (CT→DT mapping) partial: P23.2, P23.5, P23.6 done (Oct 7 worksheet keep-set).
+  - **Triage flag:** triage ran on two mornings with different keep-sets. Oct 7: P23.2, 5, 6. Oct 8: P23.1, 2, 6, with P23.5 dropped as a repeat of P23.2(d). Worked from the Oct 7 worksheet. Not yet checked whether the triage prompt is meant to give a stable keep-set across reruns.
+  - **Plan mismatch:** Lec 23 and PS23 never reach the bilinear transform. The lecture ends by deferring it to Lec 24, so the plan's Day 1 deliverable (re-derive the bilinear substitution) belongs to Day 2.
+  - **P23.2:** causal y[n] − 3y[n−1] + 2y[n−2] = x[n] has H(z) = z²/((z−2)(z−1)). Double zero at the origin (the first sketch omitted it). Poles at z = 1 and z = 2; causal ROC |z| > 2, so unstable. H(z) = 2/(1−2z⁻¹) − 1/(1−z⁻¹) gives h[n] = (2ⁿ⁺¹ − 1)u[n].
+    - (c) For x[n] = 3ⁿu[n], y[n] = (−4·2ⁿ + ½ + (9/2)·3ⁿ)u[n]. Check: y[0] = 1 = h[0]x[0].
+    - (d) For |z| < 1, h[n] = (1 − 2ⁿ⁺¹)u[−n−1]. For 1 < |z| < 2, h[n] = −2ⁿ⁺¹u[−n−1] − u[n]. Neither ROC contains |z| = 1, so both are unstable.
+  - **P23.5 (on the Oct 7 keep-set):** H(z) = z/((z−⅓)(z−2)). Causal ROC |z| > 2 is unstable. Stable ROC ⅓ < |z| < 2 is two-sided, so not causal. |z| < ⅓ is neither causal nor stable.
+  - **P23.6 (priority):** H_c(s) = (2s+1)/(s²+5s+6) = 5/(s+3) − 3/(s+2), so h_c(t) = 5e^(−3t)u(t) − 3e^(−2t)u(t). Impulse invariance gives H_d(z) = 5/(1−e^(−3T)z⁻¹) − 3/(1−e^(−2T)z⁻¹). For T = 0.01, h_d[n] = 5(e^(−0.03))ⁿu[n] − 3(e^(−0.02))ⁿu[n], using the convention h_d[n] = h_c(nT) with no factor of T.
+    - **Numeric check, independent of the closed form:** combined H_d(z) over a common denominator: numerator 2 + (3α − 5β)z⁻¹, denominator 1 − (α+β)z⁻¹ + αβz⁻², with α = e^(−0.03), β = e^(−0.02). Ran the difference equation from initial rest on δ[n]: h_d[0] = 2 = h_c(0), h_d[1] = 5α − 3β = 1.9116 = h_c(T). Two samples only; not a proof for all n.
+  - **Slips (all fixed after review):**
+    - P23.2(a) omitted the double zero at the origin.
+    - P23.5(c) had the Re/Im axis labels swapped.
+    - P23.5(d) wrote "innermost" for the causality test; the reference is the outermost pole.
+    - P23.6(c) left a stray T in the exponents after substituting T = 0.01.
+    - Numeric check: wrote the output as h_d[n]·x[n] instead of the convolution h_d[n] * x[n].
+    - Numeric check: the combined numerator first came out with the α term missing its coefficient 3 and its sign.
+    - Named "LTI system", then "causal system", as the initial condition. The condition is initial rest: y[−1] = y[−2] = x[−1] = 0.
+    - Wrote h_d[1] = 1 right after computing 1.9116.
+    - No reciprocal or negated-index slips this session.
+  - **Review note:** the parallel Gemini session flagged a sign error in the P23.2(d) left-sided answer. That flag was wrong; the circled answer was right.
+  - **Skipped:** P23.1 (in the Oct 8 briefing keep-set, not on the worksheet used); P23.3 and P23.4 (dropped as drill). **Not done:** the two cold-retrieval answers. The h_d[n] = h_c(nT) check ran for n = 0, 1 only; an all-n run is deferred to Phase 2, when the second-order filter is ported to the harness.
+  - **Next:** Week 0.7 Day 2 — Lec 24. The bilinear substitution with frequency warping now lands here, alongside Butterworth. Flashcard candidates held until confirmed.
