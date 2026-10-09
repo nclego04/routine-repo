@@ -240,8 +240,8 @@ Logged P1D1 through P4D3, 2026-07-09 → 2026-08-22. Lec 1–12 and Lec 15; PS1�
 - **Done when:** your paper pole location matches the measured magnitude response, and the harness handles a stateful system correctly.
 
 ### Week 0.7 — CT→DT mapping, Butterworth, feedback + consolidate (Lec 23–26)
-- **Day 1:** **[LEC]** **[PSET]** Lec 23 (mapping CT→DT filters = the bilinear transform). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; PS23 checked.
-- **Day 2:** **[LEC]** **[PSET]** Lec 24 (Butterworth). **Deliverable:** derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
+- **Day 1:** **[LEC]** **[PSET]** Lec 23 (mapping CT→DT filters: impulse invariance; the lecture defers the bilinear transform to Lec 24). **Deliverable:** PS23 checked.
+- **Day 2:** **[LEC]** **[PSET]** Lec 24 (the bilinear transform, Butterworth). **Deliverable:** re-derive the bilinear substitution on paper, showing the frequency warping; derive the maximally-flat magnitude-squared response and the pole positions on the s-plane circle; PS24 checked.
 - **Day 3:** **[LEC]** Lec 25–26 (feedback) — *skim to a summary, no pset, keep the concept.* **Deliverable:** one paragraph on feedback and stability (poles leaving the unit circle). **Load-bearing for anything recursive** — IIR stability, and directly for Phase 4's adaptive-filter convergence bounds. Skim the video if tight; do not cut the idea.
 - **Day 4:** **[PSET]** Consolidation. **Deliverable:** every Phase-0 pset closed; a from-memory bilinear-transform derivation, no notes.
 - **Day 5:** Full deck review + gap-fill. **Deliverable:** a complete review pass; every link in the chain — signal → convolution → Fourier → sampling → Laplace/z → poles/zeros → transfer function → filter — has at least one card you answer cold, plus derivation-prompt cards for the one-pole and the bilinear transform. LOG.
