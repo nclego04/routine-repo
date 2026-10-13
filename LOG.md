@@ -345,6 +345,6 @@ Current: Phase 0, Week 0.7, Day 3
     - Guessed the bilinear ramp bends upward; fixed from the slope of $\arctan$ decreasing.
     - Listed P24.1 poles by angle only, without the $2000\pi$ radius.
     - Left-half-plane pole call was right the first time; no repeat of the P23.5(d) direction slip.
-  - **Cards:** 5 added (pole selection/BIBO, bilinear from the trapezoidal rule, frequency warping, impulse invariance vs bilinear scaling, role of $T$).
+  - **Cards:** 6 added (pole selection/BIBO, bilinear from the trapezoidal rule, frequency warping, impulse invariance vs bilinear scaling, role of $T$, stability surviving the bilinear map).
   - **Open:** P24.3(b,c).
   - **Next:** Week 0.7 Day 3 — Lec 25–26 (feedback), skim; one paragraph on feedback and stability.
