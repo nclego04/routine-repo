@@ -132,3 +132,21 @@ this file.
 
 **Q:** Inverse Laplace: where do the 1/j and the limits σ±j∞ come from?<br>
 **A:** Change of variables s = σ+jω with σ fixed: ds = j dω gives 1/j; ω = ±∞ maps to σ±j∞.
+
+
+## Week 0.7 Day 2 — Butterworth and the bilinear transform (P7D2)
+
+**Q:** From $B(s)B(-s)$, which pole of each mirrored pair goes to $B(s)$, and why does that guarantee stability?<br>
+**A:** The left-half-plane pole. Stability requires $\int_{-\infty}^{\infty}|h(\tau)|\,d\tau<\infty$ (bounded input gives bounded output), not finite energy. For $h(t)=e^{s_kt}u(t)$, $|e^{s_k\tau}|=e^{\sigma_k\tau}$, so this needs $\sigma_k<0$. The mirror $-s_k^*$ has real part $-\sigma_k>0$ and diverges.
+
+**Q:** Derive the bilinear map from $\frac{dy}{dt}=x(t)$.<br>
+**A:** $H(s)=1/s$. Trapezoid gives $\hat{y}[n]=\hat{y}[n-1]+\frac{T}{2}\{\hat{x}[n-1]+\hat{x}[n]\}$, so $\hat{H}(z)=\frac{T}{2}\frac{1+z^{-1}}{1-z^{-1}}$. Matching $1/s$ gives $s=\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}$.
+
+**Q:** Set $z=e^{j\Omega}$, $s=j\omega$ in the bilinear map. What relation results, and what does it cover?<br>
+**A:** Factor out $e^{-j\Omega/2}$ to get $\omega=\frac{2}{T}\tan\frac{\Omega}{2}$, so $\Omega=2\arctan\frac{\omega T}{2}$. The infinite $j\omega$-axis folds onto the unit circle minus $z=-1$, which is approached as $\omega\to\pm\infty$ but never reached. A linear map cannot send an infinite axis onto a finite arc.
+
+**Q:** With no aliasing, how do $H(e^{j\Omega})$ and $H_a(j\omega)$ relate under each method?<br>
+**A:** Impulse invariance: $\Omega=\omega T$ and $H(e^{j\Omega})=\frac{1}{T}H_a(j\omega)$, so $H_a$ is $T$ times the DT height. Bilinear: $\omega=\frac{2}{T}\tan\frac{\Omega}{2}$ with no amplitude factor. A constant DT band stays rectangular under both, and a ramp stays straight only under impulse invariance (under bilinear it bends, concave for $\omega>0$).
+
+**Q:** Does the final DT filter depend on the $T$ chosen in the design?<br>
+**A:** No. $T$ is a free placeholder. The analog specs change with $T$, but the map back cancels it, so $H(e^{j\Omega})$ is unchanged. Covers the cut P24.5(d) and P24.8.

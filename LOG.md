@@ -1,6 +1,6 @@
 # Progress
 
-Current: Phase 0, Week 0.7, Day 2
+Current: Phase 0, Week 0.7, Day 3
 
 ## Log
 - P1D1 (2026-07-09): Lec 1 (introduction) watched; PS1 worked and self-checked against the solutions. Deck not yet seeded — the first cards (e.g. "What makes a system LTI, and why does that property matter?") were the day's remaining deliverable and slipped into D2. *(Reconciled to the one-lecture-per-day pacing: the old single P1D1 entry — Lec 1–2 + PS1 + partial PS2 in one session — is what proved the doubled-up day doesn't fit ~2h, and is now split across D1 and D2.)*
@@ -335,3 +335,16 @@ Current: Phase 0, Week 0.7, Day 2
   - **Skipped:** P23.1 (in the Oct 8 briefing keep-set, not on the worksheet used); P23.3 and P23.4 (dropped as drill). **Not done:** the two cold-retrieval answers. The h_d[n] = h_c(nT) check ran for n = 0, 1 only; an all-n run is deferred to Phase 2, when the second-order filter is ported to the harness.
   - **Next:** Week 0.7 Day 2 — Lec 24. The bilinear substitution with frequency warping now lands here, alongside Butterworth. Flashcard candidates held until confirmed.
   - — 2026-10-08 · Week 0.7 Day 1 · gap 9d
+- P7D2 (2026-10-12): Lec 24 (Butterworth + bilinear). Done: P24.9, P24.1, P24.2 plus both cold-retrieval Qs. Done-when met on paper.
+  - **Skipped (triage):** P24.3–P24.8. P24.3 uses the same mechanics as P24.9; P24.4/5 repeat the lecture example; P24.6–8 optional. P24.3(b,c), the check that stability survives the bilinear map, not done.
+  - **Derived unaided:** the bilinear substitution from the trapezoidal rule; the warping $\Omega=2\arctan(\omega T/2)$.
+  - **Errors (all fixed):**
+    - Gave finite energy as the stability condition; fixed by deriving the BIBO bound, which forces $\int|h|<\infty$.
+    - Put $1/T$ on the wrong side of the impulse-invariance amplitude relation; fixed from the sampling formula.
+    - Wrote $\arctan$ where the edge formula uses $\tan$.
+    - Guessed the bilinear ramp bends upward; fixed from the slope of $\arctan$ decreasing.
+    - Listed P24.1 poles by angle only, without the $2000\pi$ radius.
+    - Left-half-plane pole call was right the first time; no repeat of the P23.5(d) direction slip.
+  - **Cards:** 5 added (pole selection/BIBO, bilinear from the trapezoidal rule, frequency warping, impulse invariance vs bilinear scaling, role of $T$).
+  - **Open:** P24.3(b,c).
+  - **Next:** Week 0.7 Day 3 — Lec 25–26 (feedback), skim; one paragraph on feedback and stability.
