@@ -371,5 +371,5 @@ Current: Phase 0, Week 0.7, Day 3
     - Counted $k=2N$ as a distinct root.
     - Dropped the leading minus in $K=-p_2p_3p_4$.
     - Stated $2k+1$ must be even instead of comparing parity.
-  - **Cards:** candidates held until confirmed (prewarp rule; the $(-1)^N$ factor; root range $k=0,\dots,2N-1$).
+  - **Cards:** 3 added (prewarp rule; the $(-1)^N$ factor and odd-$N$ real roots; root range $k=0,\dots,2N-1$ and the gain $K$).
   - **Next:** Week 0.7 Day 5 — full deck review and gap-fill, every link in the chain with a card answered cold, plus derivation-prompt cards for the one-pole and the bilinear transform.
