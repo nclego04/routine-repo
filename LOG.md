@@ -359,3 +359,17 @@ Current: Phase 0, Week 0.7, Day 3
     - Dropped the plant constant $c$ from the threshold; $j\omega$ and $K_1$ written as plain text.
   - **Cards:** 1 added in the P7D3 review (closed-loop form and pendulum stability), after the paragraph was checked.
   - **Next:** Week 0.7 Day 4 — consolidation. Close every Phase-0 pset; derive the bilinear transform from memory, no notes.
+- P7D4 (2026-10-14): Consolidation. Done: P23.1 closed (a through g). Bilinear transform and Butterworth pole placement derived from first principles. No Phase-0 psets open.
+  - **Derived:** the bilinear substitution from the trapezoidal rule, $s=\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}$; LHP, $j\omega_a$ axis and RHP map to inside, on and outside the unit circle, from $|z|^2=\frac{Q+4\sigma T}{Q-4\sigma T}$ with $Q\ge4$, so stable causal $H_c(s)$ gives stable causal $H_d(z)$; warping $\omega_a=\frac{2}{T}\tan\frac{\Omega}{2}$, its inverse $\Omega=2\tan^{-1}\frac{T\omega_a}{2}$, slope $\frac{T}{1+(T\omega_a/2)^2}$ falling from $T$ to $0$; prewarping $\omega_{c,\text{pre}}=\frac{2}{T}\tan\frac{\Omega_c}{2}$ (48 kHz, 10 kHz: naive 8.85 kHz, prewarped 73,663 rad/s). Butterworth: $H(s)H(-s)=\frac{1}{1+(-1)^N(s/\omega_c)^{2N}}$, $2N$ roots at radius $\omega_c$ spaced $\frac{\pi}{N}$, real roots at $\pm\omega_c$ for odd $N$ only, left-half-plane roots go to $H(s)$; $N=3$ gives $H(s)=\frac{\omega_c^3}{(s+\omega_c)(s^2+\omega_c s+\omega_c^2)}$ with $|H(j\omega_c)|^2=\frac12$ checked.
+  - **Method:** first-principles derivation with line-by-line checks, not from memory.
+  - **Errors (all fixed):**
+    - Sign slip in P23.1(f), carried into (g).
+    - Divided an inequality by a denominator without showing it positive.
+    - Stated the causal ROC as inside the unit circle.
+    - Dropped $\omega_c$ in the naive prewarp frequency and again in the pole magnitude and quadratic.
+    - Divided the root angle by $N$ instead of $2N$.
+    - Counted $k=2N$ as a distinct root.
+    - Dropped the leading minus in $K=-p_2p_3p_4$.
+    - Stated $2k+1$ must be even instead of comparing parity.
+  - **Cards:** candidates held until confirmed (prewarp rule; the $(-1)^N$ factor; root range $k=0,\dots,2N-1$).
+  - **Next:** Week 0.7 Day 5 — full deck review and gap-fill, every link in the chain with a card answered cold, plus derivation-prompt cards for the one-pole and the bilinear transform.
