@@ -357,5 +357,5 @@ Current: Phase 0, Week 0.7, Day 3
     - Said the RHP pole stays put under proportional gain (it moves, up to the boundary), then put the reaches-the-$j\omega$-axis behavior in the derivative-only case, where it belongs to proportional-only.
     - Gave the PD condition as "$K_1$ positive" instead of $K_1c>\omega_0^2$. Flipped-inequality family again.
     - Dropped the plant constant $c$ from the threshold; $j\omega$ and $K_1$ written as plain text.
-  - **Cards:** none added (held until confirmed).
+  - **Cards:** 1 added in the P7D3 review (closed-loop form and pendulum stability), after the paragraph was checked.
   - **Next:** Week 0.7 Day 4 — consolidation. Close every Phase-0 pset; derive the bilinear transform from memory, no notes.
