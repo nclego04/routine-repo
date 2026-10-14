@@ -347,7 +347,7 @@ Current: Phase 0, Week 0.7, Day 3
     - Left-half-plane pole call was right the first time; no repeat of the P23.5(d) direction slip.
   - **Cards:** 6 added (pole selection/BIBO, bilinear from the trapezoidal rule, frequency warping, impulse invariance vs bilinear scaling, role of $T$, stability surviving the bilinear map).
   - **Next:** Week 0.7 Day 3 — Lec 25–26 (feedback), skim; one paragraph on feedback and stability.
-- P7D3 (2026-10-13): Lec 25-26 (feedback), skim, no pset. Both cold-retrieval Qs answered, then the one-paragraph deliverable on feedback and stability (three revisions, final version checked).
+- P7D3 (2026-10-13): Lec 25–26 (feedback), skim, no pset. Both cold-retrieval Qs answered, then the one-paragraph deliverable on feedback and stability (three revisions, final version checked).
   - **Derived:** $Q(s)=H(s)/(1+G(s)H(s))$; the derivation never used continuity, so the same form holds in $z$. Stability is decided by the zeros of $1+GH$, not by the loop gain $GH$. Inverted pendulum with open-loop poles $\pm\omega_0$ and plant constant $c$:
     - Proportional only: $s^2+(K_1c-\omega_0^2)$. Poles slide toward the origin for $K_1c<\omega_0^2$, collide at $s=0$ when $K_1c=\omega_0^2$, then split to $s=\pm j\sqrt{K_1c-\omega_0^2}$. Marginal at best, never stable (no $s^1$ term, so the poles are mirror images).
     - Derivative only: $s^2+K_2c\,s-\omega_0^2$. Pole product stays $-\omega_0^2$, so one RHP pole for every $K_2$. Unstable always.
@@ -358,4 +358,4 @@ Current: Phase 0, Week 0.7, Day 3
     - Gave the PD condition as "$K_1$ positive" instead of $K_1c>\omega_0^2$. Flipped-inequality family again.
     - Dropped the plant constant $c$ from the threshold; $j\omega$ and $K_1$ written as plain text.
   - **Cards:** none added (held until confirmed).
-  - **Next:** Week 0.7 Day 4, consolidation. Close every Phase-0 pset; derive the bilinear transform from memory, no notes.
+  - **Next:** Week 0.7 Day 4 — consolidation. Close every Phase-0 pset; derive the bilinear transform from memory, no notes.
